@@ -1,0 +1,59 @@
+[gd_scene load_steps=7 format=3 uid="uid://p5ojljduutm6"]
+
+[ext_resource type="PackedScene" uid="uid://bmtfbq8p2itb" path="res://Controller/Player.tscn" id="1_lfj2m"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_mocdr"]
+size = Vector2(4, 4)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_lfj2m"]
+size = Vector3(4, 0.35888672, 3.9318905)
+
+[sub_resource type="BoxMesh" id="BoxMesh_mocdr"]
+size = Vector3(3, 0.5, 3)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_nn734"]
+size = Vector3(2.9818115, 0.47613144, 2.984192)
+
+[sub_resource type="BoxMesh" id="BoxMesh_lfj2m"]
+size = Vector3(3, 0.5, 3)
+
+[node name="Node3D" type="Node3D"]
+
+[node name="Floor" type="MeshInstance3D" parent="."]
+transform = Transform3D(20.789429, 0, 0, 0, 1, 0, 0, 0, 20.53688, 0, 0, 0)
+mesh = SubResource("PlaneMesh_mocdr")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Floor"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.008667559, 0, 0.041990235)
+shape = SubResource("BoxShape3D_lfj2m")
+
+[node name="Box" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.334997, 2.0735393, 0.08332515)
+mesh = SubResource("BoxMesh_mocdr")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Box"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Box/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00072574615, -0.0012493134, 0)
+shape = SubResource("BoxShape3D_nn734")
+
+[node name="Box2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.096739, 2.063972, 0.08101368)
+mesh = SubResource("BoxMesh_lfj2m")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Box2"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Box2/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0044612885, -0.0024399757, 0.007955432)
+shape = SubResource("BoxShape3D_nn734")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -0.003263712, 0.9999947, 0, -0.9999947, -0.003263712, -0.42298555, 6.776742, 0.0113277435)
+
+[node name="CharacterBody3D" parent="." instance=ExtResource("1_lfj2m")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.661884, 0.21544552, 4.879969)
+
+[node name="DirectionalLight3D2" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.6729997, 0.73964286, 0, -0.73964286, 0.6729997, -453.23547, -97.8047, 312.3748)

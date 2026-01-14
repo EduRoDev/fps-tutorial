@@ -1,0 +1,56 @@
+[gd_scene load_steps=6 format=3 uid="uid://b1j7uexeibinn"]
+
+[ext_resource type="PackedScene" uid="uid://bmtfbq8p2itb" path="res://Controller/Player.tscn" id="1_s5eti"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_m0j7v"]
+size = Vector2(4, 4)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_s5eti"]
+size = Vector3(4, 0.35888672, 3.9318905)
+
+[sub_resource type="BoxMesh" id="BoxMesh_m0j7v"]
+size = Vector3(4, 4, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_iowyk"]
+size = Vector3(4.022461, 4.022461, 1)
+
+[node name="Node3D" type="Node3D"]
+
+[node name="Floor" type="MeshInstance3D" parent="."]
+transform = Transform3D(20.789429, 0, 0, 0, 1, 0, 0, 0, 20.53688, 0, 0, 0)
+mesh = SubResource("PlaneMesh_m0j7v")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Floor"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.008667559, 0, 0.041990235)
+shape = SubResource("BoxShape3D_s5eti")
+
+[node name="Box" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.59706, 2.1409962, -7.0568852)
+mesh = SubResource("BoxMesh_m0j7v")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Box"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Box/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000726223, 0, 0)
+shape = SubResource("BoxShape3D_iowyk")
+
+[node name="Box2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.12019968, 2.127409, -5.0289617)
+mesh = SubResource("BoxMesh_m0j7v")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Box2"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Box2/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0060973167, 0.002892971, 0)
+shape = SubResource("BoxShape3D_iowyk")
+
+[node name="CharacterBody3D" parent="." instance=ExtResource("1_s5eti")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.0414047, 0.36039436, 0.86128235)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -0.624316, 0.7811719, 0, -0.7811719, -0.624316, -64.7525, 27.64237, 2.2799883)
+
+[node name="DirectionalLight3D2" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.6729997, 0.73964286, 0, -0.73964286, 0.6729997, -453.23547, -97.8047, 312.3748)
