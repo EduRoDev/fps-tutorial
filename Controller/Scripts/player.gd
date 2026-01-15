@@ -2,13 +2,6 @@ class_name Player
 extends CharacterBody3D
 
 
-@export var SPEED = 5.0
-@export var SPEED_CROUCH = 2.5
-@export var SPEED_SPRINT = 10.0
-@export var JUMP_VELOCITY = 4.5
-@export var ACCELERATION:float = 0.1
-@export var DECELERATION:float = 0.25
-
 @export var MOUSE_SENSITIVITY: float = 0.5
 @export var TILT_LOWER_LIMIT := deg_to_rad(-90)
 @export var TILT_UPPER_LIMIT := deg_to_rad(90)
@@ -17,8 +10,7 @@ extends CharacterBody3D
 @export var ANIMATION_PLAYER: AnimationPlayer
 @export var CROUCH_SHAPECAST: Node3D
 
-
-var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
+@export var gravity: float = 10.0
 
 var _mouse_input: bool = false
 var _mouse_rotation: Vector3
@@ -29,10 +21,7 @@ var _camera_rotation: Vector3
 
 
 
-var _speed: float
 var _current_rotation: float
-
-
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("exit"):
@@ -66,13 +55,12 @@ func _ready() -> void:
 	global.player = self
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	CROUCH_SHAPECAST.add_exception(self)
-	_speed = SPEED
+	
 
 
 func _physics_process(delta: float) -> void:
 	global.debug.add_property("Player Velocity",snapped(velocity.length(),0.01),1)
-	global.debug.add_property("Player Speed",_speed,3)
-	global.debug.add_property("Camera rotation",Vector2(_rotation_input,_tilt_input),4)
+	global.debug.add_property("Camera rotation",Vector2(_rotation_input,_tilt_input),2)
 	
 	_update_camera(delta)
 

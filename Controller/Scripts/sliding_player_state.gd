@@ -21,6 +21,9 @@ func update(delta: float) -> void:
 	# PLAYER.update_input(SPEED,ACCELERATION,DECELERATION)
 	PLAYER.update_velocity()
 
+	#if Input.is_action_just_pressed("jump") and PLAYER.is_on_floor():
+		#transition.emit("JumpPlayerState")
+
 func set_tilt(player_rotation) -> void:
 	var tilt = Vector3.ZERO
 	tilt.z = clamp(TILT_AMOUNT * player_rotation, -1.0,0.1)

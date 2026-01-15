@@ -33,6 +33,9 @@ func update(delta: float) -> void:
 		RELEASED = true
 		uncrouch()
 
+	if Input.is_action_just_pressed("jump") and PLAYER.is_on_floor():
+		transition.emit("JumpPlayerState")
+
 
 func uncrouch():
 	if CROUCH_SHAPECAST.is_colliding() == false:
