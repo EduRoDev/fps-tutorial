@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://wpnahxsk8x1u"]
+
+[ext_resource type="Material" uid="uid://b7sev4yudgpk1" path="res://Ui/Materials/Box.tres" id="1_6w8bi"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_o615o"]
+size = Vector3(3, 2, 3)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_6w8bi"]
+size = Vector3(2.9698486, 2.0145874, 3.0083618)
+
+[node name="Box" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9567591, 0)
+material_override = ExtResource("1_6w8bi")
+mesh = SubResource("BoxMesh_o615o")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0033569336, -0.016204834, -0.013824463)
+shape = SubResource("BoxShape3D_6w8bi")
+debug_color = Color(0, 0.6, 0.69803923, 1)

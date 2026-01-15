@@ -19,10 +19,7 @@ extends CharacterBody3D
 
 
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
-# @export_range(5,10,0.1) var CROUCH_SPEED: float = 7.0
-# @export var TOGGLE_CROUCH: bool = true
 
-# variables of camera and mouse control
 var _mouse_input: bool = false
 var _mouse_rotation: Vector3
 var _rotation_input: float
@@ -31,8 +28,9 @@ var _player_rotation: Vector3
 var _camera_rotation: Vector3
 
 
-# variables for movement
+
 var _speed: float
+var _current_rotation: float
 
 
 
@@ -46,9 +44,10 @@ func _unhandled_input(event: InputEvent) -> void:
 	if _mouse_input:
 		_rotation_input = -event.relative.x * MOUSE_SENSITIVITY
 		_tilt_input = -event.relative.y * MOUSE_SENSITIVITY
-		# print(Vector2(_rotation_input, _tilt_input))
+		
 
 func _update_camera(delta: float) -> void:
+	_current_rotation = _rotation_input
 	_mouse_rotation.x += _tilt_input * delta
 	_mouse_rotation.x = clamp(_mouse_rotation.x, TILT_LOWER_LIMIT, TILT_UPPER_LIMIT)
 	_mouse_rotation.y += _rotation_input * delta
@@ -72,6 +71,8 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	global.debug.add_property("Player Velocity",snapped(velocity.length(),0.01),1)
+	global.debug.add_property("Player Speed",_speed,3)
+	global.debug.add_property("Camera rotation",Vector2(_rotation_input,_tilt_input),4)
 	
 	_update_camera(delta)
 
