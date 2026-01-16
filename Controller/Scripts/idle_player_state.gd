@@ -22,3 +22,6 @@ func update(delta: float) -> void:
 
 	if Input.is_action_just_pressed("jump") and PLAYER.is_on_floor():
 		transition.emit("JumpPlayerState")
+
+	if PLAYER.velocity.y < -1.0 and !PLAYER.is_on_floor():
+		transition.emit("FallingPlayerState")
