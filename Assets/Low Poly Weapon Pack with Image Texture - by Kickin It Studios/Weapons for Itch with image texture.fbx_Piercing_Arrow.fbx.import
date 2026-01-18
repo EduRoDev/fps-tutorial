@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://ca0wgkrl5uxck"
-path="res://.godot/imported/Idle.fbx-e0d608e1fa589d32940796e76c3df353.scn"
+uid="uid://btrkpee466uhb"
+path="res://.godot/imported/Weapons for Itch with image texture.fbx_Piercing_Arrow.fbx-2630f725830f09fb3d32b6e84f48e5b1.scn"
 
 [deps]
 
-source_file="res://Assets/Idle.fbx"
-dest_files=["res://.godot/imported/Idle.fbx-e0d608e1fa589d32940796e76c3df353.scn"]
+source_file="res://Assets/Low Poly Weapon Pack with Image Texture - by Kickin It Studios/Weapons for Itch with image texture.fbx_Piercing_Arrow.fbx"
+dest_files=["res://.godot/imported/Weapons for Itch with image texture.fbx_Piercing_Arrow.fbx-2630f725830f09fb3d32b6e84f48e5b1.scn"]
 
 [params]
 

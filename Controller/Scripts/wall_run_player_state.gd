@@ -13,6 +13,7 @@ extends PlayerMovementState
 @export var CAMERA_TILT_AMOUNT: float = 5.0
 @export var TILT_AMOUNT: float = 0.09
 @export_range(1, 6, 0.1) var WALLRUN_ANIM_SPEED: float = 2.0
+@export var CAMERA_Z_TILT_DEGREES: float = 8.0
 
 var wall_normal: Vector3 = Vector3.ZERO
 var wall_side: int = 0  
@@ -41,6 +42,10 @@ func enter(_previous_state) -> void:
 		var tilt_direction = wall_side * PLAYER._current_rotation
 		set_tilt(tilt_direction)
 		
+		# Inclinar la cámara en Z: izquierda = -8°, derecha = +8°
+		var camera_z_tilt = -CAMERA_Z_TILT_DEGREES if active_ray == WALL_RAY_LEFT else CAMERA_Z_TILT_DEGREES
+		PLAYER.set_camera_tilt(camera_z_tilt)
+		
 		# Reproducir animación de WallRun
 		ANIMATION.speed_scale = 1.0
 		ANIMATION.play("WallRun", -1.0, WALLRUN_ANIM_SPEED)
@@ -66,6 +71,9 @@ func exit() -> void:
 	ANIMATION.get_animation("WallRun").track_set_key_value(1, 1, reset_tilt)
 	ANIMATION.get_animation("WallRun").track_set_key_value(1, 2, reset_tilt)
 	
+	# Resetear el tilt Z de la cámara gradualmente
+	PLAYER.reset_camera_tilt()
+	
 
 func update(delta: float) -> void:
 	# Si tocamos el suelo, volvemos a idle
@@ -75,7 +83,7 @@ func update(delta: float) -> void:
 	# Verificar si aún estamos tocando la pared
 	if not active_ray or not active_ray.is_colliding():
 		# Si estamos cayendo, ir a FallingPlayerState
-		if PLAYER.velocity.y < -3.0:
+		if PLAYER.velocity.y < -1.0:
 			transition.emit("FallingPlayerState")
 		else:
 			transition.emit("JumpPlayerState")

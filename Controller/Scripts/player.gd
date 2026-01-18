@@ -19,7 +19,10 @@ var _tilt_input: float
 var _player_rotation: Vector3
 var _camera_rotation: Vector3
 
-
+# Camera tilt system for wall run
+var camera_tilt_target: float = 0.0
+var camera_tilt_current: float = 0.0
+@export var CAMERA_TILT_SPEED: float = 8.0
 
 var _current_rotation: float
 
@@ -44,12 +47,21 @@ func _update_camera(delta: float) -> void:
 	_player_rotation = Vector3(0.0,_mouse_rotation.y, 0.0)
 	_camera_rotation = Vector3(_mouse_rotation.x, 0.0, 0.0)
 
+	# Interpolar suavemente el tilt de la cámara hacia el objetivo
+	camera_tilt_current = lerp(camera_tilt_current, camera_tilt_target, CAMERA_TILT_SPEED * delta)
+
 	CAMERA_CONTROLLER.transform.basis = Basis.from_euler(_camera_rotation)
-	CAMERA_CONTROLLER.rotation.z = 0.0
+	CAMERA_CONTROLLER.rotation.z = deg_to_rad(camera_tilt_current)
 
 	global_transform.basis = Basis.from_euler(_player_rotation)
 	_rotation_input = 0.0
 	_tilt_input = 0.0
+
+func set_camera_tilt(tilt_degrees: float) -> void:
+	camera_tilt_target = tilt_degrees
+
+func reset_camera_tilt() -> void:
+	camera_tilt_target = 0.0
 
 func _ready() -> void:
 	global.player = self

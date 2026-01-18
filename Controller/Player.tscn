@@ -1,8 +1,9 @@
-[gd_scene load_steps=25 format=3 uid="uid://bmtfbq8p2itb"]
+[gd_scene load_steps=26 format=3 uid="uid://bmtfbq8p2itb"]
 
 [ext_resource type="Script" uid="uid://djuoimg17psuo" path="res://Controller/Scripts/player.gd" id="1_pknhu"]
 [ext_resource type="Script" uid="uid://bnrs6pel5l2tg" path="res://Scripts/reticle.gd" id="2_ca3lp"]
 [ext_resource type="Material" uid="uid://d201mavja7435" path="res://Ui/Materials/Player.tres" id="2_vkdw5"]
+[ext_resource type="PackedScene" uid="uid://ml4emtg70nx7" path="res://Controller/weapon.tscn" id="3_4r3x1"]
 [ext_resource type="Theme" uid="uid://bvw8gm6d6xsdk" path="res://Ui/Themes/DebugPanel.tres" id="3_8xe5w"]
 [ext_resource type="Script" uid="uid://0icf8m2qufr7" path="res://Scripts/debug_panel.gd" id="4_o4itx"]
 [ext_resource type="Script" uid="uid://eamfse10yi7" path="res://Scripts/state_machine.gd" id="5_hla6f"]
@@ -202,6 +203,72 @@ tracks/3/keys = {
 "values": [Vector3(0, 1.5, 0)]
 }
 
+[sub_resource type="Animation" id="Animation_n5b3e"]
+resource_name = "WallRun"
+length = 5.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CameraController:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 1.5, 0), Vector3(0, 1.5, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CameraController:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5, 3, 4.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0, 0), Vector3(0, 0, 0), Vector3(0, 0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CameraController/Camera3D:fov")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.5, 4.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [75.0, 84.0, 75.0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("PlayerStateMachine/WallRunPlayerState:SPEED")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(1, 5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [7.0, 4.0]
+}
+tracks/4/type = "method"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("PlayerStateMachine/WallRunPlayerState")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(5),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"finish"
+}]
+}
+
 [sub_resource type="Animation" id="Animation_pknhu"]
 resource_name = "crouch"
 tracks/0/type = "value"
@@ -381,72 +448,6 @@ tracks/2/keys = {
 "times": PackedFloat32Array(0)
 }
 
-[sub_resource type="Animation" id="Animation_n5b3e"]
-resource_name = "WallRun"
-length = 5.0
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("CameraController:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(0, 1.5, 0), Vector3(0, 1.5, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("CameraController:rotation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.5, 3, 4.9),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 0,
-"values": [Vector3(0, 0, 0), Vector3(0, 0, 0), Vector3(0, 0, 0), Vector3(0, 0, 0)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("CameraController/Camera3D:fov")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.5, 4.3),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [75.0, 84.0, 75.0]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("PlayerStateMachine/WallRunPlayerState:SPEED")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(1, 5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [7.0, 4.0]
-}
-tracks/4/type = "method"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("PlayerStateMachine/WallRunPlayerState")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(5),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [],
-"method": &"finish"
-}]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_8xe5w"]
 _data = {
 &"RESET": SubResource("Animation_ca3lp"),
@@ -481,12 +482,18 @@ skeleton = NodePath("../..")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 
 [node name="Camera3D" type="Camera3D" parent="CameraController"]
+cull_mask = 1048573
 
 [node name="ReflectionProbe" type="ReflectionProbe" parent="CameraController/Camera3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.6778865, 6.101454)
 visible = false
 update_mode = 1
 size = Vector3(20, 10.597214, 20.002441)
+
+[node name="WeaponRig" type="Node3D" parent="CameraController/Camera3D"]
+
+[node name="weapon" parent="CameraController/Camera3D/WeaponRig" instance=ExtResource("3_4r3x1")]
+transform = Transform3D(-1, 8.416118e-08, -2.365664e-08, 0, 0.2706004, 0.96269166, 8.742278e-08, 0.96269166, -0.2706004, 0.45608795, -0.26962614, -0.47510952)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

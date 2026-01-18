@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://dqyosv5dne4cl"
-path="res://.godot/imported/T-Pose.fbx-9128fca08375027fa41fc73b1f497126.scn"
+uid="uid://ds3fqwvjw6vi3"
+path="res://.godot/imported/Weapons for Itch with image texture.fbx_Kukri.fbx-be5db76c6b394eeaa17d706231eec2cb.scn"
 
 [deps]
 
-source_file="res://Assets/T-Pose.fbx"
-dest_files=["res://.godot/imported/T-Pose.fbx-9128fca08375027fa41fc73b1f497126.scn"]
+source_file="res://Assets/Low Poly Weapon Pack with Image Texture - by Kickin It Studios/Weapons for Itch with image texture.fbx_Kukri.fbx"
+dest_files=["res://.godot/imported/Weapons for Itch with image texture.fbx_Kukri.fbx-be5db76c6b394eeaa17d706231eec2cb.scn"]
 
 [params]
 
