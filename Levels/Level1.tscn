@@ -46,6 +46,10 @@ shape = SubResource("BoxShape3D_s5eti")
 
 [node name="CharacterBody3D" parent="." instance=ExtResource("1_s5eti")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.0414047, 0.36039436, 0.86128235)
+MOUSE_SENSITIVITY = 0.5
+TILT_LOWER_LIMIT = -1.5707963267948966
+TILT_UPPER_LIMIT = 1.5707963267948966
+CAMERA_TILT_SPEED = 8.0
 
 [node name="Box" parent="." instance=ExtResource("3_fhqol")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.146301, 0.052102447, -5.1804256)

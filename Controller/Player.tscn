@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://bmtfbq8p2itb"]
+[gd_scene load_steps=30 format=3 uid="uid://bmtfbq8p2itb"]
 
 [ext_resource type="Script" uid="uid://djuoimg17psuo" path="res://Controller/Scripts/player.gd" id="1_pknhu"]
 [ext_resource type="Script" uid="uid://bnrs6pel5l2tg" path="res://Scripts/reticle.gd" id="2_ca3lp"]
@@ -15,6 +15,7 @@
 [ext_resource type="Script" uid="uid://7lopu3n4n0hp" path="res://Controller/Scripts/jump_player_state.gd" id="12_auu0e"]
 [ext_resource type="Script" uid="uid://clhfumebgjfkn" path="res://Controller/Scripts/wall_run_player_state.gd" id="13_oxdpf"]
 [ext_resource type="Script" uid="uid://d0ch2qk1pqjor" path="res://Controller/Scripts/falling_player_state.gd" id="14_n5b3e"]
+[ext_resource type="Shader" uid="uid://c7lje5ibmsst8" path="res://Shaders/speed.gdshader" id="16_j2hp0"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_pknhu"]
 height = 2.005127
@@ -421,9 +422,9 @@ tracks/0/path = NodePath("CameraController:position:x")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"handle_modes": PackedInt32Array(2, 3, 2, 3, 3, 3),
-"points": PackedFloat32Array(0, -0.24998575, -0.00032746652, 0.24396285, 0.00031957688, 0.017603349, -0.06666666, 0, 0.06666666, 0, 0.0035744465, -0.11547963, 0.0004583223, 0.18936133, -0.0007515483, -0.010955488, -0.12269467, 0, 0.12269467, 0, 0.00783322, -0.12269473, -0.0002505161, 0.12269473, 0.0002505161, 0.014849517, -0.100000024, -0.00024867058, 0.100000024, 0.00024867058),
-"times": PackedFloat32Array(0, 0.3, 0.56666666, 0.8666667, 1.1666666, 1.4333333)
+"handle_modes": PackedInt32Array(2, 3, 2, 3, 3, 3, 3),
+"points": PackedFloat32Array(0, -0.24998575, -0.00032746652, 0.24396285, 0.00031957688, 0.017603349, -0.06666666, 0, 0.06666666, 0, -0.00012390292, -0.115663484, -2.6708509e-05, 0.20331192, 4.6947906e-05, -0.010171727, -0.12269467, 0, 0.12269467, 0, -0.00025686994, -0.12269473, -0.0002505161, 0.12269473, 0.0002505161, 0.008379034, -0.100000024, -0.00024867058, 0.100000024, 0.00024867058, -7.69553e-05, -0.041666657, 0, 0.041666657, 0),
+"times": PackedFloat32Array(0, 0.3, 0.53333336, 0.8, 1.1333333, 1.3333334, 1.5)
 }
 tracks/1/type = "bezier"
 tracks/1/imported = false
@@ -432,9 +433,9 @@ tracks/1/path = NodePath("CameraController:position:y")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"handle_modes": PackedInt32Array(2, 3, 3, 2, 3),
-"points": PackedFloat32Array(1.5, -0.25, 0, 0.25, 0, 1.5660435, -0.2, -0.00025057793, 0.2, 0.00025057793, 1.4903876, -0.19999999, -0.00025057793, 0.19999999, 0.00025057793, 1.552265, -0.16666669, 0.00050103664, 0.16655508, -0.00050070114, 1.5069216, -0.13333333, 0.00025057793, 0.13333333, -0.00025057793),
-"times": PackedFloat32Array(0, 0.33333334, 0.7, 1.1, 1.4333333)
+"handle_modes": PackedInt32Array(2, 3, 3, 2, 3, 3),
+"points": PackedFloat32Array(1.5, -0.25, 0, 0.25, 0, 1.5510148, -0.2, -0.00025057793, 0.2, 0.00025057793, 1.4503174, -0.19999999, -0.00025057793, 0.19999999, 0.00025057793, 1.5503491, -0.16666669, 0.00050103664, 0.16655508, -0.00050070114, 1.4496511, -0.088249445, 0.0033341646, 0.088249445, -0.0033341646, 1.5000004, -0.041666687, 0, 0.041666687, 0),
+"times": PackedFloat32Array(0, 0.3, 0.6333333, 0.96666664, 1.2666667, 1.4666667)
 }
 tracks/2/type = "bezier"
 tracks/2/imported = false
@@ -460,11 +461,30 @@ _data = {
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_pknhu"]
 
-[node name="CharacterBody3D" type="CharacterBody3D" node_paths=PackedStringArray("CAMERA_CONTROLLER", "ANIMATION_PLAYER", "CROUCH_SHAPECAST")]
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_teod1"]
+noise_type = 5
+frequency = 0.2
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_n3b25"]
+noise = SubResource("FastNoiseLite_teod1")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xvjrc"]
+shader = ExtResource("16_j2hp0")
+shader_parameter/noise = SubResource("NoiseTexture2D_n3b25")
+shader_parameter/line_color = Color(1, 1, 1, 1)
+shader_parameter/line_count = 1.40000002086168
+shader_parameter/line_density = 1.0
+shader_parameter/line_faloff = 1.0
+shader_parameter/mask_size = 0.0
+shader_parameter/mask_edge = 1.0
+shader_parameter/animation_speed = 20.0
+
+[node name="CharacterBody3D" type="CharacterBody3D" node_paths=PackedStringArray("CAMERA_CONTROLLER", "ANIMATION_PLAYER", "CROUCH_SHAPECAST", "SHADER_SPEED")]
 script = ExtResource("1_pknhu")
 CAMERA_CONTROLLER = NodePath("CameraController/Camera3D")
 ANIMATION_PLAYER = NodePath("AnimationPlayer")
 CROUCH_SHAPECAST = NodePath("ShapeCast3D")
+SHADER_SPEED = NodePath("ColorRect")
 gravity = 7.5
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
@@ -609,5 +629,14 @@ transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 0, 0
 
 [node name="Left" type="RayCast3D" parent="."]
 transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, 0, 0.7073449, 0)
+
+[node name="ColorRect" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_xvjrc")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
 
 [connection signal="animation_started" from="AnimationPlayer" to="." method="_on_animation_player_animation_started"]

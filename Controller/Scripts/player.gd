@@ -7,8 +7,10 @@ extends CharacterBody3D
 @export var TILT_UPPER_LIMIT := deg_to_rad(90)
 @export var CAMERA_CONTROLLER: Camera3D
 
+
 @export var ANIMATION_PLAYER: AnimationPlayer
 @export var CROUCH_SHAPECAST: Node3D
+@export var SHADER_SPEED: ColorRect
 
 @export var gravity: float = 10.0
 
@@ -73,6 +75,16 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	global.debug.add_property("Player Velocity",snapped(velocity.length(),0.01),1)
 	global.debug.add_property("Camera rotation",Vector2(_rotation_input,_tilt_input),2)
+
+	var _speed = velocity.length()
+
+	if _speed < 7:
+		SHADER_SPEED.material.set_shader_parameter("line_density", 0.8)
+		if _speed < 5:
+			SHADER_SPEED.material.set_shader_parameter("line_density", 0.5)
+			if _speed < 2 or _speed >= 4:
+				SHADER_SPEED.material.set_shader_parameter("line_density", 0.01)
+			
 	
 	_update_camera(delta)
 
