@@ -27,7 +27,7 @@ func update(_delta: float) -> void:
 	set_animation_speed(PLAYER.velocity.length())
 
 	if Input.is_action_just_released("sprint") or PLAYER.velocity.length() == 0:
-		transition.emit("WalkingPlayerState")
+		transition.emit("IdlePlayerState")
 
 	if Input.is_action_pressed("crouch") and PLAYER.velocity.length() > 6:
 		transition.emit("SlidingPlayerState")
@@ -36,10 +36,10 @@ func update(_delta: float) -> void:
 		transition.emit("JumpPlayerState")
 	
 	# Verificar wall run: en el aire + sprint + jump presionado + pared detectada + velocidad mínima
-	if not PLAYER.is_on_floor() and Input.is_action_pressed("jump") and is_wall_detected() and get_horizontal_speed() > MIN_SPEED_FOR_WALLRUN:
+	if !PLAYER.is_on_floor() and Input.is_action_pressed("jump") and is_wall_detected() and get_horizontal_speed() > MIN_SPEED_FOR_WALLRUN:
 		transition.emit("WallRunPlayerState")
 
-	if PLAYER.velocity.y < -3.0 and !PLAYER.is_on_floor():
+	if PLAYER.velocity.y < -1.0 and !PLAYER.is_on_floor():
 		transition.emit("FallingPlayerState")
 
 func set_animation_speed(spd) -> void:
