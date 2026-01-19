@@ -40,20 +40,34 @@ func _input(event: InputEvent) -> void:
 		mouse_movement = event.relative
 
 func _ready() -> void:
-	await owner.ready
+	if not Engine.is_editor_hint() and owner:
+		await owner.ready
 	load_weapons()
 
 func load_weapons():
+	if not WEAPON_TYPE:
+		return
+	if not weapon_mesh:
+		weapon_mesh = get_node_or_null("WeaponMesh")
+	if not weapon_shadow:
+		weapon_shadow = get_node_or_null("ShadowMesh")
+	if not weapon_mesh:
+		return
+		
 	weapon_mesh.mesh = WEAPON_TYPE.mesh
 	position = WEAPON_TYPE.position
 	rotation_degrees = WEAPON_TYPE.rotation
 	scale = WEAPON_TYPE.scale
-	weapon_shadow.visible = WEAPON_TYPE.shadow
+	if weapon_shadow:
+		weapon_shadow.visible = WEAPON_TYPE.shadow
 	idle_sway_adjustment = WEAPON_TYPE.idle_sway_adjustment
 	idle_sway_rotation_strength = WEAPON_TYPE.idle_sway_rotation_strength
 	random_sway_amount = WEAPON_TYPE.random_sway_amount
 		
 func sway_weapon(delta, isIdel: bool) -> void:
+	if Engine.is_editor_hint():
+		return
+		
 	mouse_movement = mouse_movement.clamp(WEAPON_TYPE.sway_min,WEAPON_TYPE.sway_max)
 	if isIdel:
 		var sway_random: float = get_sway_noise()
