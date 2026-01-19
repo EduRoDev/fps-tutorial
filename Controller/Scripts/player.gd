@@ -12,6 +12,7 @@ extends CharacterBody3D
 @export var CROUCH_SHAPECAST: Node3D
 @export var SHADER_SPEED: ColorRect
 
+@export var WEAPON_CONTROLLER: WeaponController
 @export var gravity: float = 10.0
 
 var _mouse_input: bool = false
@@ -106,5 +107,3 @@ func update_input(speed:float, acceleration:float, deceleration:float) -> void:
 		
 func update_velocity()-> void:
 	move_and_slide()
-
-

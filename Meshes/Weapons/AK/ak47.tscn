@@ -1,0 +1,60 @@
+[gd_scene load_steps=9 format=3 uid="uid://bn2yl6cy8xbqk"]
+
+[ext_resource type="ArrayMesh" uid="uid://dlybx5jd6rnq0" path="res://Meshes/Weapons/AK/CuerpoMesh.res" id="1_1u7a0"]
+[ext_resource type="ArrayMesh" uid="uid://bvvb2arp0av2c" path="res://Meshes/Weapons/AK/culataMesh.res" id="2_wcr8l"]
+[ext_resource type="ArrayMesh" uid="uid://bnfwadde1q74s" path="res://Meshes/Weapons/AK/cargadorMesh.res" id="3_jw6ja"]
+[ext_resource type="ArrayMesh" uid="uid://c8d8qnbndk4wx" path="res://Meshes/Weapons/AK/GatilloMesh.res" id="4_0vlcl"]
+[ext_resource type="Material" uid="uid://d201mavja7435" path="res://Ui/Materials/Player.tres" id="5_wcr8l"]
+[ext_resource type="PackedScene" uid="uid://dcsre58cm3x0e" path="res://Meshes/Weapons/DesertEagle/pistol__desert_eagle_weapon_model_cs2.glb" id="6_jw6ja"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_jw6ja"]
+height = 2.005127
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_0vlcl"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="RigidBody3D" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.322, -0.774, -0.475)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0051838756, 0.71829903, 0)
+shape = SubResource("CapsuleShape3D_jw6ja")
+debug_color = Color(0.93757296, 0.11323815, 0.55717313, 0.41960785)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="RigidBody3D/CollisionShape3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0051838756, 0.007263422, 0)
+material_override = ExtResource("5_wcr8l")
+mesh = SubResource("CapsuleMesh_0vlcl")
+skeleton = NodePath("../../..")
+
+[node name="Node3D" type="Node3D" parent="RigidBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+
+[node name="Camera3D" type="Camera3D" parent="RigidBody3D/Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.03857857, 0.04617521, 0.27191877)
+visible = false
+
+[node name="Cuerpo" type="MeshInstance3D" parent="MeshInstance3D"]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0.304, -1.2807795)
+mesh = ExtResource("1_1u7a0")
+skeleton = NodePath("../..")
+
+[node name="Culata" type="MeshInstance3D" parent="MeshInstance3D"]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0.304, -1.281)
+mesh = ExtResource("2_wcr8l")
+skeleton = NodePath("../..")
+
+[node name="Cargador" type="MeshInstance3D" parent="MeshInstance3D"]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0.30709904, -1.3070593)
+mesh = ExtResource("3_jw6ja")
+skeleton = NodePath("../..")
+
+[node name="Gatillo" type="MeshInstance3D" parent="MeshInstance3D"]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -0.003244888, 0.28093478, -1.2975011)
+mesh = ExtResource("4_0vlcl")
+skeleton = NodePath("../..")
+
+[node name="Sketchfab_Scene" parent="." instance=ExtResource("6_jw6ja")]

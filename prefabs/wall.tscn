@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://dfjiq4dkodokt"]
 
-[ext_resource type="Material" uid="uid://btdmfv0c2jd7r" path="res://Ui/Materials/Walls.tres" id="1_3uv27"]
+[ext_resource type="Material" uid="uid://cmu4vfp7y5t6b" path="res://addons/prototype_mini_bundle/M_prototype_purple.tres" id="1_3uv27"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_iy8pp"]
 size = Vector3(4, 3, 1)

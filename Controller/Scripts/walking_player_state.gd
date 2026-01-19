@@ -6,6 +6,9 @@ extends PlayerMovementState
 @export var ACCELERATION: float = 0.1
 @export var DECELERATION: float = 0.25
 @export var SPEED: float = 5.0
+@export var W_BOB_SPD: float = 6.0
+@export var W_BOB_H: float = 2.0
+@export var W_BOB_V: float = 1.0
 
 
 func enter(_previous_state) -> void:
@@ -16,7 +19,10 @@ func update(_delta: float) -> void:
 	PLAYER.update_gravity(_delta)
 	PLAYER.update_input(SPEED,ACCELERATION,DECELERATION)
 	PLAYER.update_velocity()
-
+	
+	WEAPON.sway_weapon(_delta, false)
+	WEAPON.weapon_bob(_delta, W_BOB_SPD,W_BOB_H,W_BOB_V)
+	
 	set_animation_speed(PLAYER.velocity.length())
 	if PLAYER.velocity.length() == 0.0:
 		transition.emit("IdlePlayerState")

@@ -3,10 +3,11 @@ extends State
 
 var PLAYER: Player
 var ANIMATION: AnimationPlayer
+var WEAPON: WeaponController
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	await owner.ready
 	PLAYER = owner as Player
 	ANIMATION = PLAYER.ANIMATION_PLAYER
-
+	WEAPON = PLAYER.WEAPON_CONTROLLER

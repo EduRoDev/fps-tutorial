@@ -2,13 +2,16 @@ class_name SprintingPlayerState
 extends PlayerMovementState
 
 
-@export var TOP_ANIM_SPEED: float = 1.5
+@export var TOP_ANIM_SPEED: float = 1.0
 @export var ACCELERATION: float = 0.1
 @export var DECELERATION: float = 0.25
-@export var SPEED: float = 10.0
+@export var SPEED: float = 7.0
 @export var WALL_RAY_LEFT: RayCast3D
 @export var WALL_RAY_RIGHT: RayCast3D
 @export var MIN_SPEED_FOR_WALLRUN: float = 3.0
+@export var W_BOB_SPD: float = 7.0
+@export var W_BOB_H: float = 3.0
+@export var W_BOB_V: float = 1.5
 
 func is_wall_detected() -> bool:
 	return (WALL_RAY_LEFT and WALL_RAY_LEFT.is_colliding()) or (WALL_RAY_RIGHT and WALL_RAY_RIGHT.is_colliding())
@@ -24,6 +27,8 @@ func update(_delta: float) -> void:
 	PLAYER.update_input(SPEED,ACCELERATION,DECELERATION)
 	PLAYER.update_velocity()
 	
+	WEAPON.sway_weapon(_delta, false)
+	WEAPON.weapon_bob(_delta, W_BOB_SPD,W_BOB_H,W_BOB_V)
 	set_animation_speed(PLAYER.velocity.length())
 
 	if Input.is_action_just_released("sprint") or PLAYER.velocity.length() == 0:

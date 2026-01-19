@@ -1,0 +1,26 @@
+[gd_scene load_steps=7 format=3 uid="uid://ml4emtg70nx7"]
+
+[ext_resource type="Script" uid="uid://psvth5w6xchu" path="res://Meshes/Weapons/crowbar/init_weapon.gd" id="1_lp4id"]
+[ext_resource type="Resource" uid="uid://61lxs06scyp4" path="res://Meshes/Weapons/DesertEagle/Desert.tres" id="2_mjb0j"]
+[ext_resource type="ArrayMesh" uid="uid://db52ewsfdah43" path="res://Meshes/Weapons/DesertEagle/DesertMesh.res" id="3_lp4id"]
+
+[sub_resource type="Gradient" id="Gradient_lp4id"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_wtodn"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_7y78o"]
+noise = SubResource("FastNoiseLite_wtodn")
+color_ramp = SubResource("Gradient_lp4id")
+
+[node name="weapon" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0)
+script = ExtResource("1_lp4id")
+WEAPON_TYPE = ExtResource("2_mjb0j")
+sway_noise = SubResource("NoiseTexture2D_7y78o")
+sway_speed = 2.0
+reset = null
+
+[node name="WeaponMesh" type="MeshInstance3D" parent="."]
+mesh = ExtResource("3_lp4id")
+
+[node name="ShadowMesh" type="MeshInstance3D" parent="."]

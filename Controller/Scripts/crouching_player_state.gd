@@ -7,6 +7,9 @@ extends PlayerMovementState
 @export_range(1,6,0.1) var CROUCH_SPEED: float = 4.0
 
 @export var CROUCH_SHAPECAST: ShapeCast3D
+@export var W_BOB_SPD: float = 2.0
+@export var W_BOB_H: float = 1.5
+@export var W_BOB_V: float = 0.7
 
 var RELEASED: bool = false
 
@@ -25,7 +28,10 @@ func update(delta: float) -> void:
 	PLAYER.update_gravity(delta)
 	PLAYER.update_input(SPEED, ACCELERATION, DECELERATION)
 	PLAYER.update_velocity()
-
+	
+	WEAPON.sway_weapon(delta, false)
+	WEAPON.weapon_bob(delta, W_BOB_SPD,W_BOB_H,W_BOB_V)
+	
 	if Input.is_action_just_released("crouch"):
 		uncrouch()
 
@@ -48,4 +54,3 @@ func uncrouch():
 	elif CROUCH_SHAPECAST.is_colliding() == true:
 		await get_tree().create_timer(0.1).timeout
 		uncrouch()
-

@@ -1,10 +1,12 @@
-[gd_scene load_steps=11 format=3 uid="uid://b1j7uexeibinn"]
+[gd_scene load_steps=13 format=3 uid="uid://b1j7uexeibinn"]
 
-[ext_resource type="Material" uid="uid://n6fl5qxlgtt6" path="res://Ui/Materials/Ground.tres" id="1_3anf8"]
+[ext_resource type="Material" uid="uid://dgjiw8udooecr" path="res://addons/prototype_mini_bundle/M_prototype_dark.tres" id="1_dl8mf"]
 [ext_resource type="PackedScene" uid="uid://bmtfbq8p2itb" path="res://Controller/Player.tscn" id="1_s5eti"]
 [ext_resource type="PackedScene" uid="uid://wpnahxsk8x1u" path="res://prefabs/box.tscn" id="3_fhqol"]
 [ext_resource type="PackedScene" uid="uid://dfjiq4dkodokt" path="res://prefabs/wall.tscn" id="4_iotdp"]
 [ext_resource type="PackedScene" uid="uid://btfe3ls584g2y" path="res://prefabs/big_wall.tscn" id="5_nutv8"]
+[ext_resource type="PackedScene" uid="uid://0vmntyr615js" path="res://addons/prototype_mini_bundle/prop_cube.tscn" id="6_xcayt"]
+[ext_resource type="PackedScene" uid="uid://ciuwt2yj4hcu2" path="res://addons/prototype_mini_bundle/prop_prism.tscn" id="7_5g41i"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_w77jt"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -16,6 +18,7 @@ sky_material = SubResource("ProceduralSkyMaterial_w77jt")
 [sub_resource type="Environment" id="Environment_fhqol"]
 background_mode = 2
 sky = SubResource("Sky_3anf8")
+ambient_light_energy = 4.3
 tonemap_mode = 2
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_m0j7v"]
@@ -35,7 +38,7 @@ shadow_enabled = true
 
 [node name="Ground" type="MeshInstance3D" parent="."]
 transform = Transform3D(20.789429, 0, 0, 0, 1, 0, 0, 0, 20.53688, 0, 0, 0)
-material_override = ExtResource("1_3anf8")
+material_override = ExtResource("1_dl8mf")
 mesh = SubResource("PlaneMesh_m0j7v")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Ground"]
@@ -45,11 +48,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.008667559, 0, 0.041990235)
 shape = SubResource("BoxShape3D_s5eti")
 
 [node name="CharacterBody3D" parent="." instance=ExtResource("1_s5eti")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.0414047, 0.36039436, 0.86128235)
-MOUSE_SENSITIVITY = 0.5
-TILT_LOWER_LIMIT = -1.5707963267948966
-TILT_UPPER_LIMIT = 1.5707963267948966
-CAMERA_TILT_SPEED = 8.0
+
+[node name="weapon" parent="CharacterBody3D/CameraController/Camera3D/WeaponRig" index="0"]
+transform = Transform3D(-0.99999845, -0.001745328, -8.742207e-08, -0.0017453142, 0.9999904, 0.0040142466, -6.918756e-06, 0.0040142406, -0.99999195, 0.243, -0.2, -0.245)
 
 [node name="Box" parent="." instance=ExtResource("3_fhqol")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.146301, 0.052102447, -5.1804256)
@@ -86,3 +87,14 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.011625692, 1.4596384, -15.8
 
 [node name="BigWall" parent="." instance=ExtResource("5_nutv8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 2, -14)
+
+[node name="PropCube" parent="." instance=ExtResource("6_xcayt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.362334, 0.5549791, -16.21681)
+
+[node name="PropCube2" parent="." instance=ExtResource("6_xcayt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.0908294, 0.52813315, -15.695)
+
+[node name="PropPrism" parent="." instance=ExtResource("7_5g41i")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.552646, 0.46924853, -2.3311825)
+
+[editable path="CharacterBody3D"]
