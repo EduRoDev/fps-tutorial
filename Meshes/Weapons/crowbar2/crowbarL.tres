@@ -6,6 +6,7 @@
 [resource]
 script = ExtResource("1_cvgk5")
 name = &"crowbarLeft"
+category = &"meele"
 position = Vector3(-0.236, -0.145, -0.245)
 rotation = Vector3(-89, 167, 15)
 random_sway_amount = 4.3

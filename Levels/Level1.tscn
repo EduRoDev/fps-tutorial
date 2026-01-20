@@ -48,9 +48,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.008667559, 0, 0.041990235)
 shape = SubResource("BoxShape3D_s5eti")
 
 [node name="CharacterBody3D" parent="." instance=ExtResource("1_s5eti")]
-
-[node name="weapon" parent="CharacterBody3D/CameraController/Camera3D/WeaponRig" index="0"]
-transform = Transform3D(-0.99999845, -0.001745328, -8.742207e-08, -0.0017453142, 0.9999904, 0.0040142466, -6.918756e-06, 0.0040142406, -0.99999195, 0.243, -0.2, -0.245)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.24803019)
 
 [node name="Box" parent="." instance=ExtResource("3_fhqol")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.146301, 0.052102447, -5.1804256)
@@ -83,18 +81,27 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.7062347, 1.0006607, 8.04175
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.201631, 0.12986314, 5.2865896)
 
 [node name="wall5" parent="." instance=ExtResource("4_iotdp")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.011625692, 1.4596384, -15.8148)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.011625692, 1.0633273, -15.8148)
 
 [node name="BigWall" parent="." instance=ExtResource("5_nutv8")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 2, -14)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 3.2855396, -14)
+
+[node name="BigWall" parent="BigWall" instance=ExtResource("5_nutv8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.891941, 0.11650944, -7.1220074)
 
 [node name="PropCube" parent="." instance=ExtResource("6_xcayt")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.362334, 0.5549791, -16.21681)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.362334, 17.108536, -26.119576)
 
 [node name="PropCube2" parent="." instance=ExtResource("6_xcayt")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.0908294, 0.52813315, -15.695)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.0908294, 22.277363, -15.695)
 
 [node name="PropPrism" parent="." instance=ExtResource("7_5g41i")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.552646, 0.46924853, -2.3311825)
+
+[node name="PropCube3" parent="." instance=ExtResource("6_xcayt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.949391, 10.23222, -15.012695)
+
+[node name="PropCube4" parent="." instance=ExtResource("6_xcayt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23.1997, 18.747301, -9.106953)
 
 [editable path="CharacterBody3D"]

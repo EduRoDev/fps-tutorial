@@ -18,7 +18,7 @@ func update(delta: float) -> void:
 	if Input.is_action_pressed("crouch"):
 		transition.emit("CrouchingPlayerState")
 
-	if global.player.velocity.length() > 0.0 and global.player.is_on_floor():
+	if PLAYER.velocity.length() > 0.0 and PLAYER.is_on_floor():
 		transition.emit("WalkingPlayerState")
 
 	if Input.is_action_just_pressed("jump") and PLAYER.is_on_floor():
@@ -26,3 +26,9 @@ func update(delta: float) -> void:
 
 	if PLAYER.velocity.y < -1.0 and !PLAYER.is_on_floor():
 		transition.emit("FallingPlayerState")
+
+	if Input.is_action_just_pressed("Attack"):
+		WEAPON.attack()
+
+	if Input.is_action_just_pressed("hook"):
+		transition.emit("GrapplingPlayerState")

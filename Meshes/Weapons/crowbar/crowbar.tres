@@ -6,6 +6,7 @@
 [resource]
 script = ExtResource("2_c35sn")
 name = &"Crowbar"
+category = &"meele"
 position = Vector3(0.236, -0.145, -0.299)
 rotation = Vector3(-89, 167, 15)
 sway_speed_position = 0.1

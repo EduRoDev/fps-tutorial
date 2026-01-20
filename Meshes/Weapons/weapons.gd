@@ -2,6 +2,7 @@ class_name Weapons
 extends Resource
 
 @export var name: StringName
+@export var category: StringName
 @export_category("Weapon Orientation")
 @export var position: Vector3
 @export var rotation: Vector3
@@ -17,6 +18,5 @@ extends Resource
 @export var idle_sway_rotation_strength: float = 300.0
 @export_range(0.1,10.0,0.1) var random_sway_amount: float = 5.0
 @export_category("Visual Settings")
-#@export var mesh: Array[Mesh]  
 @export var mesh: Mesh
 @export var shadow: bool

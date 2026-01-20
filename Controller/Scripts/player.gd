@@ -76,6 +76,7 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	global.debug.add_property("Player Velocity",snapped(velocity.length(),0.01),1)
 	global.debug.add_property("Camera rotation",Vector2(_rotation_input,_tilt_input),2)
+	
 
 	var _speed = velocity.length()
 

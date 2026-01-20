@@ -6,7 +6,6 @@
 [ext_resource type="PackedScene" uid="uid://ml4emtg70nx7" path="res://Meshes/Weapons/weapon.tscn" id="3_4r3x1"]
 [ext_resource type="Theme" uid="uid://bvw8gm6d6xsdk" path="res://Ui/Themes/DebugPanel.tres" id="3_8xe5w"]
 [ext_resource type="Script" uid="uid://0icf8m2qufr7" path="res://Scripts/debug_panel.gd" id="4_o4itx"]
-[ext_resource type="Resource" uid="uid://cxg5h1b0jsyga" path="res://Meshes/Weapons/crowbar/crowbar.tres" id="4_teod1"]
 [ext_resource type="Script" uid="uid://eamfse10yi7" path="res://Scripts/state_machine.gd" id="5_hla6f"]
 [ext_resource type="Script" uid="uid://b701jlc5xd3fk" path="res://Controller/Scripts/idle_player_state.gd" id="6_523qk"]
 [ext_resource type="Script" uid="uid://bcn5u0xoa754i" path="res://Controller/Scripts/walking_player_state.gd" id="7_vkdw5"]
@@ -17,6 +16,7 @@
 [ext_resource type="Script" uid="uid://clhfumebgjfkn" path="res://Controller/Scripts/wall_run_player_state.gd" id="13_oxdpf"]
 [ext_resource type="Script" uid="uid://d0ch2qk1pqjor" path="res://Controller/Scripts/falling_player_state.gd" id="14_n5b3e"]
 [ext_resource type="Shader" uid="uid://c7lje5ibmsst8" path="res://Shaders/speed.gdshader" id="16_j2hp0"]
+[ext_resource type="Script" uid="uid://dv14ib2b0033k" path="res://Controller/Scripts/grappling_player_state.gd" id="16_teod1"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_pknhu"]
 height = 2.005127
@@ -487,7 +487,7 @@ ANIMATION_PLAYER = NodePath("AnimationPlayer")
 CROUCH_SHAPECAST = NodePath("ShapeCast3D")
 SHADER_SPEED = NodePath("ColorRect")
 WEAPON_CONTROLLER = NodePath("CameraController/Camera3D/WeaponRig/weapon")
-gravity = 7.5
+gravity = 6.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0051838756, 0.71829903, 0)
@@ -507,16 +507,16 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 cull_mask = 1048573
 
 [node name="ReflectionProbe" type="ReflectionProbe" parent="CameraController/Camera3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.6778865, 6.101454)
 visible = false
 update_mode = 1
-size = Vector3(20, 10.597214, 20.002441)
 
 [node name="WeaponRig" type="Node3D" parent="CameraController/Camera3D"]
 
 [node name="weapon" parent="CameraController/Camera3D/WeaponRig" instance=ExtResource("3_4r3x1")]
-transform = Transform3D(-0.99938196, 0.034932524, 0.003925933, 0.004517009, 0.016857708, 0.9998477, 0.034861013, 0.9992475, -0.01700508, 0.236, -0.145, -0.299)
-WEAPON_TYPE = ExtResource("4_teod1")
+transform = Transform3D(-0.99999845, -0.001745328, -8.742207e-08, -0.0017453142, 0.9999904, 0.0040142466, -6.918756e-06, 0.0040142406, -0.99999195, 0.243, -0.2, -0.245)
+
+[node name="Hook" type="RayCast3D" parent="CameraController/Camera3D"]
+target_position = Vector3(0, 0, -50)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -555,7 +555,7 @@ script = ExtResource("2_ca3lp")
 RETICLE_LINES = [NodePath("Top"), NodePath("Right"), NodePath("Bottom"), NodePath("Left")]
 PLAYER_CONTROLLER = NodePath("../..")
 RETICLE_SPEED = 0.3
-RETICLE_DISTANCE = 3.0
+RETICLE_DISTANCE = 4.0
 
 [node name="Top" type="Line2D" parent="UserInterface/Reticle"]
 points = PackedVector2Array(0, -5, 0, -15)
@@ -625,6 +625,10 @@ WALL_RAY_RIGHT = NodePath("../../Right")
 
 [node name="FallingPlayerState" type="Node" parent="PlayerStateMachine"]
 script = ExtResource("14_n5b3e")
+
+[node name="GrapplingPlayerState" type="Node" parent="PlayerStateMachine" node_paths=PackedStringArray("Ray")]
+script = ExtResource("16_teod1")
+Ray = NodePath("../../CameraController/Camera3D/Hook")
 
 [node name="Right" type="RayCast3D" parent="."]
 transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 0, 0.7073448, 0)

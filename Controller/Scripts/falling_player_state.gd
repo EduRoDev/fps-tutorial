@@ -17,5 +17,8 @@ func update(delta: float) -> void:
 	if Input.is_action_just_pressed("jump"):
 		transition.emit("JumpPlayerState")
 
+	if Input.is_action_just_pressed("hook"):
+		transition.emit("GrapplingPlayerState")
+
 	if PLAYER.is_on_floor():
 		transition.emit("IdlePlayerState")

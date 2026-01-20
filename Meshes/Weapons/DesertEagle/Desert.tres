@@ -6,6 +6,7 @@
 [resource]
 script = ExtResource("1_qbr51")
 name = &"Desert"
+category = &"Pistol"
 position = Vector3(0.243, -0.2, -0.245)
 rotation = Vector3(-0.23, 180, -0.1)
 mesh = ExtResource("1_jryu3")
