@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://bmtfbq8p2itb"]
+[gd_scene load_steps=33 format=3 uid="uid://bmtfbq8p2itb"]
 
 [ext_resource type="Script" uid="uid://djuoimg17psuo" path="res://Controller/Scripts/player.gd" id="1_pknhu"]
 [ext_resource type="Script" uid="uid://bnrs6pel5l2tg" path="res://Scripts/reticle.gd" id="2_ca3lp"]
@@ -17,6 +17,8 @@
 [ext_resource type="Script" uid="uid://d0ch2qk1pqjor" path="res://Controller/Scripts/falling_player_state.gd" id="14_n5b3e"]
 [ext_resource type="Shader" uid="uid://c7lje5ibmsst8" path="res://Shaders/speed.gdshader" id="16_j2hp0"]
 [ext_resource type="Script" uid="uid://dv14ib2b0033k" path="res://Controller/Scripts/grappling_player_state.gd" id="16_teod1"]
+[ext_resource type="Script" uid="uid://ppo5mtf1jbx0" path="res://Scripts/sub_viewport.gd" id="18_xvjrc"]
+[ext_resource type="Script" uid="uid://ck8l45qmqr1x" path="res://Scripts/camera_3d.gd" id="19_wopls"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_pknhu"]
 height = 2.005127
@@ -513,7 +515,6 @@ update_mode = 1
 [node name="WeaponRig" type="Node3D" parent="CameraController/Camera3D"]
 
 [node name="weapon" parent="CameraController/Camera3D/WeaponRig" instance=ExtResource("3_4r3x1")]
-transform = Transform3D(-0.99999845, -0.001745328, -8.742207e-08, -0.0017453142, 0.9999904, 0.0040142466, -6.918756e-06, 0.0040142406, -0.99999195, 0.243, -0.2, -0.245)
 
 [node name="Hook" type="RayCast3D" parent="CameraController/Camera3D"]
 target_position = Vector3(0, 0, -50)
@@ -644,5 +645,23 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
+transparent_bg = true
+handle_input_locally = false
+render_target_update_mode = 4
+script = ExtResource("18_xvjrc")
+
+[node name="Camera3D" type="Camera3D" parent="SubViewportContainer/SubViewport" node_paths=PackedStringArray("MAIN_CAMERA")]
+cull_mask = 1048574
+script = ExtResource("19_wopls")
+MAIN_CAMERA = NodePath("../../../CameraController/Camera3D/WeaponRig")
 
 [connection signal="animation_started" from="AnimationPlayer" to="." method="_on_animation_player_animation_started"]

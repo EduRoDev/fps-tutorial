@@ -20,3 +20,5 @@ extends Resource
 @export_category("Visual Settings")
 @export var mesh: Mesh
 @export var shadow: bool
+@export_category("Optional Settings")
+@export var weapon_scene: PackedScene

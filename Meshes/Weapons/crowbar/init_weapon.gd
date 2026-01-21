@@ -18,6 +18,7 @@ extends Node3D
 
 @onready var weapon_mesh: MeshInstance3D = $WeaponMesh
 @onready var weapon_shadow: MeshInstance3D = $ShadowMesh
+@onready var scene_container: Node3D = $WeaponsContainer
 
 var mouse_movement: Vector2
 var random_sway_x
@@ -29,12 +30,16 @@ var idle_sway_rotation_strength
 var bob_weapon_amount: Vector2 = Vector2(0, 0)
 
 var raycast_test = preload("res://Meshes/Weapons/DesertEagle/bullet_test.tscn")
+var is_shooting: bool = false
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("weapon1"):
 		WEAPON_TYPE = load("res://Meshes/Weapons/DesertEagle/Desert.tres")
 		load_weapons()
 	if event.is_action_pressed("weapon2"):
+		WEAPON_TYPE = load("res://Meshes/Weapons/pistol_with_arms/pistol.tres")
+		load_weapons()
+	if event.is_action_pressed("weapon3"):
 		WEAPON_TYPE = load("res://Meshes/Weapons/crowbar/crowbar.tres")
 		load_weapons()
 		
@@ -49,19 +54,30 @@ func _ready() -> void:
 func load_weapons():
 	if not WEAPON_TYPE:
 		return
-	if not weapon_mesh:
-		weapon_mesh = get_node_or_null("WeaponMesh")
-	if not weapon_shadow:
-		weapon_shadow = get_node_or_null("ShadowMesh")
-	if not weapon_mesh:
-		return
+	
+	for child in scene_container.get_children():
+		child.queue_free()
+
+	if WEAPON_TYPE.weapon_scene != null:
+		var instance = WEAPON_TYPE.weapon_scene.instantiate()
+		scene_container.add_child(instance)
+		weapon_mesh.visible = false
+		weapon_shadow.visible = false
 		
-	weapon_mesh.mesh = WEAPON_TYPE.mesh
+		if Engine.is_editor_hint():
+			instance.owner = get_tree().edited_scene_root
+	
+	else:
+		weapon_mesh.visible = true
+		weapon_mesh.mesh = WEAPON_TYPE.mesh
+
 	position = WEAPON_TYPE.position
 	rotation_degrees = WEAPON_TYPE.rotation
 	scale = WEAPON_TYPE.scale
+
 	if weapon_shadow:
 		weapon_shadow.visible = WEAPON_TYPE.shadow
+		
 	idle_sway_adjustment = WEAPON_TYPE.idle_sway_adjustment
 	idle_sway_rotation_strength = WEAPON_TYPE.idle_sway_rotation_strength
 	random_sway_amount = WEAPON_TYPE.random_sway_amount
@@ -69,7 +85,8 @@ func load_weapons():
 func sway_weapon(delta, isIdel: bool) -> void:
 	if Engine.is_editor_hint():
 		return
-		
+	
+	
 	mouse_movement = mouse_movement.clamp(WEAPON_TYPE.sway_min, WEAPON_TYPE.sway_max)
 	if isIdel:
 		var sway_random: float = get_sway_noise()
@@ -106,6 +123,17 @@ func get_sway_noise() -> float:
 	var noise_location: float = sway_noise.noise.get_noise_2d(player_position.x, player_position.y)
 	return noise_location
 
+func play_animation(anim_name: String, blend: float = -1.0, speed: float = 1.0) -> void:
+	if scene_container.get_child_count() > 0:
+		var anim = scene_container.get_child(0).get_node_or_null("AnimationPlayer")
+		if anim and anim.has_animation(anim_name):
+			anim.play(anim_name, blend, speed)
+
+func get_animation_player() -> AnimationPlayer:
+	if scene_container.get_child_count() > 0:
+		return scene_container.get_child(0).get_node_or_null("AnimationPlayer")
+	return null
+
 
 func attack() -> void:
 	var camera = global.player.CAMERA_CONTROLLER
@@ -118,9 +146,15 @@ func attack() -> void:
 	var result = space_state.intersect_ray(query)
 	
 	if result and (WEAPON_TYPE.category == "Pistol" or WEAPON_TYPE.category == "Rifle"):
-		_test_raycast(result.get("position"), result.get("normal"))
+		if scene_container.get_child_count() > 0 and WEAPON_TYPE.name == "pistol":
+			var anim = scene_container.get_child(0).get_node_or_null("AnimationPlayer")
+			if anim:
+				anim.play("Pistol_FIRE")
+				_fire_raycast(result.get("position"), result.get("normal"))
+		if WEAPON_TYPE.name == "Desert":
+			_fire_raycast(result.get("position"), result.get("normal"))
 
-func _test_raycast(positionray: Vector3, normalray: Vector3) -> void:
+func _fire_raycast(positionray: Vector3, normalray: Vector3) -> void:
 	var instances = raycast_test.instantiate()
 	get_tree().root.add_child(instances)
 	instances.global_position = positionray + (normalray * 0.01)

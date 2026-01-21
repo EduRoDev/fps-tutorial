@@ -15,6 +15,8 @@ func enter(_previous_state) -> void:
 	ANIMATION.get_animation("sliding").track_set_key_value(4, 0, PLAYER.velocity.length())
 	ANIMATION.speed_scale = 1.0
 	ANIMATION.play("sliding", -1.0, SLIDE_ANIM_SPEED)
+	if _previous_state is SprintingPlayerState:
+		WEAPON.play_animation("Pistol_IDLE", 0.25)
 	
 func update(delta: float) -> void:
 	PLAYER.update_gravity(delta)

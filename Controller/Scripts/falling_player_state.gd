@@ -8,6 +8,8 @@ extends PlayerMovementState
 
 func enter(_previous_state) -> void:
 	ANIMATION.pause()
+	# Reproducir animación de caída del arma con blend suave
+	WEAPON.play_animation("Pistol_JUMP_FALL", 0.2)
 
 func update(delta: float) -> void:
 	PLAYER.update_gravity(delta)
@@ -21,4 +23,6 @@ func update(delta: float) -> void:
 		transition.emit("GrapplingPlayerState")
 
 	if PLAYER.is_on_floor():
+		# Reproducir animación de aterrizaje del arma
+		WEAPON.play_animation("Pistol_JUMP_END")
 		transition.emit("IdlePlayerState")

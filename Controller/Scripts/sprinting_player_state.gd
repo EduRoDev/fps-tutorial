@@ -21,17 +21,24 @@ func get_horizontal_speed() -> float:
 
 func enter(_previous_state) -> void:
 	ANIMATION.play("Sprint",0.5,1.0)
+	WEAPON.play_animation("Pistol_RUN", 0.2)
 	
 func update(_delta: float) -> void:
 	PLAYER.update_gravity(_delta)
 	PLAYER.update_input(SPEED,ACCELERATION,DECELERATION)
 	PLAYER.update_velocity()
 	
-	WEAPON.sway_weapon(_delta, false)
-	WEAPON.weapon_bob(_delta, W_BOB_SPD,W_BOB_H,W_BOB_V)
+	#WEAPON.sway_weapon(_delta, false)
+	#WEAPON.weapon_bob(_delta, W_BOB_SPD,W_BOB_H,W_BOB_V)
 	set_animation_speed(PLAYER.velocity.length())
 
-	if Input.is_action_just_released("sprint") or PLAYER.velocity.length() == 0:
+	if Input.is_action_just_released("sprint"):
+		if PLAYER.velocity.length() > 0.5:
+			transition.emit("WalkingPlayerState")  # Transición suave a caminar
+		else:
+			transition.emit("IdlePlayerState")
+	
+	if PLAYER.velocity.length() == 0:
 		transition.emit("IdlePlayerState")
 
 	if Input.is_action_pressed("crouch") and PLAYER.velocity.length() > 6:
@@ -41,7 +48,7 @@ func update(_delta: float) -> void:
 		transition.emit("JumpPlayerState")
 	
 	# Verificar wall run: en el aire + sprint + jump presionado + pared detectada + velocidad mínima
-	if !PLAYER.is_on_floor() and Input.is_action_pressed("jump") and is_wall_detected() and get_horizontal_speed() > MIN_SPEED_FOR_WALLRUN:
+	if !PLAYER.is_on_floor() and Input.is_action_pressed("sprint") and Input.is_action_pressed("jump") and is_wall_detected() and get_horizontal_speed() > MIN_SPEED_FOR_WALLRUN:
 		transition.emit("WallRunPlayerState")
 
 	if PLAYER.velocity.y < -1.0 and !PLAYER.is_on_floor():

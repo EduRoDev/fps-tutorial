@@ -13,6 +13,7 @@ extends PlayerMovementState
 
 func enter(_previous_state) -> void:
 	ANIMATION.play("walking", -1.0,1.0)
+	WEAPON.play_animation("Pistol_WALK", 0.2)
 	
 
 func update(_delta: float) -> void:

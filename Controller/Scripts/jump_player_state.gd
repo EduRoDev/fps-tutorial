@@ -42,11 +42,14 @@ func enter(_previous_state) -> void:
 	if _previous_state is WallRunPlayerState:
 		last_wall_normal = _previous_state.last_wall_normal
 		# No aplicar salto adicional, ya viene con impulso del wall jump
+		# La animación ya fue reproducida por wall_jump()
 		ANIMATION.pause()
 	else:
 		last_wall_normal = Vector3.ZERO  # Resetear si no viene de wall run
 		PLAYER.velocity.y += JUMP_VELOCITY
 		ANIMATION.pause()
+		# Reproducir animación de inicio de salto del arma
+		WEAPON.play_animation("Pistol_JUMP_START")
 
 func update(delta: float) -> void:
 	PLAYER.update_gravity(delta)
@@ -60,9 +63,8 @@ func update(delta: float) -> void:
 	if Input.is_action_just_pressed("hook"):
 		transition.emit("GrapplingPlayerState")
 
-	# Verificar wall run: pared detectada + pared diferente + velocidad mínima
-	# Ya no requiere sprint, solo jump presionado
-	if Input.is_action_pressed("jump") and is_wall_detected() and is_different_wall() and get_horizontal_speed() > MIN_SPEED_FOR_WALLRUN:
+	# Verificar wall run: sprint + jump + pared detectada + pared diferente + velocidad mínima
+	if Input.is_action_pressed("sprint") and Input.is_action_pressed("jump") and is_wall_detected() and is_different_wall() and get_horizontal_speed() > MIN_SPEED_FOR_WALLRUN:
 		transition.emit("WallRunPlayerState")
 
 	if PLAYER.velocity.y < -1.0 and !PLAYER.is_on_floor():

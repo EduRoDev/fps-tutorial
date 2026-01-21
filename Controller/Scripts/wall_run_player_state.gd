@@ -14,12 +14,15 @@ extends PlayerMovementState
 @export var TILT_AMOUNT: float = 0.09
 @export_range(1, 6, 0.1) var WALLRUN_ANIM_SPEED: float = 2.0
 @export var CAMERA_Z_TILT_DEGREES: float = 8.0
+@export var SPEED_DECAY: float = 2.0  # Velocidad que pierde por segundo
+@export var MIN_WALL_RUN_SPEED: float = 2.0  # Velocidad mínima antes de caer
 
 var wall_normal: Vector3 = Vector3.ZERO
 var wall_side: int = 0  
 var active_ray: RayCast3D = null
 var run_direction: Vector3 = Vector3.ZERO
 var last_wall_normal: Vector3 = Vector3.ZERO  # Para evitar re-engancharse a la misma pared
+var current_wall_speed: float = 0.0  # Velocidad actual del wall run
 
 func get_active_wall_ray() -> RayCast3D:
 	if WALL_RAY_LEFT and WALL_RAY_LEFT.is_colliding():
@@ -42,6 +45,7 @@ func is_different_wall() -> bool:
 
 func enter(_previous_state) -> void:
 	active_ray = get_active_wall_ray()
+	current_wall_speed = WALL_RUN_SPEED  # Iniciar con velocidad máxima
 	
 	if active_ray and active_ray.is_colliding():
 		wall_normal = active_ray.get_collision_normal()
@@ -57,6 +61,8 @@ func enter(_previous_state) -> void:
 		ANIMATION.speed_scale = 1.0
 		ANIMATION.play("WallRun", -1.0, WALLRUN_ANIM_SPEED)
 		
+		# Animación de correr del arma durante wall run
+		WEAPON.play_animation("Pistol_RUN")
 		
 		var horizontal_velocity = Vector3(PLAYER.velocity.x, 0, PLAYER.velocity.z)
 		if horizontal_velocity.length() > 0.1:
@@ -81,6 +87,9 @@ func exit() -> void:
 	PLAYER.reset_camera_tilt()
 	PLAYER.camera_tilt_current = 0.0  # Forzar reset inmediato
 	
+	# Reproducir animación de fin de salto del arma para que no quede en el aire
+	WEAPON.play_animation("Pistol_JUMP_END")
+	
 
 func update(delta: float) -> void:
 	if PLAYER.is_on_floor():
@@ -104,10 +113,19 @@ func update(delta: float) -> void:
 	
 	wall_normal = active_ray.get_collision_normal()
 	
+	# Perder velocidad gradualmente
+	current_wall_speed -= SPEED_DECAY * delta
+	
+	# Si la velocidad es muy baja, salir del wall run
+	if current_wall_speed <= MIN_WALL_RUN_SPEED:
+		wall_jump()
+		transition.emit("FallingPlayerState")
+		return
+	
 	PLAYER.velocity.y -= PLAYER.gravity * GRAVITY_SCALE * delta
 	
-	PLAYER.velocity.x = run_direction.x * WALL_RUN_SPEED
-	PLAYER.velocity.z = run_direction.z * WALL_RUN_SPEED
+	PLAYER.velocity.x = run_direction.x * current_wall_speed
+	PLAYER.velocity.z = run_direction.z * current_wall_speed
 	
 	PLAYER.velocity += -wall_normal * 2.0
 	
