@@ -37,7 +37,7 @@ func update(_delta: float) -> void:
 	if Input.is_action_just_pressed("jump") and PLAYER.is_on_floor():
 		transition.emit("JumpPlayerState")
 
-	if PLAYER.velocity.y < -1.0 and !PLAYER.is_on_floor():
+	if PLAYER.velocity.y < -3.0 and !PLAYER.is_on_floor():
 		transition.emit("FallingPlayerState")
 
 	if Input.is_action_just_pressed("hook"):

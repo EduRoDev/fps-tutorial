@@ -1,6 +1,7 @@
 @tool
 class_name WeaponController
 extends Node3D
+signal weapon_fired(weapon_name: String)
 
 @export var WEAPON_TYPE: Weapons:
 	set(value):
@@ -16,8 +17,8 @@ extends Node3D
 		if Engine.is_editor_hint():
 			load_weapons()
 
-@onready var weapon_mesh: MeshInstance3D = $WeaponMesh
-@onready var weapon_shadow: MeshInstance3D = $ShadowMesh
+@onready var weapon_mesh: MeshInstance3D = %WeaponMesh
+@onready var weapon_shadow: MeshInstance3D = %ShadowMesh
 @onready var scene_container: Node3D = $WeaponsContainer
 
 var mouse_movement: Vector2
@@ -30,7 +31,7 @@ var idle_sway_rotation_strength
 var bob_weapon_amount: Vector2 = Vector2(0, 0)
 
 var raycast_test = preload("res://Meshes/Weapons/DesertEagle/bullet_test.tscn")
-var is_shooting: bool = false
+
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("weapon1"):
@@ -136,6 +137,7 @@ func get_animation_player() -> AnimationPlayer:
 
 
 func attack() -> void:
+	
 	var camera = global.player.CAMERA_CONTROLLER
 	var space_state = camera.get_world_3d().direct_space_state
 	var screen_center = camera.get_viewport().size / 2
@@ -146,13 +148,29 @@ func attack() -> void:
 	var result = space_state.intersect_ray(query)
 	
 	if result and (WEAPON_TYPE.category == "Pistol" or WEAPON_TYPE.category == "Rifle"):
+		weapon_fired.emit(WEAPON_TYPE.name)
 		if scene_container.get_child_count() > 0 and WEAPON_TYPE.name == "pistol":
 			var anim = scene_container.get_child(0).get_node_or_null("AnimationPlayer")
 			if anim:
 				anim.play("Pistol_FIRE")
-				_fire_raycast(result.get("position"), result.get("normal"))
+				
 		if WEAPON_TYPE.name == "Desert":
 			_fire_raycast(result.get("position"), result.get("normal"))
+		#_fire_raycast(result.get("position"), result.get("normal"))
+
+func fire_from_animation() -> void:
+	var camera = global.player.CAMERA_CONTROLLER
+	var space_state = camera.get_world_3d().direct_space_state
+	var screen_center = camera.get_viewport().size / 2
+	var origin = camera.project_ray_origin(screen_center)
+	var end = origin + camera.project_ray_normal(screen_center) * 1000
+	var query = PhysicsRayQueryParameters3D.create(origin, end)
+	query.collide_with_bodies = true
+	var result = space_state.intersect_ray(query)
+	
+	if result:
+		_fire_raycast(result.get("position"), result.get("normal"))
+		weapon_fired.emit(WEAPON_TYPE.name)
 
 func _fire_raycast(positionray: Vector3, normalray: Vector3) -> void:
 	var instances = raycast_test.instantiate()

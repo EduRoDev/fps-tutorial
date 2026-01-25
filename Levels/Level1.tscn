@@ -84,7 +84,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.201631, 0.12986314, 5.2865
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.011625692, 1.0633273, -15.8148)
 
 [node name="BigWall" parent="." instance=ExtResource("5_nutv8")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 3.2855396, -14)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 2.023479, -14.583552)
 
 [node name="PropCube" parent="." instance=ExtResource("6_xcayt")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.362334, 17.108536, -26.119576)
@@ -102,6 +102,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.949391, 10.23222, -15.012
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23.1997, 18.747301, -9.106953)
 
 [node name="BigWall2" parent="." instance=ExtResource("5_nutv8")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.891941, 3.402049, -21.122007)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.891941, 1.9723701, -21.122007)
 
 [editable path="CharacterBody3D"]

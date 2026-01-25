@@ -1,10 +1,6 @@
 class_name WallRunPlayerState
 extends PlayerMovementState
 
-
-@export var ACCELERATION: float = 0.1
-@export var DECELERATION: float = 0.25
-@export var SPEED: float = 7.0
 @export var WALL_RUN_SPEED: float = 6.0
 @export var GRAVITY_SCALE: float = 0.3
 @export var WALL_RAY_LEFT: RayCast3D
@@ -13,7 +9,7 @@ extends PlayerMovementState
 @export var CAMERA_TILT_AMOUNT: float = 5.0
 @export var TILT_AMOUNT: float = 0.09
 @export_range(1, 6, 0.1) var WALLRUN_ANIM_SPEED: float = 2.0
-@export var CAMERA_Z_TILT_DEGREES: float = 8.0
+@export var CAMERA_Z_TILT_DEGREES: float = 15.0
 @export var SPEED_DECAY: float = 2.0  # Velocidad que pierde por segundo
 @export var MIN_WALL_RUN_SPEED: float = 2.0  # Velocidad mínima antes de caer
 
@@ -45,11 +41,11 @@ func is_different_wall() -> bool:
 
 func enter(_previous_state) -> void:
 	active_ray = get_active_wall_ray()
-	current_wall_speed = WALL_RUN_SPEED  # Iniciar con velocidad máxima
+	current_wall_speed = WALL_RUN_SPEED  
 	
 	if active_ray and active_ray.is_colliding():
 		wall_normal = active_ray.get_collision_normal()
-		last_wall_normal = wall_normal  # Guardar para comparar después
+		last_wall_normal = wall_normal  
 		wall_side = -1 if active_ray == WALL_RAY_LEFT else 1
 		
 		var tilt_direction = wall_side * PLAYER._current_rotation
@@ -61,8 +57,7 @@ func enter(_previous_state) -> void:
 		ANIMATION.speed_scale = 1.0
 		ANIMATION.play("WallRun", -1.0, WALLRUN_ANIM_SPEED)
 		
-		# Animación de correr del arma durante wall run
-		WEAPON.play_animation("Pistol_RUN")
+		WEAPON.play_animation("Pistol_RUN",0.2)
 		
 		var horizontal_velocity = Vector3(PLAYER.velocity.x, 0, PLAYER.velocity.z)
 		if horizontal_velocity.length() > 0.1:
@@ -75,68 +70,53 @@ func enter(_previous_state) -> void:
 		
 
 func exit() -> void:
-	# Resetear el tilt de la animación
 	var reset_tilt = Vector3.ZERO
 	ANIMATION.get_animation("WallRun").track_set_key_value(1, 1, reset_tilt)
 	ANIMATION.get_animation("WallRun").track_set_key_value(1, 2, reset_tilt)
-	
-	# Detener la animación para que no siga aplicando valores
 	ANIMATION.stop()
-	
-	# Resetear el tilt Z de la cámara inmediatamente
 	PLAYER.reset_camera_tilt()
-	PLAYER.camera_tilt_current = 0.0  # Forzar reset inmediato
 	
-	# Reproducir animación de fin de salto del arma para que no quede en el aire
-	WEAPON.play_animation("Pistol_JUMP_END")
 	
 
 func update(delta: float) -> void:
 	if PLAYER.is_on_floor():
 		transition.emit("IdlePlayerState")
-		return
-	
-	# Si perdemos contacto con la pared actual
+
 	if not active_ray or not active_ray.is_colliding():
-		wall_jump()  # Aplicar impulso al salir
-		if PLAYER.velocity.y < -1.0:
+		wall_jump()  
+		if PLAYER.velocity.y < -3.0:
 			transition.emit("FallingPlayerState")
 		else:
 			transition.emit("JumpPlayerState")
 		return
 	
-	# Si soltamos jump, hacer wall jump
+	
 	if Input.is_action_just_released("jump"):
 		wall_jump()
 		transition.emit("JumpPlayerState")
-		return
-	
+		return 
+		
 	wall_normal = active_ray.get_collision_normal()
 	
-	# Perder velocidad gradualmente
 	current_wall_speed -= SPEED_DECAY * delta
 	
-	# Si la velocidad es muy baja, salir del wall run
+	
 	if current_wall_speed <= MIN_WALL_RUN_SPEED:
 		wall_jump()
 		transition.emit("FallingPlayerState")
-		return
+		
 	
 	PLAYER.velocity.y -= PLAYER.gravity * GRAVITY_SCALE * delta
 	
 	PLAYER.velocity.x = run_direction.x * current_wall_speed
 	PLAYER.velocity.z = run_direction.z * current_wall_speed
 	
-	PLAYER.velocity += -wall_normal * 2.0
+	PLAYER.velocity += -wall_normal * 1.0
 	
 	PLAYER.update_velocity()
-	
-	
 
 func wall_jump() -> void:
-	# Impulso vertical
 	PLAYER.velocity.y = WALL_JUMP_FORCE
-	# Impulso horizontal alejándose de la pared
 	PLAYER.velocity += wall_normal * WALL_JUMP_FORCE * 2.0
 
 func set_tilt(player_rotation: float) -> void:
@@ -151,7 +131,3 @@ func set_tilt(player_rotation: float) -> void:
 
 func finish():
 	transition.emit("FallingPlayerState")
-
-
-
-

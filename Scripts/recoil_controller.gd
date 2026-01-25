@@ -1,0 +1,34 @@
+extends Node3D
+
+@export var recoil_amount: Vector3
+@export var snap_amount: float
+@export var speed: float
+
+@export var weapon: WeaponController 
+
+var current_rotation: Vector3
+var target_rotation: Vector3
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	weapon.weapon_fired.connect(_on_weapon_fired)
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	target_rotation = lerp(target_rotation, Vector3.ZERO, speed * delta)
+	current_rotation = lerp(current_rotation, target_rotation, snap_amount * delta)
+	basis = Quaternion.from_euler(current_rotation)
+	
+func _on_weapon_fired(weapon_name: String) -> void:
+	if weapon_name != "pistol":
+		add_recoil()
+		
+func add_recoil() -> void:
+	#var range_x = randf_range(-recoil_amount.x,recoil_amount.x)
+	var range_y = randf_range(-recoil_amount.y,recoil_amount.y)
+	var range_z = randf_range(-recoil_amount.z,recoil_amount.z)
+	
+	target_rotation += Vector3(recoil_amount.x,range_y,range_z)
+	

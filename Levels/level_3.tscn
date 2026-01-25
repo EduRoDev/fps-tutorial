@@ -1,0 +1,80 @@
+[gd_scene load_steps=11 format=3 uid="uid://bacudyutqae2t"]
+
+[ext_resource type="Material" uid="uid://dgjiw8udooecr" path="res://addons/prototype_mini_bundle/M_prototype_dark.tres" id="1_cb8d3"]
+[ext_resource type="PackedScene" uid="uid://btfe3ls584g2y" path="res://prefabs/big_wall.tscn" id="2_padch"]
+[ext_resource type="PackedScene" uid="uid://0vmntyr615js" path="res://addons/prototype_mini_bundle/prop_cube.tscn" id="3_uwxw1"]
+[ext_resource type="PackedScene" uid="uid://bmtfbq8p2itb" path="res://Controller/Player.tscn" id="4_ay5qi"]
+[ext_resource type="PackedScene" uid="uid://dfjiq4dkodokt" path="res://prefabs/wall.tscn" id="5_fa81k"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_07sga"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_cb8d3"]
+sky_material = SubResource("ProceduralSkyMaterial_07sga")
+
+[sub_resource type="Environment" id="Environment_5lru4"]
+background_mode = 2
+sky = SubResource("Sky_cb8d3")
+tonemap_mode = 2
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_5lru4"]
+size = Vector2(10, 10)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ej5lj"]
+size = Vector3(10, 0, 10)
+
+[node name="Level3" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_5lru4")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+shadow_enabled = true
+
+[node name="Ground" type="MeshInstance3D" parent="."]
+transform = Transform3D(20.789429, 0, 0, 0, 1, 0, 0, 0, 20.53688, 0, 0, 0)
+material_override = ExtResource("1_cb8d3")
+mesh = SubResource("PlaneMesh_5lru4")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Ground"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground/StaticBody3D"]
+shape = SubResource("BoxShape3D_ej5lj")
+
+[node name="BigWall" parent="Ground/StaticBody3D" instance=ExtResource("2_padch")]
+transform = Transform3D(0.04810137, 0, 0, 0, 1, 0, 0, 0, 0.048692886, -0.60001343, 2, 1.287719)
+
+[node name="MeshInstance3D" parent="Ground/StaticBody3D/BigWall" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.45724726, 0)
+
+[node name="BigWall2" parent="Ground/StaticBody3D" instance=ExtResource("2_padch")]
+transform = Transform3D(0.04810137, 0, 0, 0, 1, 0, 0, 0, 0.048692886, -0.36136067, 2.5530834, 0.8479393)
+
+[node name="BigWall3" parent="Ground/StaticBody3D" instance=ExtResource("2_padch")]
+transform = Transform3D(0.04810137, 0, 0, 0, 1, 0, 0, 0, 0.048692886, -0.36534986, 5.5051737, -0.24863583)
+
+[node name="PropCube" parent="Ground/StaticBody3D" instance=ExtResource("3_uwxw1")]
+transform = Transform3D(0.04810137, 0, 0, 0, 1, 0, 0, 0, 0.048692886, -0.57003444, 11.238741, -0.736128)
+
+[node name="wall" parent="." instance=ExtResource("5_fa81k")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.063573, 1.0427487, 38.005733)
+
+[node name="BigWall" parent="." instance=ExtResource("2_padch")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.291537, 5.175578, 5.78015)
+
+[node name="BigWall" parent="BigWall" instance=ExtResource("2_padch")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26.664871, -3.1711798, 5.78015)
+
+[node name="CharacterBody3D" parent="." instance=ExtResource("4_ay5qi")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.305344, 0.06545448, 35.267246)
+
+[node name="WallRunPlayerState" parent="CharacterBody3D/PlayerStateMachine" index="6"]
+SPEED_DECAY = 1.0
+
+[node name="BigWall2" parent="." instance=ExtResource("2_padch")]
+transform = Transform3D(-0.02284433, 0, 0.999739, 0, 1, 0, -0.999739, 0, -0.02284433, 24.229477, 1.9681802, 20.990921)
+
+[editable path="Ground/StaticBody3D/BigWall"]
+[editable path="CharacterBody3D"]

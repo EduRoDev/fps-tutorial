@@ -3,10 +3,10 @@
 [ext_resource type="Material" uid="uid://7to3kb1tisdd" path="res://addons/prototype_mini_bundle/M_prototype_orange.tres" id="1_8gwa2"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_vwuq4"]
-size = Vector3(1, 4, 10)
+size = Vector3(1, 5, 20)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_8gwa2"]
-size = Vector3(1, 1, 1.0009766)
+size = Vector3(1, 5, 20)
 
 [node name="BigWall" type="Node3D"]
 
@@ -17,5 +17,5 @@ mesh = SubResource("BoxMesh_vwuq4")
 [node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D"]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/StaticBody3D"]
-transform = Transform3D(1, 0, 0, 0, 4, 0, 0, 0, 10, 0, 0, 0.0048828125)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.0048828125)
 shape = SubResource("BoxShape3D_8gwa2")

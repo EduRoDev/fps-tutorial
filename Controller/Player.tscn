@@ -1,11 +1,13 @@
-[gd_scene load_steps=33 format=3 uid="uid://bmtfbq8p2itb"]
+[gd_scene load_steps=31 format=3 uid="uid://bmtfbq8p2itb"]
 
 [ext_resource type="Script" uid="uid://djuoimg17psuo" path="res://Controller/Scripts/player.gd" id="1_pknhu"]
 [ext_resource type="Script" uid="uid://bnrs6pel5l2tg" path="res://Scripts/reticle.gd" id="2_ca3lp"]
 [ext_resource type="Material" uid="uid://d201mavja7435" path="res://Ui/Materials/Player.tres" id="2_vkdw5"]
 [ext_resource type="PackedScene" uid="uid://ml4emtg70nx7" path="res://Meshes/Weapons/weapon.tscn" id="3_4r3x1"]
 [ext_resource type="Theme" uid="uid://bvw8gm6d6xsdk" path="res://Ui/Themes/DebugPanel.tres" id="3_8xe5w"]
+[ext_resource type="Script" uid="uid://csppt7cvrx82t" path="res://Scripts/recoil_controller.gd" id="3_wopls"]
 [ext_resource type="Script" uid="uid://0icf8m2qufr7" path="res://Scripts/debug_panel.gd" id="4_o4itx"]
+[ext_resource type="PackedScene" uid="uid://b8tg6tuy52phv" path="res://Meshes/New_rope.tscn" id="5_3g7m0"]
 [ext_resource type="Script" uid="uid://eamfse10yi7" path="res://Scripts/state_machine.gd" id="5_hla6f"]
 [ext_resource type="Script" uid="uid://b701jlc5xd3fk" path="res://Controller/Scripts/idle_player_state.gd" id="6_523qk"]
 [ext_resource type="Script" uid="uid://bcn5u0xoa754i" path="res://Controller/Scripts/walking_player_state.gd" id="7_vkdw5"]
@@ -15,7 +17,6 @@
 [ext_resource type="Script" uid="uid://7lopu3n4n0hp" path="res://Controller/Scripts/jump_player_state.gd" id="12_auu0e"]
 [ext_resource type="Script" uid="uid://clhfumebgjfkn" path="res://Controller/Scripts/wall_run_player_state.gd" id="13_oxdpf"]
 [ext_resource type="Script" uid="uid://d0ch2qk1pqjor" path="res://Controller/Scripts/falling_player_state.gd" id="14_n5b3e"]
-[ext_resource type="Shader" uid="uid://c7lje5ibmsst8" path="res://Shaders/speed.gdshader" id="16_j2hp0"]
 [ext_resource type="Script" uid="uid://dv14ib2b0033k" path="res://Controller/Scripts/grappling_player_state.gd" id="16_teod1"]
 [ext_resource type="Script" uid="uid://ppo5mtf1jbx0" path="res://Scripts/sub_viewport.gd" id="18_xvjrc"]
 [ext_resource type="Script" uid="uid://ck8l45qmqr1x" path="res://Scripts/camera_3d.gd" id="19_wopls"]
@@ -135,7 +136,7 @@ tracks/8/keys = {
 tracks/9/type = "value"
 tracks/9/imported = false
 tracks/9/enabled = true
-tracks/9/path = NodePath("CameraController/Camera3D:fov")
+tracks/9/path = NodePath("CameraController/RecoilController/Camera3D:fov")
 tracks/9/interp = 1
 tracks/9/loop_wrap = true
 tracks/9/keys = {
@@ -147,14 +148,14 @@ tracks/9/keys = {
 tracks/10/type = "value"
 tracks/10/imported = false
 tracks/10/enabled = true
-tracks/10/path = NodePath("PlayerStateMachine/WallRunPlayerState:SPEED")
+tracks/10/path = NodePath("PlayerStateMachine/WallRunPlayerState:WALL_RUN_SPEED")
 tracks/10/interp = 1
 tracks/10/loop_wrap = true
 tracks/10/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [7.0]
+"values": [6.0]
 }
 
 [sub_resource type="Animation" id="Animation_vkdw5"]
@@ -164,7 +165,7 @@ loop_mode = 1
 tracks/0/type = "bezier"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("CameraController/Camera3D:position:x")
+tracks/0/path = NodePath("CameraController/RecoilController/Camera3D:position:x")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -175,7 +176,7 @@ tracks/0/keys = {
 tracks/1/type = "bezier"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("CameraController/Camera3D:position:y")
+tracks/1/path = NodePath("CameraController/RecoilController/Camera3D:position:y")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -186,7 +187,7 @@ tracks/1/keys = {
 tracks/2/type = "bezier"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("CameraController/Camera3D:position:z")
+tracks/2/path = NodePath("CameraController/RecoilController/Camera3D:position:z")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -237,7 +238,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("CameraController/Camera3D:fov")
+tracks/2/path = NodePath("CameraController/RecoilController/Camera3D:fov")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -246,31 +247,31 @@ tracks/2/keys = {
 "update": 0,
 "values": [75.0, 84.0, 75.0]
 }
-tracks/3/type = "value"
+tracks/3/type = "method"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("PlayerStateMachine/WallRunPlayerState:SPEED")
+tracks/3/path = NodePath("PlayerStateMachine/WallRunPlayerState")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(1, 5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [7.0, 4.0]
-}
-tracks/4/type = "method"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("PlayerStateMachine/WallRunPlayerState")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
 "times": PackedFloat32Array(5),
 "transitions": PackedFloat32Array(1),
 "values": [{
 "args": [],
 "method": &"finish"
 }]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("PlayerStateMachine/WallRunPlayerState:WALL_RUN_SPEED")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(1, 5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [6.0, 1.5]
 }
 
 [sub_resource type="Animation" id="Animation_pknhu"]
@@ -404,7 +405,7 @@ tracks/6/keys = {
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("CameraController/Camera3D:fov")
+tracks/7/path = NodePath("CameraController/RecoilController/Camera3D:fov")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
@@ -464,32 +465,14 @@ _data = {
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_pknhu"]
 
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_teod1"]
-noise_type = 5
-frequency = 0.2
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_n3b25"]
-noise = SubResource("FastNoiseLite_teod1")
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_xvjrc"]
-shader = ExtResource("16_j2hp0")
-shader_parameter/noise = SubResource("NoiseTexture2D_n3b25")
-shader_parameter/line_color = Color(1, 1, 1, 1)
-shader_parameter/line_count = 1.40000002086168
-shader_parameter/line_density = 1.0
-shader_parameter/line_faloff = 1.0
-shader_parameter/mask_size = 0.0
-shader_parameter/mask_edge = 1.0
-shader_parameter/animation_speed = 20.0
-
-[node name="CharacterBody3D" type="CharacterBody3D" node_paths=PackedStringArray("CAMERA_CONTROLLER", "ANIMATION_PLAYER", "CROUCH_SHAPECAST", "SHADER_SPEED", "WEAPON_CONTROLLER")]
+[node name="CharacterBody3D" type="CharacterBody3D" node_paths=PackedStringArray("CAMERA_CONTROLLER", "ANIMATION_PLAYER", "CROUCH_SHAPECAST", "WEAPON_CONTROLLER")]
 script = ExtResource("1_pknhu")
-CAMERA_CONTROLLER = NodePath("CameraController/Camera3D")
+CAMERA_CONTROLLER = NodePath("CameraController/RecoilController/Camera3D")
 ANIMATION_PLAYER = NodePath("AnimationPlayer")
 CROUCH_SHAPECAST = NodePath("ShapeCast3D")
-SHADER_SPEED = NodePath("ColorRect")
-WEAPON_CONTROLLER = NodePath("CameraController/Camera3D/WeaponRig/weapon")
-gravity = 6.0
+WEAPON_CONTROLLER = NodePath("CameraController/RecoilController/Camera3D/WeaponRig/weapon")
+gravity = 7.5
+CAMERA_TILT_SPEED = 6.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0051838756, 0.71829903, 0)
@@ -505,19 +488,31 @@ skeleton = NodePath("../..")
 [node name="CameraController" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 
-[node name="Camera3D" type="Camera3D" parent="CameraController"]
+[node name="RecoilController" type="Node3D" parent="CameraController" node_paths=PackedStringArray("weapon")]
+script = ExtResource("3_wopls")
+recoil_amount = Vector3(0.15, 0.05, 0)
+snap_amount = 8.0
+speed = 4.0
+weapon = NodePath("Camera3D/WeaponRig/weapon")
+
+[node name="Camera3D" type="Camera3D" parent="CameraController/RecoilController"]
 cull_mask = 1048573
 
-[node name="ReflectionProbe" type="ReflectionProbe" parent="CameraController/Camera3D"]
+[node name="ReflectionProbe" type="ReflectionProbe" parent="CameraController/RecoilController/Camera3D"]
 visible = false
 update_mode = 1
 
-[node name="WeaponRig" type="Node3D" parent="CameraController/Camera3D"]
+[node name="WeaponRig" type="Node3D" parent="CameraController/RecoilController/Camera3D"]
 
-[node name="weapon" parent="CameraController/Camera3D/WeaponRig" instance=ExtResource("3_4r3x1")]
+[node name="weapon" parent="CameraController/RecoilController/Camera3D/WeaponRig" instance=ExtResource("3_4r3x1")]
+transform = Transform3D(-0.4995972, 0, -0.020065954, 0, 0.5, 0, 0.020065954, 0, -0.4995972, -0.003, -0.951, -0.155)
 
-[node name="Hook" type="RayCast3D" parent="CameraController/Camera3D"]
+[node name="Hook" type="RayCast3D" parent="CameraController/RecoilController/Camera3D"]
 target_position = Vector3(0, 0, -50)
+
+[node name="Rope" parent="CameraController/RecoilController/Camera3D" instance=ExtResource("5_3g7m0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.415)
+visible = false
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -546,10 +541,6 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -20.0
-offset_right = 20.0
-offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("2_ca3lp")
@@ -599,7 +590,6 @@ script = ExtResource("6_523qk")
 
 [node name="WalkingPlayerState" type="Node" parent="PlayerStateMachine"]
 script = ExtResource("7_vkdw5")
-SPEED = 4.0
 
 [node name="SprintingPlayerState" type="Node" parent="PlayerStateMachine" node_paths=PackedStringArray("WALL_RAY_LEFT", "WALL_RAY_RIGHT")]
 script = ExtResource("8_523qk")
@@ -627,24 +617,16 @@ WALL_RAY_RIGHT = NodePath("../../Right")
 [node name="FallingPlayerState" type="Node" parent="PlayerStateMachine"]
 script = ExtResource("14_n5b3e")
 
-[node name="GrapplingPlayerState" type="Node" parent="PlayerStateMachine" node_paths=PackedStringArray("Ray")]
+[node name="GrapplingPlayerState" type="Node" parent="PlayerStateMachine" node_paths=PackedStringArray("Ray", "rope")]
 script = ExtResource("16_teod1")
-Ray = NodePath("../../CameraController/Camera3D/Hook")
+Ray = NodePath("../../CameraController/RecoilController/Camera3D/Hook")
+rope = NodePath("../../CameraController/RecoilController/Camera3D/Rope")
 
 [node name="Right" type="RayCast3D" parent="."]
-transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 0, 0.7073448, 0)
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 0, 0.2, 0)
 
 [node name="Left" type="RayCast3D" parent="."]
-transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, 0, 0.7073449, 0)
-
-[node name="ColorRect" type="ColorRect" parent="."]
-material = SubResource("ShaderMaterial_xvjrc")
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
+transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, 0, 0.2, 0)
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="."]
 anchors_preset = 15
@@ -662,6 +644,12 @@ script = ExtResource("18_xvjrc")
 [node name="Camera3D" type="Camera3D" parent="SubViewportContainer/SubViewport" node_paths=PackedStringArray("MAIN_CAMERA")]
 cull_mask = 1048574
 script = ExtResource("19_wopls")
-MAIN_CAMERA = NodePath("../../../CameraController/Camera3D/WeaponRig")
+MAIN_CAMERA = NodePath("../../../CameraController/RecoilController/Camera3D/WeaponRig")
+
+[node name="HookTimerController" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 5.0
+one_shot = true
 
 [connection signal="animation_started" from="AnimationPlayer" to="." method="_on_animation_player_animation_started"]
+[connection signal="timeout" from="HookTimerController" to="PlayerStateMachine/GrapplingPlayerState" method="_on_hook_timer_controller_timeout"]

@@ -1,7 +1,6 @@
 class_name Player
 extends CharacterBody3D
 
-
 @export var MOUSE_SENSITIVITY: float = 0.5
 @export var TILT_LOWER_LIMIT := deg_to_rad(-90)
 @export var TILT_UPPER_LIMIT := deg_to_rad(90)
@@ -10,7 +9,6 @@ extends CharacterBody3D
 
 @export var ANIMATION_PLAYER: AnimationPlayer
 @export var CROUCH_SHAPECAST: Node3D
-@export var SHADER_SPEED: ColorRect
 
 @export var WEAPON_CONTROLLER: WeaponController
 @export var gravity: float = 10.0
@@ -25,7 +23,7 @@ var _camera_rotation: Vector3
 # Camera tilt system for wall run
 var camera_tilt_target: float = 0.0
 var camera_tilt_current: float = 0.0
-@export var CAMERA_TILT_SPEED: float = 8.0
+@export var CAMERA_TILT_SPEED: float = 5.0
 
 var _current_rotation: float
 
@@ -41,6 +39,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		_tilt_input = -event.relative.y * MOUSE_SENSITIVITY
 		
 
+
 func _update_camera(delta: float) -> void:
 	_current_rotation = _rotation_input
 	_mouse_rotation.x += _tilt_input * delta
@@ -50,7 +49,6 @@ func _update_camera(delta: float) -> void:
 	_player_rotation = Vector3(0.0,_mouse_rotation.y, 0.0)
 	_camera_rotation = Vector3(_mouse_rotation.x, 0.0, 0.0)
 
-	# Interpolar suavemente el tilt de la cámara hacia el objetivo
 	camera_tilt_current = lerp(camera_tilt_current, camera_tilt_target, CAMERA_TILT_SPEED * delta)
 
 	CAMERA_CONTROLLER.transform.basis = Basis.from_euler(_camera_rotation)
@@ -70,24 +68,10 @@ func _ready() -> void:
 	global.player = self
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	CROUCH_SHAPECAST.add_exception(self)
-	
-
 
 func _physics_process(delta: float) -> void:
 	global.debug.add_property("Player Velocity",snapped(velocity.length(),0.01),1)
-	global.debug.add_property("Camera rotation",Vector2(_rotation_input,_tilt_input),2)
-	
-
-	var _speed = velocity.length()
-
-	if _speed < 7:
-		SHADER_SPEED.material.set_shader_parameter("line_density", 0.8)
-		if _speed < 5:
-			SHADER_SPEED.material.set_shader_parameter("line_density", 0.5)
-			if _speed < 2 or _speed >= 4:
-				SHADER_SPEED.material.set_shader_parameter("line_density", 0.01)
-			
-	
+	global.debug.add_property("Camera rotation",Vector2(_rotation_input,_tilt_input),2)	
 	_update_camera(delta)
 
 	move_and_slide()

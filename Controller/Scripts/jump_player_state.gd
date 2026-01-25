@@ -3,14 +3,16 @@ extends PlayerMovementState
 
 @export var ACCELERATION: float = 0.1
 @export var DECELERATION: float = 0.25
-@export var SPEED: float = 7.0
+@export var SPEED: float = 5.0
 @export var JUMP_VELOCITY: float = 2.5
+@export var DOUBLE_JUMP_VELOCITY: float = 2.5
 @export_range(0.5,1.0,0.01) var INPUT_MULTIPLIER: float = 1.01
 @export var WALL_RAY_LEFT: RayCast3D
 @export var WALL_RAY_RIGHT: RayCast3D
 @export var MIN_SPEED_FOR_WALLRUN: float = 3.0
 
 var last_wall_normal: Vector3 = Vector3.ZERO
+var double_jump: bool = false
 
 func is_wall_detected() -> bool:
 	return (WALL_RAY_LEFT and WALL_RAY_LEFT.is_colliding()) or (WALL_RAY_RIGHT and WALL_RAY_RIGHT.is_colliding())
@@ -41,21 +43,26 @@ func enter(_previous_state) -> void:
 	# Si venimos de un wall run, guardar la normal de esa pared
 	if _previous_state is WallRunPlayerState:
 		last_wall_normal = _previous_state.last_wall_normal
-		# No aplicar salto adicional, ya viene con impulso del wall jump
-		# La animación ya fue reproducida por wall_jump()
 		ANIMATION.pause()
 	else:
-		last_wall_normal = Vector3.ZERO  # Resetear si no viene de wall run
+		last_wall_normal = Vector3.ZERO  
 		PLAYER.velocity.y += JUMP_VELOCITY
 		ANIMATION.pause()
-		# Reproducir animación de inicio de salto del arma
 		WEAPON.play_animation("Pistol_JUMP_START")
-
+func exit() -> void:
+	double_jump = false
+	
 func update(delta: float) -> void:
 	PLAYER.update_gravity(delta)
 	PLAYER.update_input(SPEED * INPUT_MULTIPLIER,ACCELERATION,DECELERATION)
 	PLAYER.update_velocity()
-
+	
+	
+	if Input.is_action_just_pressed("jump") and double_jump == false:
+		double_jump = true
+		PLAYER.velocity.y = DOUBLE_JUMP_VELOCITY
+		
+	
 	if PLAYER.is_on_floor():
 		transition.emit("IdlePlayerState")
 	
@@ -64,9 +71,8 @@ func update(delta: float) -> void:
 		transition.emit("GrapplingPlayerState")
 
 	# Verificar wall run: sprint + jump + pared detectada + pared diferente + velocidad mínima
-	if Input.is_action_pressed("sprint") and Input.is_action_pressed("jump") and is_wall_detected() and is_different_wall() and get_horizontal_speed() > MIN_SPEED_FOR_WALLRUN:
+	if Input.is_action_pressed("sprint") and is_wall_detected() and is_different_wall() and Input.is_action_pressed("jump") and get_horizontal_speed() > MIN_SPEED_FOR_WALLRUN:
 		transition.emit("WallRunPlayerState")
 
-	if PLAYER.velocity.y < -1.0 and !PLAYER.is_on_floor():
+	if PLAYER.velocity.y < -3.0 and !PLAYER.is_on_floor():
 		transition.emit("FallingPlayerState")
-

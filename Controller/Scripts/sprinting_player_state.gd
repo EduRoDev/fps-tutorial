@@ -21,6 +21,7 @@ func get_horizontal_speed() -> float:
 
 func enter(_previous_state) -> void:
 	ANIMATION.play("Sprint",0.5,1.0)
+	
 	WEAPON.play_animation("Pistol_RUN", 0.2)
 	
 func update(_delta: float) -> void:
@@ -28,8 +29,8 @@ func update(_delta: float) -> void:
 	PLAYER.update_input(SPEED,ACCELERATION,DECELERATION)
 	PLAYER.update_velocity()
 	
-	#WEAPON.sway_weapon(_delta, false)
-	#WEAPON.weapon_bob(_delta, W_BOB_SPD,W_BOB_H,W_BOB_V)
+	WEAPON.sway_weapon(_delta, false)
+	WEAPON.weapon_bob(_delta, W_BOB_SPD,W_BOB_H,W_BOB_V)
 	set_animation_speed(PLAYER.velocity.length())
 
 	if Input.is_action_just_released("sprint"):
@@ -51,7 +52,7 @@ func update(_delta: float) -> void:
 	if !PLAYER.is_on_floor() and Input.is_action_pressed("sprint") and Input.is_action_pressed("jump") and is_wall_detected() and get_horizontal_speed() > MIN_SPEED_FOR_WALLRUN:
 		transition.emit("WallRunPlayerState")
 
-	if PLAYER.velocity.y < -1.0 and !PLAYER.is_on_floor():
+	if PLAYER.velocity.y < -3.0 and !PLAYER.is_on_floor():
 		transition.emit("FallingPlayerState")
 
 	if Input.is_action_just_pressed("hook"):

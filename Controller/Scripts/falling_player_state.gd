@@ -15,14 +15,12 @@ func update(delta: float) -> void:
 	PLAYER.update_gravity(delta)
 	PLAYER.update_input(SPEED,ACCELERATION,DECELERATION)
 	PLAYER.update_velocity()
-
-	if Input.is_action_just_pressed("jump"):
-		transition.emit("JumpPlayerState")
-
+	
+	
+	
 	if Input.is_action_just_pressed("hook"):
 		transition.emit("GrapplingPlayerState")
 
 	if PLAYER.is_on_floor():
-		# Reproducir animación de aterrizaje del arma
 		WEAPON.play_animation("Pistol_JUMP_END")
 		transition.emit("IdlePlayerState")

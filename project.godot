@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="fps-tutorial"
-run/main_scene="uid://b1j7uexeibinn"
+run/main_scene="uid://bacudyutqae2t"
 config/features=PackedStringArray("4.5", "GL Compatibility")
 config/icon="res://icon.svg"
 
@@ -27,7 +27,7 @@ window/vsync/vsync_mode=0
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/prototype_mini_bundle/plugin.cfg")
+enabled=PackedStringArray("res://addons/destrohook/plugin.cfg", "res://addons/prototype_mini_bundle/plugin.cfg")
 
 [file_customization]
 

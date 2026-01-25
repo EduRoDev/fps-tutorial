@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://b1mal6dcv1gi4"]
 
-[ext_resource type="Shader" uid="uid://c7lje5ibmsst8" path="res://Shaders/speed.gdshader" id="1_e52na"]
+[ext_resource type="Shader" uid="uid://c7lje5ibmsst8" path="res://Ui/Shaders/speed.gdshader" id="1_e52na"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_e52na"]
 frequency = 0.083
