@@ -1,7 +1,7 @@
-[gd_scene load_steps=13 format=3 uid="uid://b1j7uexeibinn"]
+[gd_scene format=3 uid="uid://b1j7uexeibinn"]
 
 [ext_resource type="Material" uid="uid://dgjiw8udooecr" path="res://addons/prototype_mini_bundle/M_prototype_dark.tres" id="1_dl8mf"]
-[ext_resource type="PackedScene" uid="uid://bmtfbq8p2itb" path="res://Controller/Player.tscn" id="1_s5eti"]
+[ext_resource type="PackedScene" uid="uid://bmtfbq8p2itb" path="res://Controller/Player/Player.tscn" id="1_s5eti"]
 [ext_resource type="PackedScene" uid="uid://wpnahxsk8x1u" path="res://prefabs/box.tscn" id="3_fhqol"]
 [ext_resource type="PackedScene" uid="uid://dfjiq4dkodokt" path="res://prefabs/wall.tscn" id="4_iotdp"]
 [ext_resource type="PackedScene" uid="uid://btfe3ls584g2y" path="res://prefabs/big_wall.tscn" id="5_nutv8"]

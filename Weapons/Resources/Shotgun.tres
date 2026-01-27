@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="Weapon" format=3 uid="uid://dufvoyv8cjoo6"]
+
+[ext_resource type="Script" uid="uid://dldnqvhiac7ix" path="res://Weapons/Scripts/weapon.gd" id="1_diiv1"]
+[ext_resource type="PackedScene" uid="uid://cg3tujtvovnpa" path="res://Weapons/Scenes/Shotgun.tscn" id="2_ggu1y"]
+
+[resource]
+script = ExtResource("1_diiv1")
+weapon_name = "Shotgun"
+damage = 25.0
+max_ammo = 4
+weapon_model = ExtResource("2_ggu1y")
+weapon_position = Vector3(0.2, -0.2, -0.3)
+metadata/_custom_type_script = "uid://dldnqvhiac7ix"

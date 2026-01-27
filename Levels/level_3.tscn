@@ -1,11 +1,12 @@
-[gd_scene load_steps=12 format=3 uid="uid://bacudyutqae2t"]
+[gd_scene format=3 uid="uid://bacudyutqae2t"]
 
 [ext_resource type="Material" uid="uid://dgjiw8udooecr" path="res://addons/prototype_mini_bundle/M_prototype_dark.tres" id="1_cb8d3"]
 [ext_resource type="PackedScene" uid="uid://btfe3ls584g2y" path="res://prefabs/big_wall.tscn" id="2_padch"]
 [ext_resource type="PackedScene" uid="uid://0vmntyr615js" path="res://addons/prototype_mini_bundle/prop_cube.tscn" id="3_uwxw1"]
-[ext_resource type="PackedScene" uid="uid://bmtfbq8p2itb" path="res://Controller/Player.tscn" id="4_ay5qi"]
+[ext_resource type="PackedScene" uid="uid://bmtfbq8p2itb" path="res://Controller/Player/Player.tscn" id="4_ay5qi"]
 [ext_resource type="PackedScene" uid="uid://dfjiq4dkodokt" path="res://prefabs/wall.tscn" id="5_fa81k"]
 [ext_resource type="PackedScene" uid="uid://b4ol0pni0gwq7" path="res://prefabs/edifcio.tscn" id="6_uwxw1"]
+[ext_resource type="PackedScene" uid="uid://kxpbrcirj8e4" path="res://Controller/Enemies/enemy.tscn" id="7_ay5qi"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_07sga"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -19,82 +20,90 @@ background_mode = 2
 sky = SubResource("Sky_cb8d3")
 tonemap_mode = 2
 
+[sub_resource type="NavigationMesh" id="NavigationMesh_uwxw1"]
+vertices = PackedVector3Array(-103.44714, 0.5, -102.1844, -103.44714, 0.5, 102.0656, 103.55286, 0.5, 102.0656, 103.55286, 0.5, -102.1844)
+polygons = [PackedInt32Array(3, 2, 0), PackedInt32Array(0, 2, 1)]
+cell_height = 0.01
+
 [sub_resource type="PlaneMesh" id="PlaneMesh_5lru4"]
 size = Vector2(10, 10)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ej5lj"]
 size = Vector3(10, 0, 10)
 
-[node name="Level3" type="Node3D"]
+[node name="Level3" type="Node3D" unique_id=240478093]
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=268760230]
 environment = SubResource("Environment_5lru4")
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=578026042]
 transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
 shadow_enabled = true
 
-[node name="Ground" type="MeshInstance3D" parent="."]
+[node name="wall" parent="." unique_id=1953104819 instance=ExtResource("5_fa81k")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.063573, 1.0427487, 38.005733)
+
+[node name="BigWall" parent="." unique_id=1400215333 instance=ExtResource("2_padch")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.291537, 5.175578, 5.78015)
+
+[node name="BigWall" parent="BigWall" unique_id=1328101210 instance=ExtResource("2_padch")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26.664871, -3.1711798, 5.78015)
+
+[node name="Player" parent="." unique_id=1534794404 instance=ExtResource("4_ay5qi")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.867543, 0.24178576, 5.283844)
+
+[node name="BigWall2" parent="." unique_id=1577543957 instance=ExtResource("2_padch")]
+transform = Transform3D(-0.02284433, 0, 0.999739, 0, 1, 0, -0.999739, 0, -0.02284433, 24.229477, 1.9681802, 20.990921)
+
+[node name="PropCube" parent="." unique_id=677877648 instance=ExtResource("3_uwxw1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.858098, 4.9664865, -8.967585)
+skeleton = NodePath("../NavigationRegion3D/Ground")
+
+[node name="Edifcio" parent="." unique_id=2109010840 instance=ExtResource("6_uwxw1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.523725, 10.227449, -21.586447)
+
+[node name="Edifcio2" parent="." unique_id=142648564 instance=ExtResource("6_uwxw1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.126451, 10, -9.149507)
+
+[node name="Edifcio3" parent="." unique_id=1082305317 instance=ExtResource("6_uwxw1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.502981, 10, -25.576525)
+
+[node name="Edifcio4" parent="." unique_id=364166699 instance=ExtResource("6_uwxw1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.67105, 10, -35.90695)
+
+[node name="Edifcio5" parent="." unique_id=166552622 instance=ExtResource("6_uwxw1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.615524, 10, -40.93699)
+
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="." unique_id=2064945543]
+navigation_mesh = SubResource("NavigationMesh_uwxw1")
+
+[node name="Ground" type="MeshInstance3D" parent="NavigationRegion3D" unique_id=411854875]
 transform = Transform3D(20.789429, 0, 0, 0, 1, 0, 0, 0, 20.53688, 0, 0, 0)
 material_override = ExtResource("1_cb8d3")
 mesh = SubResource("PlaneMesh_5lru4")
+skeleton = NodePath("../..")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="Ground"]
+[node name="StaticBody3D" type="StaticBody3D" parent="NavigationRegion3D/Ground" unique_id=734553727]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/Ground/StaticBody3D" unique_id=40382408]
 shape = SubResource("BoxShape3D_ej5lj")
 
-[node name="BigWall" parent="Ground/StaticBody3D" instance=ExtResource("2_padch")]
-transform = Transform3D(0.04810137, 0, 0, 0, 1, 0, 0, 0, 0.048692886, -0.60001343, 2, 1.287719)
+[node name="BigWall3" parent="." unique_id=1882985540 instance=ExtResource("2_padch")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.473936, 2, 26.445732)
 
-[node name="MeshInstance3D" parent="Ground/StaticBody3D/BigWall" index="0"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.45724726, 0)
+[node name="BigWall4" parent="." unique_id=1918563742 instance=ExtResource("2_padch")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.5124817, 2.5530834, 17.414028)
 
-[node name="BigWall2" parent="Ground/StaticBody3D" instance=ExtResource("2_padch")]
-transform = Transform3D(0.04810137, 0, 0, 0, 1, 0, 0, 0, 0.048692886, -0.36136067, 2.5530834, 0.8479393)
+[node name="BigWall5" parent="." unique_id=1563616922 instance=ExtResource("2_padch")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.5954146, 5.5051737, -5.1062045)
 
-[node name="BigWall3" parent="Ground/StaticBody3D" instance=ExtResource("2_padch")]
-transform = Transform3D(0.04810137, 0, 0, 0, 1, 0, 0, 0, 0.048692886, -0.36534986, 5.5051737, -0.24863583)
+[node name="PropCube2" parent="." unique_id=816044465 instance=ExtResource("3_uwxw1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.850691, 11.238741, -15.117772)
+skeleton = NodePath("../NavigationRegion3D/Ground/StaticBody3D")
 
-[node name="PropCube" parent="Ground/StaticBody3D" instance=ExtResource("3_uwxw1")]
-transform = Transform3D(0.04810137, 0, 0, 0, 1, 0, 0, 0, 0.048692886, -0.57003444, 11.238741, -0.736128)
+[node name="Enemy" parent="." unique_id=1357484164 instance=ExtResource("7_ay5qi")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 1, -5)
 
-[node name="wall" parent="." instance=ExtResource("5_fa81k")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.063573, 1.0427487, 38.005733)
-
-[node name="BigWall" parent="." instance=ExtResource("2_padch")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.291537, 5.175578, 5.78015)
-
-[node name="BigWall" parent="BigWall" instance=ExtResource("2_padch")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26.664871, -3.1711798, 5.78015)
-
-[node name="CharacterBody3D" parent="." instance=ExtResource("4_ay5qi")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.867543, 0.06545448, 5.283844)
-
-[node name="WallRunPlayerState" parent="CharacterBody3D/PlayerStateMachine" index="6"]
-SPEED_DECAY = 1.0
-
-[node name="BigWall2" parent="." instance=ExtResource("2_padch")]
-transform = Transform3D(-0.02284433, 0, 0.999739, 0, 1, 0, -0.999739, 0, -0.02284433, 24.229477, 1.9681802, 20.990921)
-
-[node name="PropCube" parent="." instance=ExtResource("3_uwxw1")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.858098, 4.9664865, -8.967585)
-skeleton = NodePath("../Ground")
-
-[node name="Edifcio" parent="." instance=ExtResource("6_uwxw1")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.523725, 10.227449, -21.586447)
-
-[node name="Edifcio2" parent="." instance=ExtResource("6_uwxw1")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.126451, 10, -9.149507)
-
-[node name="Edifcio3" parent="." instance=ExtResource("6_uwxw1")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.502981, 10, -25.576525)
-
-[node name="Edifcio4" parent="." instance=ExtResource("6_uwxw1")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.67105, 10, -35.90695)
-
-[node name="Edifcio5" parent="." instance=ExtResource("6_uwxw1")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.615524, 10, -40.93699)
-
-[editable path="Ground/StaticBody3D/BigWall"]
-[editable path="CharacterBody3D"]
+[editable path="Player"]
+[editable path="Player/CameraController/Camera3D/Rope"]
+[editable path="Enemy"]

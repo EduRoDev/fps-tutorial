@@ -1,0 +1,39 @@
+[gd_scene format=3 uid="uid://b8tg6tuy52phv"]
+
+[ext_resource type="Script" uid="uid://duy4a0kircte8" path="res://Ui/hook_animation.gd" id="1_jgvro"]
+[ext_resource type="Shader" uid="uid://bgukrcbjb1c83" path="res://Ui/Shaders/rope.gdshader" id="1_wujxy"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jgvro"]
+render_priority = 0
+shader = ExtResource("1_wujxy")
+shader_parameter/frequency = 1.0
+shader_parameter/maxAmplitude = 0.25
+shader_parameter/speed = 10.0
+shader_parameter/active = 1.0
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_vfndy"]
+top_radius = 0.025
+bottom_radius = 0.025
+height = 10.0
+radial_segments = 4
+rings = 16
+
+[node name="Hook" type="Node3D" unique_id=344784942 node_paths=PackedStringArray("rope", "rope_mesh", "rope_visial_end", "hook_end")]
+script = ExtResource("1_jgvro")
+rope = NodePath("Rope")
+rope_mesh = NodePath("Rope/Rope_mesh")
+rope_visial_end = NodePath("Hook end/Rope visual target")
+hook_end = NodePath("Hook end")
+
+[node name="Rope" type="Node3D" parent="." unique_id=606977851]
+
+[node name="Rope_mesh" type="MeshInstance3D" parent="Rope" unique_id=1606546571]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, -0.25, 0, -1)
+material_override = SubResource("ShaderMaterial_jgvro")
+mesh = SubResource("CylinderMesh_vfndy")
+skeleton = NodePath("../..")
+
+[node name="Hook end" type="Node3D" parent="." unique_id=282919964]
+
+[node name="Rope visual target" type="Marker3D" parent="Hook end" unique_id=52176790]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.25834566, 0, -2.0087576)

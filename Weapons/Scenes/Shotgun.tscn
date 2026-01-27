@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://cg3tujtvovnpa"]
+
+[ext_resource type="PackedScene" uid="uid://dhnps0mjovwcp" path="res://Assets/Scene_shotgun_instiance.tscn" id="1_qid6m"]
+
+[node name="Node3D" type="Node3D" unique_id=911771053]
+
+[node name="shotgun2" parent="." unique_id=2008205261 instance=ExtResource("1_qid6m")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, 0)

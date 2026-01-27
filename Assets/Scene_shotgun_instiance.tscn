@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://dhnps0mjovwcp"]
+
+[ext_resource type="PackedScene" uid="uid://du3qlk78iksao" path="res://Assets/Weapons/shotgun.glb" id="1_bal1f"]
+
+[node name="shotgun2" unique_id=2008205261 instance=ExtResource("1_bal1f")]
+
+[node name="shotgun" parent="." index="0" unique_id=849639122]
+layers = 2
+
+[node name="shotgunpomp" parent="shotgun" index="0" unique_id=1741662845]
+layers = 2
+
+[node name="shotguntrigger" parent="shotgun" index="1" unique_id=1236186929]
+layers = 2

@@ -1,6 +1,6 @@
-[gd_scene load_steps=7 format=3 uid="uid://p5ojljduutm6"]
+[gd_scene format=3 uid="uid://p5ojljduutm6"]
 
-[ext_resource type="PackedScene" uid="uid://bmtfbq8p2itb" path="res://Controller/Player.tscn" id="1_lfj2m"]
+[ext_resource type="PackedScene" uid="uid://bmtfbq8p2itb" path="res://Controller/Player/Player.tscn" id="1_lfj2m"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_mocdr"]
 size = Vector2(4, 4)

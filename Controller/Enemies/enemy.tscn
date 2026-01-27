@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://kxpbrcirj8e4"]
+
+[ext_resource type="Material" uid="uid://1nvrnylcajfg" path="res://addons/prototype_mini_bundle/M_prototype_red.tres" id="1_6wr6s"]
+[ext_resource type="Script" uid="uid://cp5bi7alpv60b" path="res://Controller/Enemies/Scripts/enemy.gd" id="1_obnhv"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_obnhv"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ary4r"]
+
+[node name="Enemy" type="CharacterBody3D" unique_id=1357484164]
+script = ExtResource("1_obnhv")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=176451956]
+material_override = ExtResource("1_6wr6s")
+mesh = SubResource("CapsuleMesh_obnhv")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1264214580]
+shape = SubResource("CapsuleShape3D_ary4r")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=1062554768]
