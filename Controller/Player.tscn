@@ -466,6 +466,7 @@ _data = {
 [sub_resource type="SphereShape3D" id="SphereShape3D_pknhu"]
 
 [node name="CharacterBody3D" type="CharacterBody3D" node_paths=PackedStringArray("CAMERA_CONTROLLER", "ANIMATION_PLAYER", "CROUCH_SHAPECAST", "WEAPON_CONTROLLER")]
+collision_layer = 2
 script = ExtResource("1_pknhu")
 CAMERA_CONTROLLER = NodePath("CameraController/RecoilController/Camera3D")
 ANIMATION_PLAYER = NodePath("AnimationPlayer")
@@ -511,7 +512,7 @@ transform = Transform3D(-0.4995972, 0, -0.020065954, 0, 0.5, 0, 0.020065954, 0, 
 target_position = Vector3(0, 0, -50)
 
 [node name="Rope" parent="CameraController/RecoilController/Camera3D" instance=ExtResource("5_3g7m0")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.415)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.02996108)
 visible = false
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -611,16 +612,25 @@ WALL_RAY_RIGHT = NodePath("../../Right")
 
 [node name="WallRunPlayerState" type="Node" parent="PlayerStateMachine" node_paths=PackedStringArray("WALL_RAY_LEFT", "WALL_RAY_RIGHT")]
 script = ExtResource("13_oxdpf")
+GRAVITY_SCALE = 0.4
 WALL_RAY_LEFT = NodePath("../../Left")
 WALL_RAY_RIGHT = NodePath("../../Right")
+CAMERA_TILT_AMOUNT = 10.0
+SPEED_DECAY = 1.0
 
 [node name="FallingPlayerState" type="Node" parent="PlayerStateMachine"]
 script = ExtResource("14_n5b3e")
 
-[node name="GrapplingPlayerState" type="Node" parent="PlayerStateMachine" node_paths=PackedStringArray("Ray", "rope")]
+[node name="GrapplingPlayerState" type="Node" parent="PlayerStateMachine" node_paths=PackedStringArray("Ray", "rope", "WALL_RAY_LEFT", "WALL_RAY_RIGHT")]
 script = ExtResource("16_teod1")
 Ray = NodePath("../../CameraController/RecoilController/Camera3D/Hook")
+Rest_length = 3.0
+Stiffness = 7.0
+Damping = 3.0
 rope = NodePath("../../CameraController/RecoilController/Camera3D/Rope")
+cooldown_time = 3.0
+WALL_RAY_LEFT = NodePath("../../Left")
+WALL_RAY_RIGHT = NodePath("../../Right")
 
 [node name="Right" type="RayCast3D" parent="."]
 transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 0, 0.2, 0)
@@ -648,8 +658,10 @@ MAIN_CAMERA = NodePath("../../../CameraController/RecoilController/Camera3D/Weap
 
 [node name="HookTimerController" type="Timer" parent="."]
 unique_name_in_owner = true
-wait_time = 5.0
+wait_time = 3.0
 one_shot = true
 
 [connection signal="animation_started" from="AnimationPlayer" to="." method="_on_animation_player_animation_started"]
 [connection signal="timeout" from="HookTimerController" to="PlayerStateMachine/GrapplingPlayerState" method="_on_hook_timer_controller_timeout"]
+
+[editable path="CameraController/RecoilController/Camera3D/Rope"]

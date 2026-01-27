@@ -1,10 +1,11 @@
-[gd_scene load_steps=11 format=3 uid="uid://bacudyutqae2t"]
+[gd_scene load_steps=12 format=3 uid="uid://bacudyutqae2t"]
 
 [ext_resource type="Material" uid="uid://dgjiw8udooecr" path="res://addons/prototype_mini_bundle/M_prototype_dark.tres" id="1_cb8d3"]
 [ext_resource type="PackedScene" uid="uid://btfe3ls584g2y" path="res://prefabs/big_wall.tscn" id="2_padch"]
 [ext_resource type="PackedScene" uid="uid://0vmntyr615js" path="res://addons/prototype_mini_bundle/prop_cube.tscn" id="3_uwxw1"]
 [ext_resource type="PackedScene" uid="uid://bmtfbq8p2itb" path="res://Controller/Player.tscn" id="4_ay5qi"]
 [ext_resource type="PackedScene" uid="uid://dfjiq4dkodokt" path="res://prefabs/wall.tscn" id="5_fa81k"]
+[ext_resource type="PackedScene" uid="uid://b4ol0pni0gwq7" path="res://prefabs/edifcio.tscn" id="6_uwxw1"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_07sga"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -68,13 +69,32 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.291537, 5.175578, 5.78015
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26.664871, -3.1711798, 5.78015)
 
 [node name="CharacterBody3D" parent="." instance=ExtResource("4_ay5qi")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.305344, 0.06545448, 35.267246)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.867543, 0.06545448, 5.283844)
 
 [node name="WallRunPlayerState" parent="CharacterBody3D/PlayerStateMachine" index="6"]
 SPEED_DECAY = 1.0
 
 [node name="BigWall2" parent="." instance=ExtResource("2_padch")]
 transform = Transform3D(-0.02284433, 0, 0.999739, 0, 1, 0, -0.999739, 0, -0.02284433, 24.229477, 1.9681802, 20.990921)
+
+[node name="PropCube" parent="." instance=ExtResource("3_uwxw1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.858098, 4.9664865, -8.967585)
+skeleton = NodePath("../Ground")
+
+[node name="Edifcio" parent="." instance=ExtResource("6_uwxw1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.523725, 10.227449, -21.586447)
+
+[node name="Edifcio2" parent="." instance=ExtResource("6_uwxw1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.126451, 10, -9.149507)
+
+[node name="Edifcio3" parent="." instance=ExtResource("6_uwxw1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.502981, 10, -25.576525)
+
+[node name="Edifcio4" parent="." instance=ExtResource("6_uwxw1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.67105, 10, -35.90695)
+
+[node name="Edifcio5" parent="." instance=ExtResource("6_uwxw1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.615524, 10, -40.93699)
 
 [editable path="Ground/StaticBody3D/BigWall"]
 [editable path="CharacterBody3D"]

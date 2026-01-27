@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://b4ol0pni0gwq7"]
+
+[ext_resource type="Material" uid="uid://dyx4l6ea0am6f" path="res://addons/prototype_mini_bundle/M_prototype_green.tres" id="1_gb756"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_pf7l6"]
+height = 20.0
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_gb756"]
+height = 20.0
+
+[node name="Edifcio" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+material_override = ExtResource("1_gb756")
+mesh = SubResource("CylinderMesh_pf7l6")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/StaticBody3D"]
+shape = SubResource("CylinderShape3D_gb756")

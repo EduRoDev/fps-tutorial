@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://bniqhobtmycaa"]
+
+[ext_resource type="Script" uid="uid://d02o6jehmt6eu" path="res://Scripts/chain.gd" id="1_t1iqs"]
+
+[node name="Chain" type="Node3D"]
+script = ExtResource("1_t1iqs")
+
+[node name="Anchor" type="StaticBody3D" parent="."]
+
+[node name="ChainContainer" type="Node3D" parent="."]

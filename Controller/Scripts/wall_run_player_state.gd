@@ -60,12 +60,15 @@ func enter(_previous_state) -> void:
 		WEAPON.play_animation("Pistol_RUN",0.2)
 		
 		var horizontal_velocity = Vector3(PLAYER.velocity.x, 0, PLAYER.velocity.z)
+		#print(horizontal_velocity)
 		if horizontal_velocity.length() > 0.1:
 			run_direction = horizontal_velocity.normalized()
+			#print(run_direction)
 		else:
 			run_direction = -PLAYER.global_transform.basis.z
 		
 		run_direction = (run_direction - wall_normal * run_direction.dot(wall_normal)).normalized()
+		#print("corriendo: ", run_direction)
 		
 		
 

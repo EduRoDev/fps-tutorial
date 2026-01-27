@@ -14,7 +14,7 @@ func _ready() -> void:
 			push_warning("State machine contains incompatible child node")
 
 	await owner.ready
-	CURRENT_STATE.enter(null)			
+	CURRENT_STATE.enter(null)
 	
 
 func _process(delta: float) -> void:

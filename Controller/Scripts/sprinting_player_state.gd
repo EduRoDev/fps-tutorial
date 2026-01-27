@@ -42,7 +42,7 @@ func update(_delta: float) -> void:
 	if PLAYER.velocity.length() == 0:
 		transition.emit("IdlePlayerState")
 
-	if Input.is_action_pressed("crouch") and PLAYER.velocity.length() > 6:
+	if Input.is_action_pressed("crouch") and PLAYER.velocity.length() >= 6:
 		transition.emit("SlidingPlayerState")
 
 	if Input.is_action_just_pressed("jump") and PLAYER.is_on_floor():
