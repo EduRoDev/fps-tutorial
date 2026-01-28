@@ -1,12 +1,12 @@
 extends CharacterBody3D
 
 
-@export var speed = 7.0
-@export var life_points = 100
+@export var speed: float = 7.0
+@export var life_points: float = 100
 
-@onready var navAgent = $NavigationAgent3D
+@onready var navAgent: NavigationAgent3D = $NavigationAgent3D
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	global.debug.add_property("Enemy life points",life_points,6)
 
 func _physics_process(delta: float) -> void:
@@ -14,9 +14,9 @@ func _physics_process(delta: float) -> void:
 	if not is_on_floor():
 		velocity += get_gravity() * delta
 	
-	var currentLocalition = global_transform.origin
-	var nextLocation = navAgent.get_next_path_position()
-	var nextVelocity = (nextLocation - currentLocalition).normalized() * speed
+	var currentLocalition: Vector3 = global_transform.origin
+	var nextLocation: Vector3 = navAgent.get_next_path_position()
+	var nextVelocity: Vector3 = (nextLocation - currentLocalition).normalized() * speed
 	
 	velocity = velocity.move_toward(nextVelocity,0.4)
 	_target_position(global.player)
