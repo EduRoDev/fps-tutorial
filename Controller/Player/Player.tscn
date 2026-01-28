@@ -20,6 +20,11 @@
 [ext_resource type="Script" uid="uid://ck8l45qmqr1x" path="res://Scripts/camera_3d.gd" id="18_ywmev"]
 [ext_resource type="Script" uid="uid://b3brxh0fc7a3m" path="res://Weapons/Scripts/weapon_controller.gd" id="19_iuxc1"]
 [ext_resource type="Resource" uid="uid://dufvoyv8cjoo6" path="res://Weapons/Resources/Shotgun.tres" id="20_vcnnx"]
+[ext_resource type="Script" uid="uid://dfsfg45dypimn" path="res://Weapons/Scripts/weapon_state_machine.gd" id="21_id0l3"]
+[ext_resource type="Script" uid="uid://8ywik3fm5t1o" path="res://Weapons/Scripts/States/Idle_weapon_state.gd" id="22_1kbca"]
+[ext_resource type="Script" uid="uid://bnph5bakcp80s" path="res://Weapons/Scripts/States/Firing_weapon_state.gd" id="23_u6mpg"]
+[ext_resource type="Script" uid="uid://b1cfqn6tvvwvt" path="res://Weapons/Scripts/States/Empty_weapon_state.gd" id="24_gvouy"]
+[ext_resource type="Script" uid="uid://esyv047vgdi6" path="res://Weapons/Scripts/States/Reloading_weapon_state.gd" id="25_ckjfq"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_pknhu"]
 height = 2.005127
@@ -160,7 +165,7 @@ tracks/10/keys = {
 
 [sub_resource type="Animation" id="Animation_vkdw5"]
 resource_name = "Sprint"
-length = 1.2
+length = 1.5
 loop_mode = 1
 tracks/0/type = "bezier"
 tracks/0/imported = false
@@ -169,9 +174,9 @@ tracks/0/path = NodePath("CameraController/Camera3D:position:x")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"handle_modes": PackedInt32Array(2, 3, 3, 3, 3, 3),
-"points": PackedFloat32Array(0.0010417546, -0.25, 0, 0.25, 0, 0.06753136, -0.03333333, -0.011018857, 0.03333333, 0.011018857, 0.07935322, -0.071534574, 0.017884348, 0.071534574, -0.017884348, -0.06402469, -0.038201213, 0.024856217, 0.038201213, -0.024856217, -0.075, -0.02846545, -0.0153965205, 0.02846545, 0.0153965205, 0.0008439645, -0.06179881, 0.008184361, 0.06179881, -0.008184361),
-"times": PackedFloat32Array(0, 0.3, 0.5, 0.8, 1, 1.2)
+"handle_modes": PackedInt32Array(2, 3, 3, 3, 3, 3, 3, 3),
+"points": PackedFloat32Array(0.0010417546, -0.25, 0, 0.25, 0, 0.06753136, -0.03333333, -0.011018857, 0.03333333, 0.011018857, 0.07935322, -0.071534574, 0.017884348, 0.071534574, -0.017884348, -0.06402469, -0.038201213, 0.024856217, 0.038201213, -0.024856217, -0.075, -0.02846545, -0.0153965205, 0.02846545, 0.0153965205, 0.0018633938, -0.053990126, 0.009873956, 0.053990126, -0.009873956, 0.06157529, -0.08732355, -0.0016138367, 0.08732355, 0.0016138367, 0.0006530173, -0.041666657, 0, 0.041666657, 0),
+"times": PackedFloat32Array(0, 0.3, 0.5, 0.8, 1, 1.2, 1.3333334, 1.5)
 }
 tracks/1/type = "bezier"
 tracks/1/imported = false
@@ -180,9 +185,9 @@ tracks/1/path = NodePath("CameraController/Camera3D:position:y")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"handle_modes": PackedInt32Array(2, 3, 3, 3, 3, 3),
-"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 0.06935011, -0.104798615, -0.017884351, 0.104798615, 0.017884351, -0.0382591, -0.09520137, 0.014246851, 0.09520137, -0.014246851, 0.06783449, -0.099999964, 0.011502992, 0.099999964, -0.011502992, -0.036, -0.09513211, -0.01529346, 0.09513211, 0.01529346, 0.00054084, -0.06179881, 0.0072749876, 0.06179881, -0.0072749876),
-"times": PackedFloat32Array(0, 0.3, 0.5, 0.8, 1, 1.2)
+"handle_modes": PackedInt32Array(2, 3, 3, 3, 3, 3, 3, 3),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 0.06935011, -0.104798615, -0.017884351, 0.104798615, 0.017884351, -0.0382591, -0.09520137, 0.014246851, 0.09520137, -0.014246851, 0.06783449, -0.099999964, 0.011502992, 0.099999964, -0.011502992, -0.036, -0.12065685, -0.010831656, 0.12065685, 0.010831656, 0.00054084, -0.0793432, 0.011409022, 0.0793432, -0.011409022, 0.07206522, -0.12065685, -0.015734889, 0.12065685, 0.015734889, -0.0005573586, -0.08732355, 0.010086469, 0.08732355, -0.010086469),
+"times": PackedFloat32Array(0, 0.3, 0.5, 0.8, 1, 1.2, 1.3333334, 1.5)
 }
 tracks/2/type = "bezier"
 tracks/2/imported = false
@@ -481,6 +486,7 @@ debug_color = Color(0.93757296, 0.11323815, 0.55717313, 0.41960785)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="CollisionShape3D" unique_id=738902211]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0051838756, 0.007263422, 0)
+visible = false
 material_override = ExtResource("2_id0l3")
 mesh = SubResource("CapsuleMesh_u1h6f")
 skeleton = NodePath("../..")
@@ -489,7 +495,7 @@ skeleton = NodePath("../..")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 
 [node name="Camera3D" type="Camera3D" parent="CameraController" unique_id=1496250991]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0010417546, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0010419535, 1.8470615e-07, 0.00023771543)
 cull_mask = 1048573
 
 [node name="ReflectionProbe" type="ReflectionProbe" parent="CameraController/Camera3D" unique_id=592979363]
@@ -651,10 +657,30 @@ one_shot = true
 
 [node name="Components" type="Node" parent="." unique_id=1606594491]
 
-[node name="WeaponController" type="Node" parent="Components" unique_id=1979479544 node_paths=PackedStringArray("weapon_model_parent")]
+[node name="WeaponController" type="Node" parent="Components" unique_id=1979479544 node_paths=PackedStringArray("weapon_model_parent", "weapon_state", "camera")]
 script = ExtResource("19_iuxc1")
 current_weapon = ExtResource("20_vcnnx")
 weapon_model_parent = NodePath("../../CameraController/Camera3D")
+weapon_state = NodePath("../../WeaponStateMachine/Idle")
+camera = NodePath("../../CameraController/Camera3D")
+
+[node name="WeaponStateMachine" type="Node" parent="." unique_id=811557487 node_paths=PackedStringArray("weapon_controller", "CURRENT_STATE")]
+unique_name_in_owner = true
+script = ExtResource("21_id0l3")
+weapon_controller = NodePath("../Components/WeaponController")
+CURRENT_STATE = NodePath("Idle")
+
+[node name="Idle" type="Node" parent="WeaponStateMachine" unique_id=340192244]
+script = ExtResource("22_1kbca")
+
+[node name="Firing" type="Node" parent="WeaponStateMachine" unique_id=1116615035]
+script = ExtResource("23_u6mpg")
+
+[node name="Empty" type="Node" parent="WeaponStateMachine" unique_id=1347061408]
+script = ExtResource("24_gvouy")
+
+[node name="Reloading" type="Node" parent="WeaponStateMachine" unique_id=128715281]
+script = ExtResource("25_ckjfq")
 
 [connection signal="animation_started" from="AnimationPlayer" to="." method="_on_animation_player_animation_started"]
 [connection signal="timeout" from="HookTimerController" to="PlayerStateMachine/GrapplingPlayerState" method="_on_hook_timer_controller_timeout"]

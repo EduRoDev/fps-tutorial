@@ -7,7 +7,7 @@
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ary4r"]
 
-[node name="Enemy" type="CharacterBody3D" unique_id=1357484164]
+[node name="Enemy" type="CharacterBody3D" unique_id=1357484164 groups=["Enemy"]]
 script = ExtResource("1_obnhv")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=176451956]

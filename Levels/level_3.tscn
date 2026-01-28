@@ -52,6 +52,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26.664871, -3.1711798, 5.7801
 [node name="Player" parent="." unique_id=1534794404 instance=ExtResource("4_ay5qi")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.867543, 0.24178576, 5.283844)
 
+[node name="MeshInstance3D" parent="Player/CollisionShape3D" parent_id_path=PackedInt32Array(1534794404, 192092484) index="0" unique_id=738902211]
+visible = true
+
 [node name="BigWall2" parent="." unique_id=1577543957 instance=ExtResource("2_padch")]
 transform = Transform3D(-0.02284433, 0, 0.999739, 0, 1, 0, -0.999739, 0, -0.02284433, 24.229477, 1.9681802, 20.990921)
 

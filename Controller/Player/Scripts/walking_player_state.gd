@@ -10,7 +10,6 @@ extends PlayerMovementState
 @export var W_BOB_H: float = 2.0
 @export var W_BOB_V: float = 1.0
 
-
 func enter(_previous_state) -> void:
 	ANIMATION.play("walking", -1.0,1.0)
 	#WEAPON.play_animation("Pistol_WALK", 0.2)

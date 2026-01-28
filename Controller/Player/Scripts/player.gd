@@ -10,6 +10,9 @@ extends CharacterBody3D
 @export var ANIMATION_PLAYER: AnimationPlayer
 @export var CROUCH_SHAPECAST: Node3D
 
+
+
+
 #@export var WEAPON_CONTROLLER: WeaponController
 @export var gravity: float = 10.0
 
@@ -91,9 +94,20 @@ func update_input(speed:float, acceleration:float, deceleration:float) -> void:
 	if direction:
 		velocity.x = lerp(velocity.x,direction.x * speed, acceleration)
 		velocity.z = lerp(velocity.z,direction.z * speed, acceleration)
+		
 	else:
 		velocity.x = move_toward(velocity.x, 0, deceleration)
 		velocity.z = move_toward(velocity.z, 0, deceleration)
 		
 func update_velocity()-> void:
 	move_and_slide()
+
+		
+		
+		
+		
+		
+		
+		
+		
+		
