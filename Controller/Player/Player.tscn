@@ -19,7 +19,7 @@
 [ext_resource type="Script" uid="uid://ppo5mtf1jbx0" path="res://Scripts/sub_viewport.gd" id="17_ruimr"]
 [ext_resource type="Script" uid="uid://ck8l45qmqr1x" path="res://Scripts/camera_3d.gd" id="18_ywmev"]
 [ext_resource type="Script" uid="uid://b3brxh0fc7a3m" path="res://Weapons/Scripts/weapon_controller.gd" id="19_iuxc1"]
-[ext_resource type="Resource" uid="uid://dufvoyv8cjoo6" path="res://Weapons/Resources/Shotgun.tres" id="20_vcnnx"]
+[ext_resource type="Resource" uid="uid://dbrqeeuyebgt2" path="res://Weapons/Resources/Sniper.tres" id="20_u6mpg"]
 [ext_resource type="Script" uid="uid://dfsfg45dypimn" path="res://Weapons/Scripts/weapon_state_machine.gd" id="21_id0l3"]
 [ext_resource type="Script" uid="uid://8ywik3fm5t1o" path="res://Weapons/Scripts/States/Idle_weapon_state.gd" id="22_1kbca"]
 [ext_resource type="Script" uid="uid://bnph5bakcp80s" path="res://Weapons/Scripts/States/Firing_weapon_state.gd" id="23_u6mpg"]
@@ -486,7 +486,6 @@ debug_color = Color(0.93757296, 0.11323815, 0.55717313, 0.41960785)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="CollisionShape3D" unique_id=738902211]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0051838756, 0.007263422, 0)
-visible = false
 material_override = ExtResource("2_id0l3")
 mesh = SubResource("CapsuleMesh_u1h6f")
 skeleton = NodePath("../..")
@@ -659,7 +658,7 @@ one_shot = true
 
 [node name="WeaponController" type="Node" parent="Components" unique_id=1979479544 node_paths=PackedStringArray("weapon_model_parent", "weapon_state", "camera")]
 script = ExtResource("19_iuxc1")
-current_weapon = ExtResource("20_vcnnx")
+current_weapon = ExtResource("20_u6mpg")
 weapon_model_parent = NodePath("../../CameraController/Camera3D")
 weapon_state = NodePath("../../WeaponStateMachine/Idle")
 camera = NodePath("../../CameraController/Camera3D")

@@ -18,3 +18,7 @@ mesh = SubResource("CapsuleMesh_obnhv")
 shape = SubResource("CapsuleShape3D_ary4r")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=1062554768]
+avoidance_enabled = true
+
+[node name="Timer" type="Timer" parent="." unique_id=1103361269]
+autostart = true

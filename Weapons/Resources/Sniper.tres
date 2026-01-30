@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="Weapon" format=3 uid="uid://dbrqeeuyebgt2"]
+
+[ext_resource type="Script" uid="uid://dldnqvhiac7ix" path="res://Weapons/Scripts/weapon.gd" id="1_7qgpi"]
+[ext_resource type="PackedScene" uid="uid://dksqa30jhj1c4" path="res://Weapons/Scenes/sniper.tscn" id="2_2wmw7"]
+
+[resource]
+script = ExtResource("1_7qgpi")
+weapon_name = "Sniper"
+damage = 50.0
+max_ammo = 10
+weapon_model = ExtResource("2_2wmw7")
+weapon_position = Vector3(0.2, -0.2, -0.3)
+category = 3
+fire_rate = 0.3
+range = 50.0
+metadata/_custom_type_script = "uid://dldnqvhiac7ix"

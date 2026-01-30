@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://cepdwr34p12a7"]
+
+[ext_resource type="PackedScene" uid="uid://ca5det42cstrg" path="res://Assets/Weapons/awp.glb" id="1_p3xvn"]
+
+[node name="awp2" unique_id=2090699026 instance=ExtResource("1_p3xvn")]
+
+[node name="awp" parent="." index="0" unique_id=1841760804]
+layers = 2
+
+[node name="snipermagazine_low" parent="awp" index="0" unique_id=580095066]
+layers = 2
+
+[node name="sniperscope_low" parent="awp" index="1" unique_id=451174578]
+layers = 2
+
+[node name="snipertendon_low" parent="awp" index="2" unique_id=523709476]
+layers = 2
+
+[node name="snipertendon_low_001" parent="awp" index="3" unique_id=689218944]
+layers = 2
+
+[node name="snipertrigger_low" parent="awp" index="4" unique_id=289332178]
+layers = 2

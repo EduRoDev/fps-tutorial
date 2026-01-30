@@ -2,9 +2,16 @@ extends CharacterBody3D
 
 
 @export var speed: float = 7.0
-@export var life_points: float = 100
+@export var life_points: float = 100.0
 
 @onready var navAgent: NavigationAgent3D = $NavigationAgent3D
+
+enum EnemyStates {
+	IDLE,
+	CHASING,
+	PATROL,
+	ATTACKING
+}
 
 func _process(_delta: float) -> void:
 	global.debug.add_property("Enemy life points",life_points,6)
@@ -35,3 +42,7 @@ func die() -> void:
 	velocity = Vector3.ZERO
 	await get_tree().create_timer(0.5).timeout
 	queue_free()
+
+func _on_timer_timeout() -> void:
+	pass
+	
