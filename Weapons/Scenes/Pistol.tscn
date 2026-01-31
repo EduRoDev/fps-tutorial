@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://cx6eoqt7qacxv"]
+
+[ext_resource type="PackedScene" uid="uid://c116hpxv2a1fx" path="res://Assets/Scene_pistol_instances.tscn" id="1_kot0y"]
+
+[node name="Pistol" type="Node3D" unique_id=331594760]
+
+[node name="pew2" parent="." unique_id=1839825641 instance=ExtResource("1_kot0y")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, 0)

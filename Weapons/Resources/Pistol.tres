@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="Weapon" format=3 uid="uid://yb2r2ofcl4nc"]
+
+[ext_resource type="PackedScene" uid="uid://b8m4b6g3xkypr" path="res://Weapons/Scenes/Bullets/bullet_pistol.tscn" id="1_4y8m8"]
+[ext_resource type="Script" uid="uid://dldnqvhiac7ix" path="res://Weapons/Scripts/weapon.gd" id="1_ijn23"]
+[ext_resource type="PackedScene" uid="uid://cx6eoqt7qacxv" path="res://Weapons/Scenes/Pistol.tscn" id="2_6f7yw"]
+
+[resource]
+script = ExtResource("1_ijn23")
+weapon_name = "Pistol"
+damage = 10.0
+max_ammo = 15
+weapon_model = ExtResource("2_6f7yw")
+weapon_position = Vector3(0.2, -0.2, -0.4)
+bullet_scene = ExtResource("1_4y8m8")
+metadata/_custom_type_script = "uid://dldnqvhiac7ix"

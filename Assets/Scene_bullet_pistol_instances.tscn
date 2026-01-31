@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://uxoswx6wpkai"]
+
+[ext_resource type="PackedScene" uid="uid://784q80gamq7f" path="res://Assets/Weapons/bulletPEW.glb" id="1_ywq6x"]
+
+[node name="bulletPEW2" unique_id=1358125557 instance=ExtResource("1_ywq6x")]
+
+[node name="Area3D" type="Area3D" parent="." index="1" unique_id=898833693]

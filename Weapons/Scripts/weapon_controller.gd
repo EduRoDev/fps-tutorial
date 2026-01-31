@@ -46,6 +46,12 @@ func fire_weapon() -> void:
 	match current_weapon.category:
 		Category.SHOTGUN:
 			_shotgun_fire()
+			
+		Category.SNIPER, Category.RIFLE:
+			_perform_hitscan_fire()
+			
+		Category.PISTOL:
+			_fire_prijectile()
 		_:
 			_perform_hitscan_fire()
 
@@ -113,3 +119,27 @@ func _weapon_hit_damage(target, category) -> void:
 	else:
 		if target.is_in_group("Enemy") and target.has_method("take_damage"):
 			target.take_damage(current_weapon.damage)
+			
+func _fire_prijectile() -> void:
+	if !current_weapon.bullet_scene:
+		push_warning("No bullet scene assigned to weapon: " + current_weapon.weapon_name)
+		return
+		
+	if !camera:
+		push_warning("no camera assigned to WeaponController")
+		return
+		
+	var bullet_instance: Node = current_weapon.bullet_scene.instantiate() as BulletPistol
+	get_tree().current_scene.add_child(bullet_instance)
+	
+	bullet_instance.global_position = camera.global_position
+	
+	var forward: Vector3 = -camera.global_transform.basis.z
+	var velocity: Vector3 = forward * current_weapon.bullet_speed
+	bullet_instance.look_at(bullet_instance.global_position + forward, Vector3.UP)
+	
+	bullet_instance.setup(velocity, current_weapon.damage)
+	
+	
+	
+	

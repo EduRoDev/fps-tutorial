@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://c116hpxv2a1fx"]
+
+[ext_resource type="PackedScene" uid="uid://chi8ldtfdvbha" path="res://Assets/Weapons/pew.glb" id="1_5icsp"]
+
+[node name="pew2" unique_id=1839825641 instance=ExtResource("1_5icsp")]
+
+[node name="pew" parent="." index="0"]
+layers = 2
+
+[node name="pewhaut" parent="pew" index="0"]
+layers = 2
+
+[node name="pewmagazine" parent="pew" index="1"]
+layers = 2
+
+[node name="pewtrigger" parent="pew" index="2"]
+layers = 2
