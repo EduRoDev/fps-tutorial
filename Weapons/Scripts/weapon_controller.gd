@@ -55,7 +55,7 @@ func fire_weapon() -> void:
 	if weapon_data:
 			current_ammo = weapon_data.ammo
 			
-	print("Firing weapon: ", current_weapon.weapon_name, " | Ammo left: ", Managers.weapon_manager.get_current_ammo())
+	#print("Firing weapon: ", current_weapon.weapon_name, " | Ammo left: ", Managers.weapon_manager.get_current_ammo())
 	_reduce_accuracy()
 
 	match current_weapon.category:
@@ -66,8 +66,8 @@ func fire_weapon() -> void:
 			_perform_hitscan_fire()
 
 		Category.PISTOL:
-			_fire_projectile()
-
+			#_fire_projectile()
+			_perform_hitscan_fire()
 		_:
 			_perform_hitscan_fire()
 
@@ -78,6 +78,8 @@ func _reduce_accuracy() -> void:
 
 func _get_spread_from_accuracy() -> float:
 	var max_spread: float = 10.0  
+	if current_accuracy >= 100.0:
+		return 0.0
 	var accuracy_factor: float = (100.0 - current_accuracy) / 100.0
 	return accuracy_factor * max_spread
 
@@ -188,4 +190,4 @@ func switch_weapon(weapon_data: WeaponData) -> void:
 		current_weapon_model.queue_free()
 		
 	spawn_weapon_model()
-	print(current_weapon.weapon_name)
+	#print(current_weapon.weapon_name)
