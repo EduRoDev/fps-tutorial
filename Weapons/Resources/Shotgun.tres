@@ -11,4 +11,5 @@ max_ammo = 6
 weapon_model = ExtResource("2_ggu1y")
 weapon_position = Vector3(0.2, -0.2, -0.3)
 category = 2
+fire_rate = 0.5
 metadata/_custom_type_script = "uid://dldnqvhiac7ix"

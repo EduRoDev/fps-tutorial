@@ -19,7 +19,7 @@
 [ext_resource type="Script" uid="uid://ppo5mtf1jbx0" path="res://Scripts/sub_viewport.gd" id="17_ruimr"]
 [ext_resource type="Script" uid="uid://ck8l45qmqr1x" path="res://Scripts/camera_3d.gd" id="18_ywmev"]
 [ext_resource type="Script" uid="uid://b3brxh0fc7a3m" path="res://Weapons/Scripts/weapon_controller.gd" id="19_iuxc1"]
-[ext_resource type="Resource" uid="uid://yb2r2ofcl4nc" path="res://Weapons/Resources/Pistol.tres" id="20_u6mpg"]
+[ext_resource type="Resource" uid="uid://dgxhk2abm4kn5" path="res://Weapons/Resources/Smg.tres" id="20_u6mpg"]
 [ext_resource type="Script" uid="uid://dfsfg45dypimn" path="res://Weapons/Scripts/weapon_state_machine.gd" id="21_id0l3"]
 [ext_resource type="Script" uid="uid://8ywik3fm5t1o" path="res://Weapons/Scripts/States/Idle_weapon_state.gd" id="22_1kbca"]
 [ext_resource type="Script" uid="uid://bnph5bakcp80s" path="res://Weapons/Scripts/States/Firing_weapon_state.gd" id="23_u6mpg"]

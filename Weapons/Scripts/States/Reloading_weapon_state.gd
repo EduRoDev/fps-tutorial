@@ -19,7 +19,7 @@ func update(delta: float) -> void:
 	reload_timer += delta
 	
 	# Obtener tiempo de recarga del arma actual
-	var reload_time = weapon_controller.current_weapon.reload_time if weapon_controller.current_weapon else 1.5
+	var reload_time: float = weapon_controller.current_weapon.reload_time if weapon_controller.current_weapon else 1.5
 	
 	if reload_timer >= reload_time:
 		# Completar la recarga

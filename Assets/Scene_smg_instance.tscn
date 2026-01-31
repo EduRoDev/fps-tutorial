@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://61xyyqr3m2v7"]
+
+[ext_resource type="PackedScene" uid="uid://bybyhpswb7pwu" path="res://Assets/Weapons/mac10.glb" id="1_sx7ix"]
+
+[node name="mac102" unique_id=68557196 instance=ExtResource("1_sx7ix")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, 0)
