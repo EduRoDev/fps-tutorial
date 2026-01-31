@@ -25,9 +25,9 @@ class_name Weapon extends Resource
 @export var spread: float = 5.0
 
 enum Category {
-    PISTOL,
-    RIFLE,
-    SHOTGUN,
-    SNIPER,
-    SMG
+	PISTOL,
+	RIFLE,
+	SHOTGUN,
+	SNIPER,
+	SMG
 }

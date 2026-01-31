@@ -42,14 +42,20 @@ func spawn_weapon_model():
 		current_weapon_model.position = current_weapon.weapon_position
 
 func can_fire() -> bool:
-	return current_ammo > 0
+	var weapon_data = Managers.weapon_manager.weapons[Managers.weapon_manager.current_weapon_slot]
+	return weapon_data.ammo > 0
 
 func fire_weapon() -> void:
 	if not can_fire():
 		return
 
-	current_ammo -= 1
-
+	Managers.weapon_manager.use_ammo(Managers.weapon_manager.current_weapon_slot)
+	
+	var weapon_data = Managers.weapon_manager.weapons.get(Managers.weapon_manager.current_weapon_slot)
+	if weapon_data:
+			current_ammo = weapon_data.ammo
+			
+	print("Firing weapon: ", current_weapon.weapon_name, " | Ammo left: ", Managers.weapon_manager.get_current_ammo())
 	_reduce_accuracy()
 
 	match current_weapon.category:
@@ -174,3 +180,12 @@ func _fire_projectile() -> void:
 
 func get_current_accuracy() -> float:
 	return current_accuracy
+	
+func switch_weapon(weapon_data: WeaponData) -> void:	
+	current_weapon = weapon_data.weapon
+	current_ammo = weapon_data.ammo
+	if current_weapon_model:
+		current_weapon_model.queue_free()
+		
+	spawn_weapon_model()
+	print(current_weapon.weapon_name)

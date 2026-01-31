@@ -29,7 +29,7 @@ func setup(vel: Vector3, dmg: float) -> void:
 	damage = dmg
 
 func _on_body_entered(body: Node) -> void:
-	print("Bullet hit: ", body.name)
+	#print("Bullet hit: ", body.name)
 	_spawn_impact_marker(global_position)
 	
 	if body.is_in_group("Enemy") and body.has_method("take_damage"):

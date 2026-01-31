@@ -1,0 +1,75 @@
+[gd_scene format=3 uid="uid://nvue5xytgxyl"]
+
+[ext_resource type="Script" uid="uid://dll4brswt85t0" path="res://Scripts/weapon_manager.gd" id="1_gyfs4"]
+[ext_resource type="Script" uid="uid://w1vhr1ebhuus" path="res://Weapons/Scripts/weapon_data.gd" id="2_8mm7a"]
+[ext_resource type="PackedScene" uid="uid://u41oi6a4u4fj" path="res://Levels/Level4.tscn" id="2_d5x1h"]
+[ext_resource type="PackedScene" uid="uid://bmtfbq8p2itb" path="res://Controller/Player/Player.tscn" id="3_8mm7a"]
+[ext_resource type="Resource" uid="uid://bix1ylmtae5kw" path="res://Weapons/Resources/Pistol/Pistol_data.tres" id="3_hq1ik"]
+[ext_resource type="Resource" uid="uid://bcq8gagfj1kf5" path="res://Weapons/Resources/Shotgun/Shotgun_data.tres" id="4_hq1ik"]
+[ext_resource type="Script" uid="uid://bwea0140qq5oi" path="res://Ui/weapon_hud.gd" id="7_nfk4m"]
+
+[node name="MainScene" type="Node" unique_id=2069100447]
+
+[node name="Managers" type="Node" parent="." unique_id=1094661691]
+
+[node name="WeaponManager" type="Node" parent="Managers" unique_id=272487330 node_paths=PackedStringArray("player")]
+script = ExtResource("1_gyfs4")
+weapons = Dictionary[int, ExtResource("2_8mm7a")]({
+1: ExtResource("3_hq1ik"),
+2: ExtResource("4_hq1ik")
+})
+player = NodePath("../../CurrentLevel/Player")
+
+[node name="CurrentLevel" type="Node3D" parent="." unique_id=784167665]
+
+[node name="level4" parent="CurrentLevel" unique_id=1862452262 instance=ExtResource("2_d5x1h")]
+
+[node name="Player" parent="CurrentLevel" unique_id=127289980 instance=ExtResource("3_8mm7a")]
+
+[node name="WeaponHUD" type="Control" parent="." unique_id=1603527540]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("7_nfk4m")
+
+[node name="MarginContainer" type="MarginContainer" parent="WeaponHUD" unique_id=378512092]
+layout_mode = 0
+offset_left = 1113.0
+offset_top = 578.0
+offset_right = 1153.0
+offset_bottom = 632.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="WeaponHUD/MarginContainer" unique_id=775603775]
+layout_mode = 2
+
+[node name="WeaponName" type="Label" parent="WeaponHUD/MarginContainer/VBoxContainer" unique_id=1840358801]
+layout_mode = 2
+
+[node name="AmmoCounter" type="HBoxContainer" parent="WeaponHUD/MarginContainer/VBoxContainer" unique_id=1437240005]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="CurrentAmmo" type="Label" parent="WeaponHUD/MarginContainer/VBoxContainer/AmmoCounter" unique_id=895233113]
+layout_mode = 2
+
+[node name="Separator" type="Label" parent="WeaponHUD/MarginContainer/VBoxContainer/AmmoCounter" unique_id=5497910]
+layout_mode = 2
+
+[node name="MaxAmmo" type="Label" parent="WeaponHUD/MarginContainer/VBoxContainer/AmmoCounter" unique_id=1076960037]
+layout_mode = 2
+
+[node name="WeaponSlots" type="HBoxContainer" parent="WeaponHUD/MarginContainer/VBoxContainer" unique_id=2090956754]
+layout_mode = 2
+
+[node name="Slot1" type="PanelContainer" parent="WeaponHUD/MarginContainer/VBoxContainer/WeaponSlots" unique_id=511537882]
+layout_mode = 2
+
+[node name="Slot2" type="PanelContainer" parent="WeaponHUD/MarginContainer/VBoxContainer/WeaponSlots" unique_id=839429908]
+layout_mode = 2
+
+[node name="Slot3" type="PanelContainer" parent="WeaponHUD/MarginContainer/VBoxContainer/WeaponSlots" unique_id=898199263]
+layout_mode = 2
+
+[node name="Slot4" type="PanelContainer" parent="WeaponHUD/MarginContainer/VBoxContainer/WeaponSlots" unique_id=96038321]
+layout_mode = 2

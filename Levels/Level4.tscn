@@ -1,0 +1,83 @@
+[gd_scene format=3 uid="uid://u41oi6a4u4fj"]
+
+[ext_resource type="Material" uid="uid://dgjiw8udooecr" path="res://addons/prototype_mini_bundle/M_prototype_dark.tres" id="1_0sogr"]
+[ext_resource type="PackedScene" uid="uid://btfe3ls584g2y" path="res://prefabs/big_wall.tscn" id="2_5brs8"]
+[ext_resource type="PackedScene" uid="uid://dfjiq4dkodokt" path="res://prefabs/wall.tscn" id="3_qgpl5"]
+[ext_resource type="PackedScene" uid="uid://wpnahxsk8x1u" path="res://prefabs/box.tscn" id="4_vgbee"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_3j5gm"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_70wcc"]
+sky_material = SubResource("ProceduralSkyMaterial_3j5gm")
+
+[sub_resource type="Environment" id="Environment_g3oj6"]
+background_mode = 2
+sky = SubResource("Sky_70wcc")
+tonemap_mode = 2
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_v72e1"]
+size = Vector2(10, 10)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_so18s"]
+size = Vector3(10, 0, 10)
+
+[node name="Node3D" type="Node3D" unique_id=1862452262]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1471725909]
+environment = SubResource("Environment_g3oj6")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1592854429]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+shadow_enabled = true
+
+[node name="Ground" type="MeshInstance3D" parent="." unique_id=637748356]
+transform = Transform3D(20.789429, 0, 0, 0, 1, 0, 0, 0, 20.53688, 0, 0, 0)
+material_override = ExtResource("1_0sogr")
+mesh = SubResource("PlaneMesh_v72e1")
+skeleton = NodePath("../..")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Ground" unique_id=491214531]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground/StaticBody3D" unique_id=828165003]
+shape = SubResource("BoxShape3D_so18s")
+
+[node name="BigWall" parent="." unique_id=212523384 instance=ExtResource("2_5brs8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 48.82096, 2.554885, 34.568943)
+
+[node name="wall" parent="." unique_id=301759261 instance=ExtResource("3_qgpl5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 46.19388, 1.0976338, 25.345072)
+
+[node name="wall2" parent="." unique_id=1346947429 instance=ExtResource("3_qgpl5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42.18702, 1.0837655, 25.32041)
+
+[node name="Box" parent="." unique_id=2142236073 instance=ExtResource("4_vgbee")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 46.015686, 1.3599377, 43.02221)
+
+[node name="BigWall2" parent="." unique_id=632919267 instance=ExtResource("2_5brs8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 48.713604, 6.825739, 54.93655)
+
+[node name="Box2" parent="." unique_id=648879070 instance=ExtResource("4_vgbee")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45.348957, 4.0859365, 58.767548)
+
+[node name="Box3" parent="." unique_id=894003106 instance=ExtResource("4_vgbee")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 39.56813, 5.6666393, 58.532803)
+
+[node name="BigWall3" parent="." unique_id=1656195718 instance=ExtResource("2_5brs8")]
+transform = Transform3D(0.9971628, 0, 0.075274594, 0, 1, 0, -0.075274594, 0, 0.9971628, 36.116653, 10.331096, 50.715973)
+
+[node name="BigWall4" parent="." unique_id=1333811310 instance=ExtResource("2_5brs8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40.070038, 10.418599, 34.107033)
+
+[node name="BigWall5" parent="." unique_id=1588319349 instance=ExtResource("2_5brs8")]
+transform = Transform3D(0.013246648, 0, 0.99991226, 0, 1, 0, -0.99991226, 0, 0.013246648, 30.555527, 10.428099, 23.553715)
+
+[node name="Box4" parent="." unique_id=1534191080 instance=ExtResource("4_vgbee")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24.428305, 7.164736, 28.03128)
+
+[node name="BigWall6" parent="." unique_id=1167224986 instance=ExtResource("2_5brs8")]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 0.99999994, 25.182526, 7.3920135, 41.032078)
+
+[node name="BigWall7" parent="." unique_id=958488908 instance=ExtResource("2_5brs8")]
+transform = Transform3D(0.0047753025, -0.9999025, 0.013120156, 0.93969256, -4.1075264e-08, -0.3420201, 0.34198678, 0.0139621645, 0.93960094, 25.312878, 4.0282674, 60.231663)
