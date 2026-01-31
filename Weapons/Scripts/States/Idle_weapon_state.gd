@@ -19,6 +19,10 @@ func update(delta: float) -> void:
 			transition.emit("Firing")  # Transición al estado de disparo
 		else:
 			transition.emit("Empty")  # Transición al estado vacío/recarga
+	
+	# Detectar input de recarga
+	if Input.is_action_just_pressed("Reload"):
+		transition.emit("Reloading")
 
 func physics_update(delta: float) -> void:
 	pass

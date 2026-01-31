@@ -22,7 +22,7 @@ func update(delta: float) -> void:
 	# Esperar el tiempo entre disparos (fire rate)
 	fire_timer += delta
 	
-	var fire_rate = weapon_controller.current_weapon.fire_rate if weapon_controller.current_weapon else 0.2
+	var fire_rate: float = weapon_controller.current_weapon.fire_rate if weapon_controller.current_weapon else 0.2
 	
 	if fire_timer >= fire_rate:
 		# Si sigue presionando y es automático, seguir disparando
@@ -33,7 +33,7 @@ func update(delta: float) -> void:
 				weapon_controller.fire_weapon()
 			else:
 				# Para armas semi-automáticas, volver a idle
-				transition.emit("Idle")
+				transition.emit("Idle")	
 		elif !weapon_controller.can_fire():
 			# Sin munición, ir a estado vacío
 			transition.emit("Empty")

@@ -4,8 +4,8 @@ extends PlayerMovementState
 @export var ACCELERATION: float = 0.1
 @export var DECELERATION: float = 0.25
 @export var SPEED: float = 5.0
-@export var JUMP_VELOCITY: float = 2.5
-@export var DOUBLE_JUMP_VELOCITY: float = 2.5
+@export var JUMP_VELOCITY: float = 3.0
+@export var DOUBLE_JUMP_VELOCITY: float = 3.0
 @export_range(0.5,1.0,0.01) var INPUT_MULTIPLIER: float = 1.01
 @export var WALL_RAY_LEFT: RayCast3D
 @export var WALL_RAY_RIGHT: RayCast3D
@@ -29,9 +29,9 @@ func get_active_wall_ray() -> RayCast3D:
 
 # Verificar si es una pared diferente
 func is_different_wall() -> bool:
-	var ray = get_active_wall_ray()
+	var ray: RayCast3D = get_active_wall_ray()
 	if ray and ray.is_colliding():
-		var new_normal = ray.get_collision_normal()
+		var new_normal: Vector3 = ray.get_collision_normal()
 		# Si no hay pared anterior registrada, cualquier pared es válida
 		if last_wall_normal == Vector3.ZERO:
 			return true

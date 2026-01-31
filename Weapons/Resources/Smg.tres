@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="Weapon" format=3 uid="uid://dgxhk2abm4kn5"]
+
+[ext_resource type="Script" uid="uid://dldnqvhiac7ix" path="res://Weapons/Scripts/weapon.gd" id="1_f5naf"]
+[ext_resource type="PackedScene" uid="uid://61xyyqr3m2v7" path="res://Assets/Scene_smg_instance.tscn" id="2_rxsvf"]
+
+[resource]
+script = ExtResource("1_f5naf")
+weapon_name = "Smg"
+damage = 25.0
+max_ammo = 30
+weapon_model = ExtResource("2_rxsvf")
+weapon_position = Vector3(0.2, -0.2, -0.4)
+category = 4
+fire_rate = 0.06
+is_automatic = true
+metadata/_custom_type_script = "uid://dldnqvhiac7ix"

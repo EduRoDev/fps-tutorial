@@ -19,7 +19,7 @@ func update(delta: float) -> void:
 	reload_timer += delta
 	
 	# Obtener tiempo de recarga del arma actual
-	var reload_time = weapon_controller.current_weapon.reload_time if weapon_controller.current_weapon else 1.5
+	var reload_time: float = weapon_controller.current_weapon.reload_time if weapon_controller.current_weapon else 1.5
 	
 	if reload_timer >= reload_time:
 		# Completar la recarga
@@ -27,9 +27,14 @@ func update(delta: float) -> void:
 		transition.emit("Idle")
 
 func complete_reload() -> void:
-	if weapon_controller and weapon_controller.current_weapon:
-		weapon_controller.current_ammo = weapon_controller.current_weapon.max_ammo
-		#print("Recarga completa! Munición: ", weapon_controller.current_ammo)
+	if weapon_controller and weapon_controller.current_weapon and Managers.weapon_manager:
+		var current_slot = Managers.weapon_manager.current_weapon_slot	
+		var weapon_data = Managers.weapon_manager.weapons.get(current_slot)
+		
+		if weapon_data: 
+			weapon_data.ammo = weapon_data.weapon.max_ammo
+			weapon_controller.current_ammo = weapon_data.ammo
+			print("Recarga completa! Munición: ", weapon_data.ammo)
 
 func physics_update(delta: float) -> void:
 	pass

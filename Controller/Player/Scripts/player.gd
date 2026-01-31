@@ -9,11 +9,9 @@ extends CharacterBody3D
 
 @export var ANIMATION_PLAYER: AnimationPlayer
 @export var CROUCH_SHAPECAST: Node3D
+@export var WEAPON_CONTROLLER: WeaponController
 
 
-
-
-#@export var WEAPON_CONTROLLER: WeaponController
 @export var gravity: float = 10.0
 
 var _mouse_input: bool = false
