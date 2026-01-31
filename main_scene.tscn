@@ -6,6 +6,8 @@
 [ext_resource type="PackedScene" uid="uid://bmtfbq8p2itb" path="res://Controller/Player/Player.tscn" id="3_8mm7a"]
 [ext_resource type="Resource" uid="uid://bix1ylmtae5kw" path="res://Weapons/Resources/Pistol/Pistol_data.tres" id="3_hq1ik"]
 [ext_resource type="Resource" uid="uid://bcq8gagfj1kf5" path="res://Weapons/Resources/Shotgun/Shotgun_data.tres" id="4_hq1ik"]
+[ext_resource type="Resource" uid="uid://dnfxxvny7oihw" path="res://Weapons/Resources/Smg/Smg_data.tres" id="5_66tet"]
+[ext_resource type="Resource" uid="uid://g54cjh4qie0p" path="res://Weapons/Resources/Sniper/Sniper_data.tres" id="6_7ycvg"]
 [ext_resource type="Script" uid="uid://bwea0140qq5oi" path="res://Ui/weapon_hud.gd" id="7_nfk4m"]
 
 [node name="MainScene" type="Node" unique_id=2069100447]
@@ -16,7 +18,9 @@
 script = ExtResource("1_gyfs4")
 weapons = Dictionary[int, ExtResource("2_8mm7a")]({
 1: ExtResource("3_hq1ik"),
-2: ExtResource("4_hq1ik")
+2: ExtResource("4_hq1ik"),
+3: ExtResource("5_66tet"),
+4: ExtResource("6_7ycvg")
 })
 player = NodePath("../../CurrentLevel/Player")
 
@@ -35,10 +39,10 @@ script = ExtResource("7_nfk4m")
 
 [node name="MarginContainer" type="MarginContainer" parent="WeaponHUD" unique_id=378512092]
 layout_mode = 0
-offset_left = 1113.0
-offset_top = 578.0
-offset_right = 1153.0
-offset_bottom = 632.0
+offset_left = 105.0
+offset_top = 500.0
+offset_right = 145.0
+offset_bottom = 554.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="WeaponHUD/MarginContainer" unique_id=775603775]
 layout_mode = 2

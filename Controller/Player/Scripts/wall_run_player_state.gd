@@ -27,17 +27,17 @@ func get_active_wall_ray() -> RayCast3D:
 		return WALL_RAY_RIGHT
 	return null
 
-func is_wall_detected() -> bool:
-	return get_active_wall_ray() != null
+#func is_wall_detected() -> bool:
+	#return get_active_wall_ray() != null
 
 # Verificar si es una pared diferente a la anterior
-func is_different_wall() -> bool:
-	var ray = get_active_wall_ray()
-	if ray and ray.is_colliding():
-		var new_normal = ray.get_collision_normal()
+#func is_different_wall() -> bool:
+	#var ray: RayCast3D = get_active_wall_ray()
+	#if ray and ray.is_colliding():
+	#	var new_normal: Vector3 = ray.get_collision_normal()
 		# Considerar diferente si el ángulo entre normales es mayor a 45 grados
-		return new_normal.dot(last_wall_normal) < 0.7
-	return false
+	#	return new_normal.dot(last_wall_normal) < 0.7
+	#return false
 
 func enter(_previous_state) -> void:
 	active_ray = get_active_wall_ray()
@@ -48,32 +48,23 @@ func enter(_previous_state) -> void:
 		last_wall_normal = wall_normal  
 		wall_side = -1 if active_ray == WALL_RAY_LEFT else 1
 		
-		var tilt_direction = wall_side * PLAYER._current_rotation
+		var tilt_direction: float = wall_side * PLAYER._current_rotation
 		set_tilt(tilt_direction)
 		
-		var camera_z_tilt = -CAMERA_Z_TILT_DEGREES if active_ray == WALL_RAY_LEFT else CAMERA_Z_TILT_DEGREES
+		var camera_z_tilt: float = -CAMERA_Z_TILT_DEGREES if active_ray == WALL_RAY_LEFT else CAMERA_Z_TILT_DEGREES
 		PLAYER.set_camera_tilt(camera_z_tilt)
 		
 		ANIMATION.speed_scale = 1.0
 		ANIMATION.play("WallRun", -1.0, WALLRUN_ANIM_SPEED)
 		
-		#WEAPON.play_animation("Pistol_RUN",0.2)
-		
-		var horizontal_velocity = Vector3(PLAYER.velocity.x, 0, PLAYER.velocity.z)
-		#print(horizontal_velocity)
-		if horizontal_velocity.length() > 0.1:
-			run_direction = horizontal_velocity.normalized()
-			#print(run_direction)
-		else:
-			run_direction = -PLAYER.global_transform.basis.z
-		
-		run_direction = (run_direction - wall_normal * run_direction.dot(wall_normal)).normalized()
-		#print("corriendo: ", run_direction)
 		
 		
-
+		var horizontal_velocity: Vector3 = Vector3(PLAYER.velocity.x, 0, PLAYER.velocity.z)
+		run_direction = _calculate_run_direction(horizontal_velocity,wall_normal)
+		
+		
 func exit() -> void:
-	var reset_tilt = Vector3.ZERO
+	var reset_tilt: Vector3 = Vector3.ZERO
 	ANIMATION.get_animation("WallRun").track_set_key_value(1, 1, reset_tilt)
 	ANIMATION.get_animation("WallRun").track_set_key_value(1, 2, reset_tilt)
 	ANIMATION.stop()
@@ -82,6 +73,8 @@ func exit() -> void:
 	
 
 func update(delta: float) -> void:
+	active_ray = get_active_wall_ray()
+	
 	if PLAYER.is_on_floor():
 		transition.emit("IdlePlayerState")
 
@@ -101,6 +94,8 @@ func update(delta: float) -> void:
 		
 	wall_normal = active_ray.get_collision_normal()
 	
+	var h_velocity: Vector3 = Vector3(PLAYER.velocity.x, 0, PLAYER.velocity.z)
+	run_direction = _calculate_run_direction(h_velocity, wall_normal)
 	current_wall_speed -= SPEED_DECAY * delta
 	
 	
@@ -122,8 +117,28 @@ func wall_jump() -> void:
 	PLAYER.velocity.y = WALL_JUMP_FORCE
 	PLAYER.velocity += wall_normal * WALL_JUMP_FORCE * 2.0
 
+func _calculate_run_direction(h_velocity: Vector3, wall_normal:Vector3) -> Vector3:
+	if h_velocity.length() > 0.1:
+		var projected: Vector3 = (h_velocity - wall_normal * h_velocity.dot(wall_normal))
+		projected.y = 0
+		if projected.length() > 0.001:
+			return projected.normalized()
+	
+	var tangent: Vector3 = wall_normal.cross(Vector3.UP).normalized()
+	tangent *= wall_side
+	if h_velocity.length() > 0.1 and tangent.dot(h_velocity) < 0:
+		tangent = -tangent
+		
+	tangent.y = 0
+	if tangent.length() == 0:
+		var fallback = -PLAYER.global_transform.basis.z
+		fallback = 0
+		return fallback.normalized() if fallback.length() > 0.001 else Vector3.ZERO
+	
+	return tangent.normalized()
+
 func set_tilt(player_rotation: float) -> void:
-	var tilt = Vector3.ZERO
+	var tilt: Vector3 = Vector3.ZERO
 	tilt.z = clamp(TILT_AMOUNT * player_rotation, -1.0, 0.1)
 	if tilt.z == 0.0:
 		tilt.z = 0.05

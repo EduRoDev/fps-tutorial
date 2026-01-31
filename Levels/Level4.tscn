@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://btfe3ls584g2y" path="res://prefabs/big_wall.tscn" id="2_5brs8"]
 [ext_resource type="PackedScene" uid="uid://dfjiq4dkodokt" path="res://prefabs/wall.tscn" id="3_qgpl5"]
 [ext_resource type="PackedScene" uid="uid://wpnahxsk8x1u" path="res://prefabs/box.tscn" id="4_vgbee"]
+[ext_resource type="PackedScene" uid="uid://b4ol0pni0gwq7" path="res://prefabs/edifcio.tscn" id="5_0sogr"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_3j5gm"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -81,3 +82,15 @@ transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 0.99999
 
 [node name="BigWall7" parent="." unique_id=958488908 instance=ExtResource("2_5brs8")]
 transform = Transform3D(0.0047753025, -0.9999025, 0.013120156, 0.93969256, -4.1075264e-08, -0.3420201, 0.34198678, 0.0139621645, 0.93960094, 25.312878, 4.0282674, 60.231663)
+
+[node name="Edifcio" parent="." unique_id=1536808051 instance=ExtResource("5_0sogr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.744801, 10, 33.08606)
+
+[node name="Edifcio2" parent="." unique_id=1575423465 instance=ExtResource("5_0sogr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.826789, 10, 35.16341)
+
+[node name="Edifcio3" parent="." unique_id=1790218436 instance=ExtResource("5_0sogr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24.673231, 10.000001, 36.075157)
+
+[node name="Edifcio4" parent="." unique_id=1490354090 instance=ExtResource("5_0sogr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.659267, 10, 17.515404)
