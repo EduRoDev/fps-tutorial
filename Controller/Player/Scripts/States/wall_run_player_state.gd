@@ -105,6 +105,7 @@ func update(delta: float) -> void:
 		
 	
 	PLAYER.velocity.y -= PLAYER.gravity * GRAVITY_SCALE * delta
+	PLAYER.velocity.y = clamp(PLAYER.velocity.y, -3.0, 1.5)
 	
 	PLAYER.velocity.x = run_direction.x * current_wall_speed
 	PLAYER.velocity.z = run_direction.z * current_wall_speed

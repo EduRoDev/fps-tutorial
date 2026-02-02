@@ -43,7 +43,7 @@ func update(_delta: float) -> void:
 		transition.emit("GrapplingPlayerState")
 
 func set_animation_speed(spd):
-	var alpha = remap(spd,0.0,SPEED,0.0,1.0)
+	var alpha: float = remap(spd,0.0,SPEED,0.0,1.0)
 	ANIMATION.speed_scale = lerp(0.0,TOP_ANIM_SPEED,alpha)
 
 	

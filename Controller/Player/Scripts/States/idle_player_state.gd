@@ -7,7 +7,9 @@ class_name IdlePlayerState
 
 func enter(_previous_state) -> void:
 
+
 	ANIMATION.pause()
+	#WEAPON.play_animation("Pistol_IDLE", 0.25)
 	#WEAPON.play_animation("Pistol_IDLE", 0.25)
 
 func update(delta: float) -> void:

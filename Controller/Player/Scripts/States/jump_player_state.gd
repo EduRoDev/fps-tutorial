@@ -70,9 +70,9 @@ func update(delta: float) -> void:
 	if Input.is_action_just_pressed("hook"):
 		transition.emit("GrapplingPlayerState")
 
-	# Verificar wall run: sprint + jump + pared detectada + pared diferente + velocidad mínima
-	if Input.is_action_pressed("sprint") and is_wall_detected() and is_different_wall() and Input.is_action_pressed("jump") and get_horizontal_speed() > MIN_SPEED_FOR_WALLRUN:
-		transition.emit("WallRunPlayerState")
+	if Input.is_action_pressed("sprint") and is_wall_detected() and is_different_wall(): 
+		if Input.is_action_pressed("jump") and get_horizontal_speed() > MIN_SPEED_FOR_WALLRUN:
+			transition.emit("WallRunPlayerState")
 
 	if PLAYER.velocity.y < -3.0 and !PLAYER.is_on_floor():
 		transition.emit("FallingPlayerState")

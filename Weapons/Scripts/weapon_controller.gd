@@ -23,7 +23,8 @@ func _ready() -> void:
 	if current_weapon:
 		spawn_weapon_model()
 		current_ammo = current_weapon.max_ammo
-		current_accuracy = current_weapon.base_accuracy  
+		current_accuracy = current_weapon.base_accuracy
+
 
 func _process(delta: float) -> void:
 	global.debug.add_property("accuracy", current_accuracy, 6)
@@ -183,6 +184,7 @@ func _fire_projectile() -> void:
 func get_current_accuracy() -> float:
 	return current_accuracy
 	
+
 func switch_weapon(weapon_data: WeaponData) -> void:	
 	current_weapon = weapon_data.weapon
 	current_ammo = weapon_data.ammo

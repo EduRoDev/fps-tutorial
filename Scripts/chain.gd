@@ -1,6 +1,6 @@
 @tool
 extends Node3D
-class_name ChainDinamic
+class_name Chain
 
 @export_group("Chain setup")
 @export_range(2,50) var link_count: int = 10:

@@ -12,10 +12,10 @@ class_name Weapon extends Resource
 @export var fire_rate: float = 2.0
 @export var is_automatic: bool = false
 @export var reload_time: float = 1.5
-@export_range(0.0, 100.0) var base_accuracy: float = 100.0  # Precisión base (0-100)
-@export var accuracy_penalty_per_shot: float = 5.0  # Cuánto pierde de precisión por disparo
-@export var accuracy_recovery_rate: float = 20.0  # Cuánto recupera por segundo
-@export var min_accuracy: float = 30.0  # Precisión mínima posible
+@export_range(0.0, 100.0) var base_accuracy: float = 100.0  
+@export var accuracy_penalty_per_shot: float = 5.0  
+@export var accuracy_recovery_rate: float = 20.0  
+@export var min_accuracy: float = 30.0  
 @export var rango: float = 25.0
 @export var bullet_speed: float = 25.0
 @export var bullet_scene: PackedScene

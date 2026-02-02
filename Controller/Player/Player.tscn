@@ -7,15 +7,15 @@
 [ext_resource type="Theme" uid="uid://bvw8gm6d6xsdk" path="res://Ui/Themes/DebugPanel.tres" id="5_2crr0"]
 [ext_resource type="Script" uid="uid://0icf8m2qufr7" path="res://Scripts/debug_panel.gd" id="6_u6mpg"]
 [ext_resource type="Script" uid="uid://eamfse10yi7" path="res://Scripts/state_machine.gd" id="7_gvouy"]
-[ext_resource type="Script" uid="uid://b701jlc5xd3fk" path="res://Controller/Player/Scripts/idle_player_state.gd" id="8_ckjfq"]
-[ext_resource type="Script" uid="uid://bcn5u0xoa754i" path="res://Controller/Player/Scripts/walking_player_state.gd" id="9_62lil"]
-[ext_resource type="Script" uid="uid://dwhlsg6567qk" path="res://Controller/Player/Scripts/sprinting_player_state.gd" id="10_kmqxo"]
-[ext_resource type="Script" uid="uid://bxqwcsexf7brh" path="res://Controller/Player/Scripts/crouching_player_state.gd" id="11_3r7jy"]
-[ext_resource type="Script" uid="uid://76ni8whqyltf" path="res://Controller/Player/Scripts/sliding_player_state.gd" id="12_dwko7"]
-[ext_resource type="Script" uid="uid://7lopu3n4n0hp" path="res://Controller/Player/Scripts/jump_player_state.gd" id="13_o7vk8"]
-[ext_resource type="Script" uid="uid://clhfumebgjfkn" path="res://Controller/Player/Scripts/wall_run_player_state.gd" id="14_txmp5"]
-[ext_resource type="Script" uid="uid://d0ch2qk1pqjor" path="res://Controller/Player/Scripts/falling_player_state.gd" id="15_ammvn"]
-[ext_resource type="Script" uid="uid://dv14ib2b0033k" path="res://Controller/Player/Scripts/grappling_player_state.gd" id="16_7tjfj"]
+[ext_resource type="Script" uid="uid://b701jlc5xd3fk" path="res://Controller/Player/Scripts/States/idle_player_state.gd" id="8_u6mpg"]
+[ext_resource type="Script" uid="uid://bcn5u0xoa754i" path="res://Controller/Player/Scripts/States/walking_player_state.gd" id="9_gvouy"]
+[ext_resource type="Script" uid="uid://dwhlsg6567qk" path="res://Controller/Player/Scripts/States/sprinting_player_state.gd" id="10_ckjfq"]
+[ext_resource type="Script" uid="uid://bxqwcsexf7brh" path="res://Controller/Player/Scripts/States/crouching_player_state.gd" id="11_62lil"]
+[ext_resource type="Script" uid="uid://76ni8whqyltf" path="res://Controller/Player/Scripts/States/sliding_player_state.gd" id="12_kmqxo"]
+[ext_resource type="Script" uid="uid://7lopu3n4n0hp" path="res://Controller/Player/Scripts/States/jump_player_state.gd" id="13_3r7jy"]
+[ext_resource type="Script" uid="uid://clhfumebgjfkn" path="res://Controller/Player/Scripts/States/wall_run_player_state.gd" id="14_dwko7"]
+[ext_resource type="Script" uid="uid://d0ch2qk1pqjor" path="res://Controller/Player/Scripts/States/falling_player_state.gd" id="15_o7vk8"]
+[ext_resource type="Script" uid="uid://dv14ib2b0033k" path="res://Controller/Player/Scripts/States/grappling_player_state.gd" id="16_txmp5"]
 [ext_resource type="Script" uid="uid://ppo5mtf1jbx0" path="res://Scripts/sub_viewport.gd" id="17_ruimr"]
 [ext_resource type="Script" uid="uid://ck8l45qmqr1x" path="res://Scripts/camera_3d.gd" id="18_ywmev"]
 [ext_resource type="Script" uid="uid://b3brxh0fc7a3m" path="res://Weapons/Scripts/weapon_controller.gd" id="19_iuxc1"]
@@ -503,7 +503,8 @@ visible = false
 update_mode = 1
 
 [node name="Hook" type="RayCast3D" parent="CameraController/Camera3D" unique_id=343406387]
-target_position = Vector3(0, 0, -50)
+visible = false
+target_position = Vector3(0, 0, -30)
 
 [node name="Rope" parent="CameraController/Camera3D" unique_id=1941080845 instance=ExtResource("3_1kbca")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.02996108)
@@ -579,48 +580,40 @@ script = ExtResource("7_gvouy")
 CURRENT_STATE = NodePath("IdlePlayerState")
 
 [node name="IdlePlayerState" type="Node" parent="PlayerStateMachine" unique_id=925694444]
-script = ExtResource("8_ckjfq")
+script = ExtResource("8_u6mpg")
 
 [node name="WalkingPlayerState" type="Node" parent="PlayerStateMachine" unique_id=1725583428]
-script = ExtResource("9_62lil")
-TOP_ANIM_SPEED = 1.5
+script = ExtResource("9_gvouy")
 
 [node name="SprintingPlayerState" type="Node" parent="PlayerStateMachine" unique_id=1533967578 node_paths=PackedStringArray("WALL_RAY_LEFT", "WALL_RAY_RIGHT")]
-script = ExtResource("10_kmqxo")
-TOP_ANIM_SPEED = 1.5
+script = ExtResource("10_ckjfq")
 WALL_RAY_LEFT = NodePath("../../Left")
 WALL_RAY_RIGHT = NodePath("../../Right")
 
 [node name="CrouchingPlayerState" type="Node" parent="PlayerStateMachine" unique_id=696434645 node_paths=PackedStringArray("CROUCH_SHAPECAST")]
-script = ExtResource("11_3r7jy")
+script = ExtResource("11_62lil")
 CROUCH_SHAPECAST = NodePath("../../ShapeCast3D")
 
 [node name="SlidingPlayerState" type="Node" parent="PlayerStateMachine" unique_id=1890102023 node_paths=PackedStringArray("CROUCH_SHAPECAST")]
-script = ExtResource("12_dwko7")
+script = ExtResource("12_kmqxo")
 CROUCH_SHAPECAST = NodePath("../../ShapeCast3D")
 
 [node name="JumpPlayerState" type="Node" parent="PlayerStateMachine" unique_id=879691863 node_paths=PackedStringArray("WALL_RAY_LEFT", "WALL_RAY_RIGHT")]
-script = ExtResource("13_o7vk8")
+script = ExtResource("13_3r7jy")
 WALL_RAY_LEFT = NodePath("../../Left")
 WALL_RAY_RIGHT = NodePath("../../Right")
 
 [node name="WallRunPlayerState" type="Node" parent="PlayerStateMachine" unique_id=1888927967 node_paths=PackedStringArray("WALL_RAY_LEFT", "WALL_RAY_RIGHT")]
-script = ExtResource("14_txmp5")
-GRAVITY_SCALE = 0.4
+script = ExtResource("14_dwko7")
 WALL_RAY_LEFT = NodePath("../../Left")
 WALL_RAY_RIGHT = NodePath("../../Right")
-CAMERA_TILT_AMOUNT = 10.0
-SPEED_DECAY = 1.0
 
 [node name="FallingPlayerState" type="Node" parent="PlayerStateMachine" unique_id=2097271560]
-script = ExtResource("15_ammvn")
+script = ExtResource("15_o7vk8")
 
 [node name="GrapplingPlayerState" type="Node" parent="PlayerStateMachine" unique_id=1327663672 node_paths=PackedStringArray("Ray", "rope", "WALL_RAY_LEFT", "WALL_RAY_RIGHT")]
-script = ExtResource("16_7tjfj")
+script = ExtResource("16_txmp5")
 Ray = NodePath("../../CameraController/Camera3D/Hook")
-Rest_length = 3.0
-Stiffness = 7.0
-Damping = 3.0
 rope = NodePath("../../CameraController/Camera3D/Rope")
 cooldown_time = 3.0
 WALL_RAY_LEFT = NodePath("../../Left")

@@ -29,7 +29,7 @@ func update(delta: float) -> void:
 		#transition.emit("GrapplingPlayerState")
 
 func set_tilt(player_rotation) -> void:
-	var tilt = Vector3.ZERO
+	var tilt: Vector3 = Vector3.ZERO
 	tilt.z = clamp(TILT_AMOUNT * player_rotation, -1.0,0.1)
 	if tilt.z == 0.0:
 		tilt.z = 0.05

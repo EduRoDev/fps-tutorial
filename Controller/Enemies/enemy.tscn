@@ -7,8 +7,12 @@
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ary4r"]
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_obnhv"]
+size = Vector3(10, 7, 10)
+
 [node name="Enemy" type="CharacterBody3D" unique_id=1357484164 groups=["Enemy"]]
 script = ExtResource("1_obnhv")
+idle_time = 3.0
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=176451956]
 material_override = ExtResource("1_6wr6s")
@@ -22,3 +26,17 @@ avoidance_enabled = true
 
 [node name="Timer" type="Timer" parent="." unique_id=1103361269]
 autostart = true
+
+[node name="ViewPlayer" type="Area3D" parent="." unique_id=845330110]
+unique_name_in_owner = true
+collision_layer = 0
+collision_mask = 2
+
+[node name="View" type="CollisionShape3D" parent="ViewPlayer" unique_id=1338580445]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.905939, 0)
+shape = SubResource("BoxShape3D_obnhv")
+
+[node name="VisionRay" type="RayCast3D" parent="." unique_id=1898103722]
+unique_name_in_owner = true
+target_position = Vector3(0, 0, -25)
+collision_mask = 3

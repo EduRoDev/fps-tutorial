@@ -29,13 +29,12 @@ func update(_delta: float) -> void:
 	PLAYER.update_input(SPEED,ACCELERATION,DECELERATION)
 	PLAYER.update_velocity()
 	
-	#WEAPON.sway_weapon(_delta, false)
-	#WEAPON.weapon_bob(_delta, W_BOB_SPD,W_BOB_H,W_BOB_V)
+	
 	set_animation_speed(PLAYER.velocity.length())
 
 	if Input.is_action_just_released("sprint"):
 		if PLAYER.velocity.length() > 0.5:
-			transition.emit("WalkingPlayerState")  # Transición suave a caminar
+			transition.emit("WalkingPlayerState")  
 		else:
 			transition.emit("IdlePlayerState")
 	
@@ -48,9 +47,10 @@ func update(_delta: float) -> void:
 	if Input.is_action_just_pressed("jump") and PLAYER.is_on_floor():
 		transition.emit("JumpPlayerState")
 	
-	# Verificar wall run: en el aire + sprint + jump presionado + pared detectada + velocidad mínima
-	if !PLAYER.is_on_floor() and Input.is_action_pressed("sprint") and Input.is_action_pressed("jump") and is_wall_detected() and get_horizontal_speed() > MIN_SPEED_FOR_WALLRUN:
-		transition.emit("WallRunPlayerState")
+	if !PLAYER.is_on_floor():
+		if Input.is_action_pressed("sprint"):
+			if is_wall_detected() and get_horizontal_speed() > MIN_SPEED_FOR_WALLRUN:
+				transition.emit("WallRunPlayerState")
 
 	if PLAYER.velocity.y < -3.0 and !PLAYER.is_on_floor():
 		transition.emit("FallingPlayerState")
@@ -59,5 +59,5 @@ func update(_delta: float) -> void:
 		transition.emit("GrapplingPlayerState")
 
 func set_animation_speed(spd) -> void:
-	var alpha = remap(spd, 0.0, SPEED, 0.0, 1.0)
+	var alpha: float = remap(spd, 0.0, SPEED, 0.0, 1.0)
 	ANIMATION.speed_scale = lerp(0.0,TOP_ANIM_SPEED,alpha)

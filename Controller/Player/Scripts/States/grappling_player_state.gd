@@ -77,26 +77,26 @@ func retract() -> void:
 	
 
 func handle_grappling(delta: float) -> void:
-	# Reducir el efecto de la gravedad mientras estamos enganchados
+	
 	PLAYER.velocity.y += PLAYER.gravity * (1.0 - GRAVITY_SCALE) * delta
 	
-	var target_dir = PLAYER.global_position.direction_to(target)
-	var target_dist = PLAYER.global_position.distance_to(target)
+	var target_dir: Vector3 = PLAYER.global_position.direction_to(target)
+	var target_dist: float = PLAYER.global_position.distance_to(target)
 	
 	if target_dist < 1.5:
 		retract()
 		return
 		
 		
-	var displacement = target_dist - Rest_length
-	var force = Vector3.ZERO
+	var displacement: float = target_dist - Rest_length
+	var force: Vector3 = Vector3.ZERO
 	
 	if displacement > 0:
-		var spring_force_magnitude = Stiffness * displacement
-		var spring_force = target_dir * spring_force_magnitude
+		var spring_force_magnitude: float = Stiffness * displacement
+		var spring_force: Vector3 = target_dir * spring_force_magnitude
 		
-		var vel_dot = PLAYER.velocity.dot(target_dir)
-		var damping_force = -Damping * vel_dot * target_dir
+		var vel_dot: float = PLAYER.velocity.dot(target_dir)
+		var damping_force: Vector3 = -Damping * vel_dot * target_dir
 
 		force = spring_force + damping_force
 
@@ -106,14 +106,14 @@ func handle_grappling(delta: float) -> void:
 	if PLAYER.velocity.length() > MAX_GRAPPLE_SPEED:
 		PLAYER.velocity = PLAYER.velocity.normalized() * MAX_GRAPPLE_SPEED
 		
-func update_rope(delta: float): # Añadimos delta para suavizado
+func update_rope(delta: float) -> void: 
 	if !launched:
 		rope.visible = false
-		current_rope_length = 0.0 # Reset de longitud
+		current_rope_length = 0.0 
 		return
 	
 	rope.visible = true
-	var dist = PLAYER.global_position.distance_to(target)
+	var dist: float = PLAYER.global_position.distance_to(target)
 	
 	# Suaviza el crecimiento del cable para que parezca que se dispara
 	current_rope_length = lerp(current_rope_length, dist, delta * 20.0)
