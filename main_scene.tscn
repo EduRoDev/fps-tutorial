@@ -27,7 +27,7 @@ player = NodePath("../../CurrentLevel/Player")
 [node name="CurrentLevel" type="Node3D" parent="." unique_id=784167665]
 
 [node name="Player" parent="CurrentLevel" unique_id=127289980 instance=ExtResource("3_8mm7a")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22.780327, 0, -17.945175)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.8441334, 0, 2.8622055)
 
 [node name="Level3" parent="CurrentLevel" unique_id=240478093 instance=ExtResource("8_7ycvg")]
 

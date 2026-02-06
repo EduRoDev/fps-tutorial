@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://dfjiq4dkodokt" path="res://prefabs/wall.tscn" id="5_fa81k"]
 [ext_resource type="PackedScene" uid="uid://b4ol0pni0gwq7" path="res://prefabs/edifcio.tscn" id="6_uwxw1"]
 [ext_resource type="PackedScene" uid="uid://kxpbrcirj8e4" path="res://Controller/Enemies/enemy.tscn" id="7_ay5qi"]
+[ext_resource type="Script" uid="uid://chl1c0qosq0tb" path="res://Levels/Scripts/spawner.gd" id="7_q5lgr"]
 [ext_resource type="PackedScene" uid="uid://wpnahxsk8x1u" path="res://prefabs/box.tscn" id="8_fa81k"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_07sga"]
@@ -64,13 +65,13 @@ skeleton = NodePath("../Ground")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.615524, 11.668868, -40.93699)
 
 [node name="Edifcio4" parent="NavigationRegion3D" unique_id=364166699 instance=ExtResource("6_uwxw1")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.67105, 11.668868, -35.90695)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.4707804, 11.668868, -41.94162)
 
 [node name="Edifcio3" parent="NavigationRegion3D" unique_id=1082305317 instance=ExtResource("6_uwxw1")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.502981, 11.668868, -25.576525)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31.390486, 11.668868, -25.576525)
 
 [node name="Edifcio" parent="NavigationRegion3D" unique_id=2109010840 instance=ExtResource("6_uwxw1")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.523725, 11.8963175, -21.586447)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.466319, 11.8963175, -21.586447)
 
 [node name="BigWall2" parent="NavigationRegion3D" unique_id=1577543957 instance=ExtResource("2_padch")]
 transform = Transform3D(-0.02284433, 0, 0.999739, 0, 1, 0, -0.999739, 0, -0.02284433, 24.229477, 3.6370485, 20.990921)
@@ -85,7 +86,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26.664871, -3.1711798, 5.7801
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.063573, 2.711617, 38.005733)
 
 [node name="Edifcio2" parent="NavigationRegion3D" unique_id=142648564 instance=ExtResource("6_uwxw1")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.126451, 11.668868, -9.149507)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.126451, 11.256124, -9.149507)
 
 [node name="Ground" type="MeshInstance3D" parent="NavigationRegion3D" unique_id=411854875]
 transform = Transform3D(20.789429, 0, 0, 0, 1, 0, 0, 0, 20.53688, 0, 1.6688683, 0)
@@ -143,8 +144,15 @@ transform = Transform3D(0.03289352, 0, 0.99945885, 0, 1, 0, -0.99945885, 0, 0.03
 [node name="wall7" parent="NavigationRegion3D" unique_id=1837969160 instance=ExtResource("5_fa81k")]
 transform = Transform3D(0.0057769837, 0, 0.99998343, 0, 1, 0, -0.99998343, 0, 0.0057769837, -54.98956, 2.711617, -50.067135)
 
-[node name="Enemy" parent="." unique_id=1357484164 instance=ExtResource("7_ay5qi")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23.817259, 1, -23.053186)
-speed = 8.0
+[node name="Spawner" type="Node" parent="." unique_id=1676039637 node_paths=PackedStringArray("spawn_position")]
+script = ExtResource("7_q5lgr")
+enemies = Array[PackedScene]([ExtResource("7_ay5qi")])
+spawn_time = 1.0
+spawn_amount = 2
+spawn_position = [NodePath("Marker3D"), NodePath("Marker3D2")]
 
-[editable path="Enemy"]
+[node name="Marker3D" type="Marker3D" parent="Spawner" unique_id=1922313535]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.8423202, 0)
+
+[node name="Marker3D2" type="Marker3D" parent="Spawner" unique_id=388292219]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.379932, 2.3260922, 0)
