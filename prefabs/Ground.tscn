@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://bmghoydikcldn"]
+
+[ext_resource type="Material" uid="uid://dgjiw8udooecr" path="res://addons/prototype_mini_bundle/M_prototype_dark.tres" id="1_4nl2v"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_koivt"]
+size = Vector2(10, 10)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_5s2e2"]
+size = Vector3(10, 0, 10)
+
+[node name="Ground" type="Node3D" unique_id=1163844688]
+
+[node name="Ground" type="MeshInstance3D" parent="." unique_id=1882113254]
+transform = Transform3D(20.789429, 0, 0, 0, 1, 0, 0, 0, 20.53688, 0, 1.6688683, 0)
+material_override = ExtResource("1_4nl2v")
+mesh = SubResource("PlaneMesh_koivt")
+skeleton = NodePath("../..")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Ground" unique_id=858315735]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground/StaticBody3D" unique_id=1290050960]
+shape = SubResource("BoxShape3D_5s2e2")
