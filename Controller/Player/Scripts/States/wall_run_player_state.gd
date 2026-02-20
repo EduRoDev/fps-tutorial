@@ -118,9 +118,9 @@ func wall_jump() -> void:
 	PLAYER.velocity.y = WALL_JUMP_FORCE
 	PLAYER.velocity += wall_normal * WALL_JUMP_FORCE * 2.0
 
-func _calculate_run_direction(h_velocity: Vector3, wall_normal:Vector3) -> Vector3:
+func _calculate_run_direction(h_velocity: Vector3, wall_normal_H:Vector3) -> Vector3:
 	if h_velocity.length() > 0.1:
-		var projected: Vector3 = (h_velocity - wall_normal * h_velocity.dot(wall_normal))
+		var projected: Vector3 = (h_velocity - wall_normal * h_velocity.dot(wall_normal_H))
 		projected.y = 0
 		if projected.length() > 0.001:
 			return projected.normalized()

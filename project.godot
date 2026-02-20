@@ -47,6 +47,7 @@ folder_colors={
 
 Enemy="Grupo para los enemigos"
 player=""
+Spawner=""
 
 [input]
 
