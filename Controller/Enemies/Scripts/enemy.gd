@@ -41,13 +41,15 @@ func _physics_process(delta: float) -> void:
 
 	move_and_slide()
 
-
-
 func take_damage(damage_amount: int) -> void:
 	life_points -= damage_amount
 	if life_points <= 0:
 		die()
 
 func die() -> void:
+	remove_from_group("Enemy")
 	queue_free()
-	get_tree().get_first_node_in_group("Spawner").check_round_end()
+	
+	var spawner: Node = get_tree().get_first_node_in_group("Spawner")
+	if spawner:
+		spawner.check_round_end()	

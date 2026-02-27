@@ -9,6 +9,7 @@
 [ext_resource type="Resource" uid="uid://g54cjh4qie0p" path="res://Weapons/Resources/Sniper/Sniper_data.tres" id="6_7ycvg"]
 [ext_resource type="Script" uid="uid://bwea0140qq5oi" path="res://Ui/weapon_hud.gd" id="7_nfk4m"]
 [ext_resource type="PackedScene" uid="uid://bacudyutqae2t" path="res://Levels/Level3.tscn" id="8_7ycvg"]
+[ext_resource type="PackedScene" uid="uid://bv2mmeepgkm82" path="res://Ui/canvas_layer.tscn" id="10_wr18j"]
 
 [node name="MainScene" type="Node" unique_id=2069100447]
 
@@ -26,10 +27,10 @@ player = NodePath("../../CurrentLevel/Player")
 
 [node name="CurrentLevel" type="Node3D" parent="." unique_id=784167665]
 
-[node name="Player" parent="CurrentLevel" unique_id=127289980 instance=ExtResource("3_8mm7a")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22.780327, 0, -17.945175)
-
 [node name="Level3" parent="CurrentLevel" unique_id=240478093 instance=ExtResource("8_7ycvg")]
+
+[node name="Player" parent="CurrentLevel" unique_id=127289980 instance=ExtResource("3_8mm7a")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.20464802, 0, 41.126507)
 
 [node name="WeaponHUD" type="Control" parent="." unique_id=1603527540]
 layout_mode = 3
@@ -78,3 +79,5 @@ layout_mode = 2
 
 [node name="Slot4" type="PanelContainer" parent="WeaponHUD/MarginContainer/VBoxContainer/WeaponSlots" unique_id=96038321]
 layout_mode = 2
+
+[node name="CanvasLayer" parent="." unique_id=583841704 instance=ExtResource("10_wr18j")]

@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://bv2mmeepgkm82"]
+
+[ext_resource type="Script" uid="uid://bvm2esuns5o5m" path="res://Ui/Scripts/canvas_layer.gd" id="1_d5m6n"]
+
+[node name="CanvasLayer" type="CanvasLayer" unique_id=583841704]
+script = ExtResource("1_d5m6n")
+
+[node name="HUD" type="Control" parent="." unique_id=1183516168]
+layout_mode = 3
+anchor_left = 0.917
+anchor_right = 1.0
+offset_left = -40.0
+offset_bottom = 40.0
+grow_horizontal = 0
+size_flags_horizontal = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HUD" unique_id=1924962410]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Round" type="Label" parent="HUD/VBoxContainer" unique_id=1322003487]
+unique_name_in_owner = true
+layout_mode = 2
+text = "RONDA: 1"
+
+[node name="Enemys" type="Label" parent="HUD/VBoxContainer" unique_id=1674028209]
+unique_name_in_owner = true
+layout_mode = 2
+text = "ENEMIGOS: 0"

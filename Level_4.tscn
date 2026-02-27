@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://cs4yb1h08pke6"]
+
+[ext_resource type="PackedScene" uid="uid://bmghoydikcldn" path="res://prefabs/Ground.tscn" id="1_yqdjl"]
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_eklgh"]
+
+[node name="Level 4" type="Node3D" unique_id=264358791]
+
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="." unique_id=1153070683]
+navigation_mesh = SubResource("NavigationMesh_eklgh")
+
+[node name="Ground" parent="NavigationRegion3D" unique_id=1163844688 instance=ExtResource("1_yqdjl")]
+
+[node name="Ground" parent="NavigationRegion3D/Ground" index="0" unique_id=1882113254]
+transform = Transform3D(30.368, 0, 0, 0, 1.461, 0, 0, 0, 30, 0, 1.6688683, 0)
+
+[node name="CollisionShape3D" parent="NavigationRegion3D/Ground/Ground/StaticBody3D" parent_id_path=PackedInt32Array(1163844688, 858315735) index="0" unique_id=1290050960]
+transform = Transform3D(0.9999994, 0, 0, 0, 1, 0, 0, 0, 0.99999857, 0, 0, 0.0008239715)
+
+[editable path="NavigationRegion3D/Ground"]
